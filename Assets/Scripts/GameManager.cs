@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
@@ -205,17 +205,5 @@ public class GameManager : MonoBehaviour
 
         // 1. Load data for the current scene first
         LoadData();
-
-        // 2. Find the player and force a reset/sync
-        CharacterStats[] allStats = Resources.FindObjectsOfTypeAll<CharacterStats>();
-        foreach (var stat in allStats)
-        {
-            if (!stat.isEnemy)
-            {
-                stat.gameObject.SetActive(true);
-                stat.ResetStats();
-                Debug.Log("Player found and reset during scene load.");
-            }
-        }
     }
 }

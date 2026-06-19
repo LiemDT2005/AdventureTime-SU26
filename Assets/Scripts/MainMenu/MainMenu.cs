@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("LevelSelect");
+        SceneManager.LoadScene("MapSelect");
     }
 
     public void UpdateMusicVolume(float volume)

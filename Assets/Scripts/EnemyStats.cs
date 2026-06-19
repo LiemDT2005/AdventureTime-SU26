@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
@@ -13,7 +13,10 @@ public class EnemyStats : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        hpBar.UpdateHP(currentHealth, maxHealth); // init thanh máu
+        if (hpBar != null)
+        {
+            hpBar.UpdateHP(currentHealth, maxHealth); // init thanh máu
+        }
     }
 
     public void TakeDamage(float amount)
@@ -21,7 +24,10 @@ public class EnemyStats : MonoBehaviour
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        hpBar.UpdateHP(currentHealth, maxHealth); // 🔥 update thanh máu
+        if (hpBar != null)
+        {
+            hpBar.UpdateHP(currentHealth, maxHealth); // 🔥 update thanh máu
+        }
 
         if (currentHealth <= 0)
         {
