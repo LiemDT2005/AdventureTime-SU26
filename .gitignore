@@ -6,11 +6,17 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
+[Bb]uild_[Dd]ata/
 [Ll]ogs/
+[Ll]ocal[Cc]ache/
+[Ee]xported[Oo]bj/
 [Mm]emoryCaptures/
+MemoryCaptures/
 [Rr]ecordings/
 [Dd]erivedDataCache/
 [Uu]serSettings/
+[Uu]ser[Ss]ettings/
+sysinfo.txt
 
 # Asset Store tools
 Assets/AssetStoreTools*
@@ -23,6 +29,7 @@ Assets/AssetStoreTools*
 .vscode/
 *.csproj
 *.sln
+*.slnx
 *.suo
 *.user
 *.userprefs
@@ -54,7 +61,6 @@ Desktop.ini
 *.bak
 *.backup
 *.old
-sysinfo.txt
 crashlytics-build.properties
 
 # ==========================
@@ -64,6 +70,9 @@ crashlytics-build.properties
 *.aab
 *.app
 *.ipa
+*.exe
+*.x86_64
+*.so
 *.keystore
 *.unitypackage
 
@@ -91,3 +100,6 @@ Documentation~
 
 # Keep Packages tracked; only ignore accidental metadata files
 Packages/packages-lock.json.meta
+
+# Tool output (generated)
+tools/*_result.png
