@@ -3,14 +3,40 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
+[Bb]uild_[Dd]ata/
 [Ll]ogs/
-UserSettings/
+[Ll]ocal[Cc]ache/
+[Ee]xported[Oo]bj/
+[Uu]ser[Ss]ettings/
 MemoryCaptures/
+[Rr]ecordings/
+sysinfo.txt
 
 *.csproj
 *.unityproj
 *.sln
+*.slnx
 *.suo
 *.tmp
 *.user
 *.userprefs
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build binaries
+*.apk
+*.aab
+*.exe
+*.x86_64
+*.so
+*.app
+
+# Tool output (generated)
+tools/*_result.png
