@@ -14,10 +14,7 @@ GameObject:
   - component: {fileID: 4712782858593042863}
   - component: {fileID: 1756479166954117093}
   - component: {fileID: 8749319390818616666}
-  - component: {fileID: 6266674342361367960}
-  - component: {fileID: 1499767473420545479}
   - component: {fileID: 4750898303682016437}
-  - component: {fileID: 8019048183540907373}
   - component: {fileID: 2724409021689695938}
   m_Layer: 6
   m_Name: Player
@@ -125,9 +122,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &4712782858593042863
 BoxCollider2D:
@@ -174,7 +171,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 0.47224674, y: 0.8142427}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.02
 --- !u!95 &1756479166954117093
 Animator:
   serializedVersion: 7
@@ -218,38 +215,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   joystick: {fileID: 0}
---- !u!114 &6266674342361367960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592335746034493919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ab7f29ceafb2e4c8e927f273ebb1aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
-  maxHealth: 100
-  damage: 1000
-  isEnemy: 0
-  goldReward: 10
-  hpBar: {fileID: 0}
-  currentHealth: 0
---- !u!114 &1499767473420545479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592335746034493919}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa53019bd5bd6d4e9bf5672190c0939, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  arrowPrefab: {fileID: 8197196751312971001, guid: 6604158b7d52f4648ac212a24b007f78, type: 3}
-  firePoint: {fileID: 7122671348083659869}
 --- !u!114 &4750898303682016437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,26 +224,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1592335746034493919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec5a44e8c00ec7e499c58fe63a25dfaa, type: 3}
+  m_Script: {fileID: 11500000, guid: 81b5672f820224dec9787124a37b46f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
   arrowPrefab: {fileID: 8197196751312971001, guid: 6604158b7d52f4648ac212a24b007f78, type: 3}
   firePoint: {fileID: 7122671348083659869}
-  fireCooldown: 1
-  shootDelay: 0.5
---- !u!114 &8019048183540907373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592335746034493919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ad7fd96d522efa478b86e1176f08a5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamage
-  damageTaken: 1
+  fireCooldown: 0.5
+  shootDelay: 0.15
+  shootAnimDuration: 0.25
+  shootSprite: {fileID: 1503424023, guid: 10f3cacccb0c4c547be76836eba20664, type: 3}
+  bulletDamage: 10
+  shootSFX: {fileID: 8300000, guid: 8fbe52cf34622e23098a48b6f460f169, type: 3}
 --- !u!114 &2724409021689695938
 MonoBehaviour:
   m_ObjectHideFlags: 0
