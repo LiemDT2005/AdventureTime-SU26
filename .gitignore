@@ -1,4 +1,6 @@
+# ==========================
 # Unity generated folders
+# ==========================
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -6,14 +8,19 @@
 [Bb]uilds/
 [Ll]ogs/
 [Mm]emoryCaptures/
+[Rr]ecordings/
 [Dd]erivedDataCache/
-
-# Unity project settings that are usually local-only
 [Uu]serSettings/
 
-# Visual Studio / Rider / IDE files
+# Asset Store tools
+Assets/AssetStoreTools*
+
+# ==========================
+# IDE / editor files
+# ==========================
 .vs/
 .idea/
+.vscode/
 *.csproj
 *.sln
 *.suo
@@ -25,26 +32,62 @@
 *.svd
 *.opendb
 *.VC.db
-*.pdb
-*.mdb
+*.sln.iml
 
+# ==========================
 # OS files
+# ==========================
 .DS_Store
+.AppleDouble
+.LSOverride
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+*~
 
-# Logs and temporary files
+# ==========================
+# Logs / crash reports / temp files
+# ==========================
 *.log
 *.stackdump
 *.tmp
 *.bak
+*.backup
+*.old
 sysinfo.txt
+crashlytics-build.properties
 
+# ==========================
 # Build outputs
+# ==========================
 *.apk
 *.aab
 *.app
 *.ipa
-
-# Archives and generated packages
+*.keystore
 *.unitypackage
 
+# ==========================
+# Platform / tooling caches
+# ==========================
+.gradle/
+Library/BurstCache/
+Library/Il2cppBuildCache/
+Library/ShaderCache/
+ServerData/
+TestResults/
+ExportedObj/
+.consulo/
+
+# ==========================
+# Documentation / misc generated
+# ==========================
+Documentation~
+
+# ==========================
+# Unity Collaborate / Plastic
+# ==========================
+.collabignore
+
+# Keep Packages tracked; only ignore accidental metadata files
+Packages/packages-lock.json.meta

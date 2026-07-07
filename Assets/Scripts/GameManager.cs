@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using TMPro;
 
 [System.Serializable]
 public class PlayerData
@@ -23,6 +24,21 @@ public class GameManager : MonoBehaviour
 
     [Header("UI References")]
     public GameObject endGamePanel;
+
+    [Header("Map Name Popup")]
+    public GameObject mapNamePanel;      // Panel có CanvasGroup, tên object trong Hierarchy: "MapNamePopup"
+    public string currentMapName = "Map 1";
+    public float mapNameShowTime = 2f;
+    public float mapNameFadeTime = 0.5f;
+    private CanvasGroup mapNameCanvasGroup;
+    private TextMeshProUGUI mapNameText;
+    private Coroutine mapNameRoutine;
+
+    [Header("Victory Popup")]
+    public GameObject victoryPanel;      // tên object trong Hierarchy: "VictoryPanel"
+    private TextMeshProUGUI victoryTimeText;
+    private float levelStartTime;
+    private bool isVictory = false;
 
     private bool isGameOver = false;
     private Dictionary<string, PlayerData> sceneData = new Dictionary<string, PlayerData>();
@@ -60,6 +76,7 @@ public class GameManager : MonoBehaviour
         playerAttack = 10;
         gold = 0;
         isGameOver = false;
+        isVictory = false;
         Debug.Log("Player stats reset to default");
     }
 
@@ -133,11 +150,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 👉 GỌI HÀM NÀY KHI NGƯỜI CHƠI THẮNG MAP (VD: chạm cờ đích, giết quái cuối...)
+    public void Victory()
+    {
+        if (isVictory) return;
+        isVictory = true;
+
+        if (victoryPanel == null) victoryPanel = GameObject.Find("VictoryPanel");
+        if (victoryPanel == null)
+        {
+            Debug.LogError("Victory() called but VictoryPanel not found!");
+            return;
+        }
+
+        if (victoryTimeText == null)
+        {
+            victoryTimeText = victoryPanel.GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+
+        float playTime = Time.time - levelStartTime;
+        int minutes = Mathf.FloorToInt(playTime / 60f);
+        int seconds = Mathf.FloorToInt(playTime % 60f);
+        if (victoryTimeText != null)
+            victoryTimeText.text = $"Thời gian: {minutes:00}:{seconds:00}";
+
+        victoryPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
     public void TryAgain()
     {
         Debug.Log("TryAgain clicked logic starting.");
         Time.timeScale = 1f;
         isGameOver = false;
+        isVictory = false;
 
         // When retrying, we reset to the default stats
         ResetPlayer();
@@ -194,6 +240,7 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f;
         isGameOver = false;
+        isVictory = false;
 
         endGamePanel = GameObject.Find("EndGamePanel");
         if (endGamePanel != null)
@@ -201,9 +248,54 @@ public class GameManager : MonoBehaviour
             endGamePanel.SetActive(false);
         }
 
+        // ----- Victory panel: tìm và ẩn đi lúc bắt đầu scene -----
+        victoryPanel = GameObject.Find("VictoryPanel");
+        if (victoryPanel != null)
+        {
+            victoryPanel.SetActive(false);
+            victoryTimeText = victoryPanel.GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+
+        // ----- Map name popup: tìm, lấy component, rồi hiện tên map -----
+        mapNamePanel = GameObject.Find("MapNamePopup");
+        if (mapNamePanel != null)
+        {
+            mapNameCanvasGroup = mapNamePanel.GetComponent<CanvasGroup>();
+            mapNameText = mapNamePanel.GetComponentInChildren<TextMeshProUGUI>(true);
+            ShowMapName(currentMapName);
+        }
+
+        // Bắt đầu tính giờ chơi cho map này
+        levelStartTime = Time.time;
+
         BindButton();
 
         // 1. Load data for the current scene first
         LoadData();
+    }
+
+    private void ShowMapName(string mapName)
+    {
+        if (mapNameCanvasGroup == null || mapNameText == null) return;
+
+        mapNameText.text = mapName;
+
+        if (mapNameRoutine != null) StopCoroutine(mapNameRoutine);
+        mapNameRoutine = StartCoroutine(MapNameFadeRoutine());
+    }
+
+    private IEnumerator MapNameFadeRoutine()
+    {
+        mapNameCanvasGroup.alpha = 1f;
+        yield return new WaitForSeconds(mapNameShowTime);
+
+        float t = 0f;
+        while (t < mapNameFadeTime)
+        {
+            t += Time.deltaTime;
+            mapNameCanvasGroup.alpha = Mathf.Lerp(1f, 0f, t / mapNameFadeTime);
+            yield return null;
+        }
+        mapNameCanvasGroup.alpha = 0f;
     }
 }

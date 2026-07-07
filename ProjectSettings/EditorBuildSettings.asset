@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Demo_test/DemoScene05.unity
     guid: 2a63126d1bf56614e861931d0b680669
   - enabled: 1
+    path: Assets/Scenes/Game/PersistentUI(Pause).unity
+    guid: 634f5b72b5f8dd64e95852a36dceeb61
+  - enabled: 1
     path: Assets/Scenes/Game/GameOver.unity
     guid: e172782e6bec2904389c8c03c8c30603
   - enabled: 1
