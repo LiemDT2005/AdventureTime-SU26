@@ -1,43 +1,63 @@
+using System;
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour
+public class EnemyStats : MonoBehaviour, IDamageable
 {
     public float maxHealth = 50f;
     public float currentHealth;
-
     public int damage = 10;
     public int goldReward = 10;
+    public EnemyHPBar hpBar;
 
-    public EnemyHPBar hpBar; // 🔥 thêm dòng này
+    [Header("Death")]
+    public float deathDestroyDelay = 0f; // sau này có animation Death thì set = độ dài clip
+
+    public bool IsDead { get; private set; } = false;
+
+    public event Action OnDamaged;
+    public event Action OnDied;
 
     void Start()
     {
         currentHealth = maxHealth;
         if (hpBar != null)
-        {
-            hpBar.UpdateHP(currentHealth, maxHealth); // init thanh máu
-        }
+            hpBar.UpdateHP(currentHealth, maxHealth);
     }
 
     public void TakeDamage(float amount)
     {
+        TakeDamage(amount, null);
+    }
+
+    public void TakeDamage(float amount, GameObject source)
+    {
+        if (IsDead) return;
+
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
         if (hpBar != null)
-        {
-            hpBar.UpdateHP(currentHealth, maxHealth); // 🔥 update thanh máu
-        }
+            hpBar.UpdateHP(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {
             Die();
         }
+        else
+        {
+            OnDamaged?.Invoke();
+        }
     }
 
     void Die()
     {
+        if (IsDead) return;
+        IsDead = true;
         GameManager.instance.gold += goldReward;
-        Destroy(gameObject);
+        OnDied?.Invoke();
+
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+
+        Destroy(gameObject, deathDestroyDelay);
     }
 }
