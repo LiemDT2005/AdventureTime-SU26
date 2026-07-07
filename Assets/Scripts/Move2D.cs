@@ -63,7 +63,7 @@ public class Move2D : MonoBehaviour
             }
         }
 
-        // 🔥 SỬA LỖI NHẢY VÔ HẠN: Chỉ reset lượt nhảy khi THỰC SỰ chạm đất và KHÔNG ĐANG LAO LÊN
+       
         // Thay vì kiểm tra liên tục, ta kiểm tra vận tốc y phải xấp xỉ bằng 0 (đang đứng yên trên sàn)
         if (isGrounded && Mathf.Abs(rb.linearVelocity.y) < 0.01f)
         {
