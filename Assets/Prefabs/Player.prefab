@@ -14,11 +14,8 @@ GameObject:
   - component: {fileID: 4712782858593042863}
   - component: {fileID: 1756479166954117093}
   - component: {fileID: 8749319390818616666}
-  - component: {fileID: 6266674342361367960}
-  - component: {fileID: 1499767473420545479}
-  - component: {fileID: 4750898303682016437}
-  - component: {fileID: 8019048183540907373}
   - component: {fileID: 2724409021689695938}
+  - component: {fileID: 8010775312470809227}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -212,73 +209,12 @@ MonoBehaviour:
   moveSpeed: 10
   jumpForce: 8
   maxJumpCount: 2
+  maxJumpVelocityY: 15
   groundCheck: {fileID: 8590469253109275394}
   groundRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  joystick: {fileID: 0}
---- !u!114 &6266674342361367960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592335746034493919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ab7f29ceafb2e4c8e927f273ebb1aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
-  maxHealth: 100
-  damage: 1000
-  isEnemy: 0
-  goldReward: 10
-  hpBar: {fileID: 0}
-  currentHealth: 0
---- !u!114 &1499767473420545479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592335746034493919}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa53019bd5bd6d4e9bf5672190c0939, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  arrowPrefab: {fileID: 8197196751312971001, guid: 6604158b7d52f4648ac212a24b007f78, type: 3}
-  firePoint: {fileID: 7122671348083659869}
---- !u!114 &4750898303682016437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592335746034493919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec5a44e8c00ec7e499c58fe63a25dfaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
-  arrowPrefab: {fileID: 8197196751312971001, guid: 6604158b7d52f4648ac212a24b007f78, type: 3}
-  firePoint: {fileID: 7122671348083659869}
-  fireCooldown: 1
-  shootDelay: 0.5
---- !u!114 &8019048183540907373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592335746034493919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ad7fd96d522efa478b86e1176f08a5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamage
-  damageTaken: 1
 --- !u!114 &2724409021689695938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +227,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc7579046ca23a408fe7fe02d929748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+--- !u!114 &8010775312470809227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592335746034493919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 015673b2a1e1c684db070192b5fd5b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Arrow
+  speed: 10
+  fromEnemy: 0
+  rotate: 1
+  allowedTags: []
+  ignoredTags: []
 --- !u!1 &4381047858386096177
 GameObject:
   m_ObjectHideFlags: 0
