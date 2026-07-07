@@ -259,6 +259,11 @@ MonoBehaviour:
   playerAttack: 10
   gold: 0
   endGamePanel: {fileID: 0}
+  mapNamePanel: {fileID: 0}
+  currentMapName: Ice Map
+  mapNameShowTime: 2
+  mapNameFadeTime: 0.5
+  victoryPanel: {fileID: 0}
 --- !u!4 &33346817
 Transform:
   m_ObjectHideFlags: 0

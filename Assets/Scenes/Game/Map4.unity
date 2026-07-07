@@ -1309,6 +1309,10 @@ PrefabInstance:
       propertyPath: gold
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6027185336926393168, guid: 0dc42334bb360734a856a3da0b6c99b3, type: 3}
+      propertyPath: currentMapName
+      value: Boss Map
+      objectReference: {fileID: 0}
     - target: {fileID: 6108572321148978904, guid: 0dc42334bb360734a856a3da0b6c99b3, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.0432
