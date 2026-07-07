@@ -1,12 +1,24 @@
+# ==========================
+# Unity Generated Folders
+# ==========================
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
-UserSettings/
-MemoryCaptures/
+[Mm]emoryCaptures/
+[Rr]ecordings/
 
+# Asset Import Pipeline
+Assets/AssetStoreTools*
+
+# ==========================
+# IDE
+# ==========================
+
+# Visual Studio
+.vs/
 *.csproj
 *.unityproj
 *.sln
@@ -14,3 +26,143 @@ MemoryCaptures/
 *.tmp
 *.user
 *.userprefs
+*.pidb
+*.booproj
+*.svd
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# ==========================
+# OS Files
+# ==========================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# ==========================
+# Unity Auto Generated
+# ==========================
+
+sysinfo.txt
+
+# Crash Reports
+sysinfo.txt
+
+# ==========================
+# Addressables
+# ==========================
+
+ServerData/
+
+# ==========================
+# Gradle
+# ==========================
+
+.gradle/
+
+# ==========================
+# Android
+# ==========================
+
+*.apk
+*.aab
+*.keystore
+
+# ==========================
+# iOS
+# ==========================
+
+*.xcworkspace
+*.xcodeproj/project.xcworkspace
+
+# ==========================
+# Rider
+# ==========================
+
+.idea/
+
+# ==========================
+# Generated Documentation
+# ==========================
+
+Documentation~
+
+# ==========================
+# Test Results
+# ==========================
+
+TestResults/
+
+# ==========================
+# Unity Collaborate
+# ==========================
+
+.collabignore
+
+# ==========================
+# Packages
+# ==========================
+
+# KHÔNG ignore Packages
+# Chỉ ignore cache
+Packages/packages-lock.json.meta
+
+# ==========================
+# Burst
+# ==========================
+
+Library/BurstCache/
+
+# ==========================
+# IL2CPP
+# ==========================
+
+Library/Il2cppBuildCache/
+
+# ==========================
+# Shader Cache
+# ==========================
+
+Library/ShaderCache/
+
+# ==========================
+# User-specific
+# ==========================
+
+UserSettings/
+
+# ==========================
+# Backup
+# ==========================
+
+*.bak
+*.backup
+*.old
+
+# ==========================
+# Unity Cloud Diagnostics
+# ==========================
+
+crashlytics-build.properties
+
+# ==========================
+# Ignore generated project files
+# ==========================
+
+ExportedObj/
+.consulo/
