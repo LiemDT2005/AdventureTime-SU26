@@ -36,11 +36,12 @@ public class BossAI : MonoBehaviour
 
     [Header("References")]
     public Animator animator;
+    public SpriteRenderer spriteRenderer; // Kéo SpriteRenderer của Boss vào đây
 
     private Rigidbody2D rb;
     private BossStats stats;
     private Transform playerTransform;
-    private int facingDirection = 1;
+    private int facingDirection = -1; // mặc định nhìn trái (hướng player vào)
 
     private bool isBusy = false;   // đang trong 1 coroutine tấn công, không làm gì khác
     private bool canAttack = true;
@@ -98,7 +99,15 @@ public class BossAI : MonoBehaviour
         bool sameHeight = Mathf.Abs(verticalDiff) <= sameHeightThreshold;
 
         float dirToPlayer = playerTransform.position.x - transform.position.x;
-        facingDirection = dirToPlayer > 0 ? 1 : -1;
+        float absDist = Mathf.Abs(dirToPlayer);
+
+        // Khi player áp sát (trong vùng chết), giữ nguyên hướng hiện tại, ưu tiên nhìn trái
+        if (absDist > 0.5f)
+        {
+            facingDirection = dirToPlayer > 0 ? 1 : -1;
+        }
+        // else: giữ nguyên facingDirection cũ (không lật)
+
         FlipTowards(facingDirection);
 
         if (!sameHeight)
@@ -225,8 +234,32 @@ public class BossAI : MonoBehaviour
 
     private void FlipTowards(int dir)
     {
+        // Tính hướng scale cần thiết
         int visualDir = defaultFacingLeft ? -dir : dir;
-        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * visualDir, transform.localScale.y, transform.localScale.z);
+        float currentSign = Mathf.Sign(transform.localScale.x);
+
+        // Nếu đã đúng hướng rồi thì không làm gì
+        if (Mathf.Sign(visualDir) == currentSign) return;
+
+        // Lấy điểm pivot (headCheckPoint) làm tâm xoay
+        // Ghi nhớ vị trí thế giới của nó TRƯỚC khi lật
+        Transform pivot = headCheckPoint != null ? headCheckPoint : transform;
+        Vector3 pivotWorldBefore = pivot.position;
+
+        // Lật localScale (tự động lật luôn tất cả child objects)
+        transform.localScale = new Vector3(
+            Mathf.Abs(transform.localScale.x) * visualDir,
+            transform.localScale.y,
+            transform.localScale.z
+        );
+
+        // Sau khi lật, headCheckPoint đã bị dịch chuyển (vì nó là child)
+        // Bù lại vị trí boss để headCheckPoint trở về đúng chỗ cũ
+        if (pivot != transform)
+        {
+            Vector3 pivotWorldAfter = pivot.position;
+            transform.position -= (pivotWorldAfter - pivotWorldBefore);
+        }
     }
 
     private void UpdateAnimator()
