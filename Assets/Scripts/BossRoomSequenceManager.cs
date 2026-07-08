@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class BossRoomSequenceManager : MonoBehaviour
@@ -12,6 +12,7 @@ public class BossRoomSequenceManager : MonoBehaviour
 
     [Header("UI")]
     public GameObject bossBannerUI;
+    public Animator bossBannerAnimator; // Animator để chạy hiệu ứng ShowBanner/HideBanner
     public GameObject bossHpBarUI;
 
     [Header("Timing")]
@@ -34,7 +35,10 @@ public class BossRoomSequenceManager : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         triggered = true;
-        StartCoroutine(BossIntroSequence());
+        
+        // Bỏ qua Intro Sequence, kích hoạt Boss đánh luôn
+        if (bossHpBarUI != null) bossHpBarUI.SetActive(true);
+        if (bossAI != null) bossAI.isFighting = true;
     }
 
     private IEnumerator BossIntroSequence()
@@ -50,6 +54,7 @@ public class BossRoomSequenceManager : MonoBehaviour
 
         // Banner tên boss
         if (bossBannerUI != null) bossBannerUI.SetActive(true);
+        if (bossBannerAnimator != null) bossBannerAnimator.SetTrigger("ShowBanner");
 
         // Rung nhẹ + âm thanh
         if (audioSource != null && bossAppearSfx != null)
@@ -57,6 +62,11 @@ public class BossRoomSequenceManager : MonoBehaviour
         yield return StartCoroutine(ScreenShake());
 
         yield return new WaitForSeconds(bannerDuration);
+        if (bossBannerAnimator != null) 
+        {
+            bossBannerAnimator.SetTrigger("HideBanner");
+            yield return new WaitForSeconds(0.5f); // Đợi animation ẩn chạy xong
+        }
         if (bossBannerUI != null) bossBannerUI.SetActive(false);
 
         // HP Bar — để trống/disable, làm sau

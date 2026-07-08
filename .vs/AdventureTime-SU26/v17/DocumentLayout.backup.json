@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bossroomsequencemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|d:\\adventuretime-su26\\assets\\scripts\\bosshandspell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\AdventureTime-SU26\\assets\\scripts\\bosshandspell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bosshandspell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\BossRoomSequenceManager.cs",
               "ToolTip": "D:\\AdventureTime-SU26\\Assets\\Scripts\\BossRoomSequenceManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\BossRoomSequenceManager.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAAwGYAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAIwGYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-08T02:13:58.499Z",
               "EditorCaption": ""
@@ -51,8 +51,7 @@
               "RelativeToolTip": "Assets\\Scripts\\BossHandSpell.cs",
               "ViewState": "AgIAACAAAAAAAAAAAAAiwDYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-08T02:10:06.958Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-08T02:10:06.958Z"
             },
             {
               "$type": "Document",

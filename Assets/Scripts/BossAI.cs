@@ -4,8 +4,9 @@ using UnityEngine;
 public class BossAI : MonoBehaviour
 {
     [Header("Detection")]
+    public bool defaultFacingLeft = true; // Tích vào nếu hình ảnh gốc của Boss đang quay mặt sang trái
     public float sameHeightThreshold = 1f; // lệch Y trong khoảng này coi là "cùng độ cao"
-    public float activationRange = 15f;    // tầm phát hiện player trong vùng boss (thường luôn active vì đã vào phòng)
+    public float activationRange = 15f;    // tầm phát hiện player trong vùng boss
 
     [Header("Melee (cùng độ cao)")]
     public float meleeRange = 2f;          // trong tầm này thì dừng lại chém
@@ -37,20 +38,41 @@ public class BossAI : MonoBehaviour
     public Animator animator;
 
     private Rigidbody2D rb;
+    private BossStats stats;
     private Transform playerTransform;
     private int facingDirection = 1;
-
-    private enum State { Idle, Chase, Melee, Ranged }
-    private State currentState = State.Idle;
 
     private bool isBusy = false;   // đang trong 1 coroutine tấn công, không làm gì khác
     private bool canAttack = true;
 
     public bool isFighting = false; // BossRoomSequenceManager set true khi bắt đầu combat
+    private bool isDead = false;
+    private GameObject currentHand;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        stats = GetComponent<BossStats>();
+    }
+
+    void OnEnable()
+    {
+        if (stats != null)
+        {
+            stats.OnDamaged += HandleDamaged;
+            stats.OnDamagedFrom += HandleDamagedFrom;
+            stats.OnDied += HandleDied;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (stats != null)
+        {
+            stats.OnDamaged -= HandleDamaged;
+            stats.OnDamagedFrom -= HandleDamagedFrom;
+            stats.OnDied -= HandleDied;
+        }
     }
 
     void Start()
@@ -61,7 +83,7 @@ public class BossAI : MonoBehaviour
 
     void Update()
     {
-        if (!isFighting || playerTransform == null) return;
+        if (isDead || !isFighting || playerTransform == null) return;
         if (isBusy) return;
 
         DecideAndAct();
@@ -72,7 +94,7 @@ public class BossAI : MonoBehaviour
 
     private void DecideAndAct()
     {
-        float verticalDiff = GetHeightCenter(playerTransform) - GetHeightCenter(transform);
+        float verticalDiff = GetFloorHeight(playerTransform) - GetFloorHeight(transform);
         bool sameHeight = Mathf.Abs(verticalDiff) <= sameHeightThreshold;
 
         float dirToPlayer = playerTransform.position.x - transform.position.x;
@@ -187,9 +209,10 @@ public class BossAI : MonoBehaviour
     private void SpawnHandSpell(Vector3 position)
     {
         if (handSpellPrefab == null) return;
+        if (currentHand != null) Destroy(currentHand);
 
-        GameObject hand = Instantiate(handSpellPrefab, position, Quaternion.identity);
-        BossHandSpell handScript = hand.GetComponent<BossHandSpell>();
+        currentHand = Instantiate(handSpellPrefab, position, Quaternion.identity);
+        BossHandSpell handScript = currentHand.GetComponent<BossHandSpell>();
         if (handScript != null)
         {
             handScript.Setup(spellTelegraphDelay, spellDamage, spellHitBoxSize, targetLayer);
@@ -202,7 +225,8 @@ public class BossAI : MonoBehaviour
 
     private void FlipTowards(int dir)
     {
-        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * dir, transform.localScale.y, transform.localScale.z);
+        int visualDir = defaultFacingLeft ? -dir : dir;
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * visualDir, transform.localScale.y, transform.localScale.z);
     }
 
     private void UpdateAnimator()
@@ -215,6 +239,34 @@ public class BossAI : MonoBehaviour
     {
         if (animator == null) return;
         animator.SetTrigger(name);
+    }
+
+    private void HandleDamaged()
+    {
+        if (isDead) return;
+        SetAnimatorTrigger("Hurt");
+    }
+
+    private void HandleDamagedFrom(GameObject source)
+    {
+        if (isDead || source == null) return;
+        
+        float dirToAttacker = source.transform.position.x - transform.position.x;
+        bool hitFromBehind = (facingDirection > 0 && dirToAttacker < 0) || (facingDirection < 0 && dirToAttacker > 0);
+        
+        if (hitFromBehind)
+        {
+            facingDirection = dirToAttacker > 0 ? 1 : -1;
+            FlipTowards(facingDirection);
+        }
+    }
+
+    private void HandleDied()
+    {
+        isDead = true;
+        rb.linearVelocity = Vector2.zero;
+        StopAllCoroutines();
+        SetAnimatorTrigger("Death");
     }
 
     void OnDrawGizmosSelected()
@@ -233,10 +285,10 @@ public class BossAI : MonoBehaviour
         }
     }
 
-    private float GetHeightCenter(Transform t)
+    private float GetFloorHeight(Transform t)
     {
-        Collider2D col = t.GetComponent<Collider2D>();
-        if (col != null) return col.bounds.center.y;
+        Collider2D col = t.GetComponentInChildren<Collider2D>();
+        if (col != null) return col.bounds.min.y;
         return t.position.y;
     }
 }

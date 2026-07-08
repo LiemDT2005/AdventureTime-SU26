@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(EnemyStats))]
@@ -69,12 +69,14 @@ public class BatAI : MonoBehaviour
     void OnEnable()
     {
         stats.OnDamaged += HandleDamaged;
+        stats.OnDamagedFrom += HandleDamagedFrom;
         stats.OnDied += HandleDied;
     }
 
     void OnDisable()
     {
         stats.OnDamaged -= HandleDamaged;
+        stats.OnDamagedFrom -= HandleDamagedFrom;
         stats.OnDied -= HandleDied;
     }
 
@@ -264,6 +266,21 @@ public class BatAI : MonoBehaviour
         stunTimer = takeHitStunDuration;
         currentState = State.Patrol;
         SetAnimatorTrigger("TakeHit");
+    }
+
+    private void HandleDamagedFrom(GameObject source)
+    {
+        if (isDead || source == null) return;
+        
+        float dirToAttacker = source.transform.position.x - transform.position.x;
+        bool hitFromBehind = (facingDirection > 0 && dirToAttacker < 0) || (facingDirection < 0 && dirToAttacker > 0);
+        
+        if (hitFromBehind)
+        {
+            facingDirection = dirToAttacker > 0 ? 1 : -1;
+            FlipTowards(facingDirection);
+            currentState = State.Chase;
+        }
     }
 
     private void HandleDied()

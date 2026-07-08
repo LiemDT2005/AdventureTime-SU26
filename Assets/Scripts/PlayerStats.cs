@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour, IDamageable
@@ -6,6 +6,9 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [Header("Health")]
     public float maxHealth = 100f;
     public float currentHealth;
+
+    [Header("UI")]
+    public EnemyHPBar hpBar;
 
     [Header("Invulnerability sau khi trúng đòn")]
     public float invulnerabilityDuration = 0.8f;
@@ -23,6 +26,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        if (hpBar != null) hpBar.UpdateHP(currentHealth, maxHealth);
     }
 
     void Update()
@@ -41,6 +45,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        if (hpBar != null) hpBar.UpdateHP(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {
