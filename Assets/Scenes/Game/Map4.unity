@@ -1334,32 +1334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11ffd1d0ed9a8644aa0709cc9acb149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAI
-  defaultFacingLeft: 1
-  sameHeightThreshold: 1
-  activationRange: 15
-  meleeRange: 2
-  chaseSpeed: 3
-  meleeDamage: 20
-  meleeWindup: 0.3
-  meleeDuration: 0.6
-  meleeHitPoint: {fileID: 0}
-  meleeHitBoxSize: {x: 2, y: 1.5}
-  targetLayer:
-    m_Bits: 0
-  handSpellPrefab: {fileID: 0}
-  castDuration: 0.8
-  spellTelegraphDelay: 1
-  spellDamage: 15
-  spellHitBoxSize: {x: 1.5, y: 1.5}
-  handSpawnHeightOffset: 1.5
-  headCheckPoint: {fileID: 0}
-  headCheckDistance: 3
-  obstacleLayer:
-    m_Bits: 0
-  attackCooldown: 1.5
-  animator: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  isFighting: 0
 --- !u!70 &947626384
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1455,12 +1429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ab7f29ceafb2e4c8e927f273ebb1aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
-  maxHealth: 100
-  damage: 20
-  isEnemy: 0
-  goldReward: 10
-  hpBar: {fileID: 0}
-  currentHealth: 0
 --- !u!50 &947626389
 Rigidbody2D:
   serializedVersion: 5
@@ -2327,7 +2295,7 @@ Transform:
   m_GameObject: {fileID: 1301286112}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -82.63, y: 0.83, z: 0}
+  m_LocalPosition: {x: -101.4, y: 12.5, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children:
