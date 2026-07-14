@@ -8111,7 +8111,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PersistentUI, Assembly-CSharp
         m_MethodName: BackToMenu
         m_Mode: 1
         m_Arguments:
@@ -9748,7 +9748,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PersistentUI, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:

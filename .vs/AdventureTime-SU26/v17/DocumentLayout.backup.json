@@ -3,24 +3,56 @@
   "WorkspaceRootPath": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|d:\\fpt\\fpt\\su2026\\pru213\\adventure\\adventuretime-su26\\assets\\scripts\\persistentui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\persistentui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|d:\\fpt\\fpt\\su2026\\pru213\\adventure\\adventuretime-su26\\assets\\scripts\\heartprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\heartprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|d:\\fpt\\fpt\\su2026\\pru213\\adventure\\adventuretime-su26\\assets\\scripts\\victorypopup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|d:\\fpt\\fpt\\su2026\\pru213\\adventure\\adventuretime-su26\\assets\\scripts\\playercontroller2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\enemystats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemystats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\enemyhpbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyhpbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\playermap1health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermap1health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\enemyaimap1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyaimap1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\playermap1animation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\scripts\\playermap1animation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\move2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\move2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\victorypopup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\victorypopup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|d:\\fpt\\fpt\\su2026\\pru213\\adventure\\adventuretime-su26\\assets\\scripts\\mapnameeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\persistentui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\persistentui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\mapnameeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mapnameeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\mainmenu\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\pausetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,28 +67,8 @@
       "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\levelselect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\enemystats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemystats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\move2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\move2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\enemyhpbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyhpbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\playermap1animation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermap1animation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\enemyaimap1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyaimap1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D45977E7-35D5-A509-51FE-846A9466A4E4}|Assembly-CSharp.csproj|D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\assets\\scripts\\cameramovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,11 +86,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HeartProjectile.cs",
+              "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\HeartProjectile.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\HeartProjectile.cs",
+              "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\HeartProjectile.cs",
+              "RelativeToolTip": "Assets\\Scripts\\HeartProjectile.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAkwAgAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T14:32:32.682Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "PlayerController2D.cs",
+              "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\PlayerController2D.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController2D.cs",
+              "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\PlayerController2D.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerController2D.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T14:30:26.824Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlayerMap1Health.cs",
+              "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\PlayerMap1Health.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMap1Health.cs",
+              "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\PlayerMap1Health.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerMap1Health.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T14:07:45.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "VIctoryPopup.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\VIctoryPopup.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\VIctoryPopup.cs",
@@ -86,12 +137,11 @@
               "RelativeToolTip": "Assets\\Scripts\\VIctoryPopup.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-03T05:19:30.253Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-03T05:19:30.253Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "MapNameEffect.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\MapNameEffect.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MapNameEffect.cs",
@@ -99,12 +149,11 @@
               "RelativeToolTip": "Assets\\Scripts\\MapNameEffect.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAowDoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-03T05:18:45.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-03T05:18:45.285Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "GameBoostrap.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\GameBoostrap.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameBoostrap.cs",
@@ -116,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 13,
               "Title": "PauseTrigger.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\PauseTrigger.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PauseTrigger.cs",
@@ -124,25 +173,23 @@
               "RelativeToolTip": "Assets\\Scripts\\PauseTrigger.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-01T06:56:18.08Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-01T06:56:18.08Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 10,
               "Title": "PersistentUI.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\PersistentUI.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PersistentUI.cs",
               "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\PersistentUI.cs",
               "RelativeToolTip": "Assets\\Scripts\\PersistentUI.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAkwBQAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAgwBQAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-01T06:27:26.549Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-01T06:27:26.549Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 12,
               "Title": "MainMenu.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\MainMenu\\MainMenu.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\MainMenu.cs",
@@ -154,31 +201,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 3,
               "Title": "EnemyHPBar.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\EnemyHPBar.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyHPBar.cs",
               "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\EnemyHPBar.cs",
               "RelativeToolTip": "Assets\\Scripts\\EnemyHPBar.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-29T07:22:38.655Z"
+              "WhenOpened": "2026-06-29T07:22:38.655Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 5,
               "Title": "EnemyAIMap1.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\EnemyAIMap1.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyAIMap1.cs",
               "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\EnemyAIMap1.cs",
               "RelativeToolTip": "Assets\\Scripts\\EnemyAIMap1.cs",
-              "ViewState": "AgIAAA0BAAAAAAAAAAAwwEkBAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAHkBAAAAAAAAAAAUwJ0BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-28T13:58:18.487Z"
+              "WhenOpened": "2026-06-28T13:58:18.487Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 15,
               "Title": "LevelSelect.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\LevelSelect.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\LevelSelect.cs",
@@ -190,19 +239,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 6,
               "Title": "PlayerMap1Animation.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\PlayerMap1Animation.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMap1Animation.cs",
               "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\PlayerMap1Animation.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMap1Animation.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-27T09:37:17.222Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "CameraMovement.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\CameraMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\CameraMovement.cs",
@@ -214,7 +263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "SceneLoader.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\SceneLoader.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\SceneLoader.cs",
@@ -226,31 +275,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
               "Title": "Move2D.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\Move2D.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Move2D.cs",
               "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\Move2D.cs",
               "RelativeToolTip": "Assets\\Scripts\\Move2D.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAcwHcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-24T03:15:51.401Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "EnemyStats.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\EnemyStats.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyStats.cs",
               "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\EnemyStats.cs",
               "RelativeToolTip": "Assets\\Scripts\\EnemyStats.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAowCoAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-24T03:12:39.517Z"
+              "WhenOpened": "2026-06-24T03:12:39.517Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 16,
               "Title": "EnemyAI.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\EnemyAI.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyAI.cs",
@@ -262,13 +312,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "GameManager.cs",
               "DocumentMoniker": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameManager.cs",
               "ToolTip": "D:\\FPT\\FPT\\SU2026\\PRU213\\Adventure\\AdventureTime-SU26\\Assets\\Scripts\\GameManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\GameManager.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAADwv0IAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwBEAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-24T00:20:58.557Z"
             }

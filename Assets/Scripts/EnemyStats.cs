@@ -4,11 +4,9 @@ public class EnemyStats : MonoBehaviour
 {
     public float maxHealth = 50f;
     public float currentHealth;
-
-    public int damage = 10;
+    public float damage = 10f; // 🔥 đổi int -> float cho khớp kiểu với TakeDamage(float) bên Player
     public int goldReward = 10;
-
-    public EnemyHPBar hpBar; // 🔥 thêm dòng này
+    public EnemyHPBar hpBar;
 
     void Start()
     {
@@ -23,12 +21,10 @@ public class EnemyStats : MonoBehaviour
     {
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
         if (hpBar != null)
         {
-            hpBar.UpdateHP(currentHealth, maxHealth); // 🔥 update thanh máu
+            hpBar.UpdateHP(currentHealth, maxHealth);
         }
-
         if (currentHealth <= 0)
         {
             Die();
@@ -37,7 +33,10 @@ public class EnemyStats : MonoBehaviour
 
     void Die()
     {
-        GameManager.instance.gold += goldReward;
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.AddGold(goldReward);
+        }
         Destroy(gameObject);
     }
 }

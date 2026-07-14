@@ -21,7 +21,7 @@ public class GameBootstrap : MonoBehaviour
             Debug.Log("PauseManager.Instance đang NULL -> chuẩn bị load PersistentUI...");
 
             // Kiểm tra scene có tồn tại trong Build Settings không trước khi load
-            SceneManager.LoadScene("PersistentUI(Pause)", LoadSceneMode.Additive);
+            SceneManager.LoadScene("PersistentUI", LoadSceneMode.Additive);
 
             Debug.Log("Đã gọi lệnh LoadScene xong");
         }

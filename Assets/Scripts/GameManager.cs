@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using TMPro;
 
 [System.Serializable]
 public class PlayerData
@@ -22,33 +20,37 @@ public class GameManager : MonoBehaviour
     public int playerAttack = 10;
     public int gold = 0;
 
-    [Header("UI References")]
-    public GameObject endGamePanel;
-
-    [Header("Map Name Popup")]
-    public GameObject mapNamePanel;      // Panel có CanvasGroup, tên object trong Hierarchy: "MapNamePopup"
+    [Header("Map Name")]
     public string currentMapName = "Map 1";
-    public float mapNameShowTime = 2f;
-    public float mapNameFadeTime = 0.5f;
-    private CanvasGroup mapNameCanvasGroup;
-    private TextMeshProUGUI mapNameText;
-    private Coroutine mapNameRoutine;
-
-    [Header("Victory Popup")]
-    public GameObject victoryPanel;      // tên object trong Hierarchy: "VictoryPanel"
-    private TextMeshProUGUI victoryTimeText;
-    private float levelStartTime;
-    private bool isVictory = false;
 
     private bool isGameOver = false;
+    private bool isVictory  = false;
     private Dictionary<string, PlayerData> sceneData = new Dictionary<string, PlayerData>();
 
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            
+            // Tự động load PersistentUI nếu chưa có (để hỗ trợ test map lẻ trực tiếp)
+            if (PersistentUI.Instance == null)
+            {
+                bool isLoaded = false;
+                for (int i = 0; i < SceneManager.sceneCount; i++)
+                {
+                    if (SceneManager.GetSceneAt(i).name == "PersistentUI")
+                    {
+                        isLoaded = true; break;
+                    }
+                }
+                if (!isLoaded)
+                {
+                    SceneManager.LoadScene("PersistentUI", LoadSceneMode.Additive);
+                }
+            }
         }
         else
         {
@@ -62,9 +64,9 @@ public class GameManager : MonoBehaviour
         string scene = SceneManager.GetActiveScene().name;
         sceneData[scene] = new PlayerData()
         {
-            hp = playerHP,
+            hp     = playerHP,
             attack = playerAttack,
-            gold = gold
+            gold   = gold
         };
         Debug.Log("Saved: " + scene);
     }
@@ -72,11 +74,11 @@ public class GameManager : MonoBehaviour
     // 👉 RESET
     public void ResetPlayer()
     {
-        playerHP = 100;
+        playerHP     = 100;
         playerAttack = 10;
-        gold = 0;
-        isGameOver = false;
-        isVictory = false;
+        gold         = 0;
+        isGameOver   = false;
+        isVictory    = false;
         Debug.Log("Player stats reset to default");
     }
 
@@ -105,10 +107,10 @@ public class GameManager : MonoBehaviour
         // Load specific scene data
         if (sceneData.ContainsKey(scene))
         {
-            var data = sceneData[scene];
-            playerHP = data.hp;
+            var data     = sceneData[scene];
+            playerHP     = data.hp;
             playerAttack = data.attack;
-            gold = data.gold;
+            gold         = data.gold;
             Debug.Log("Loaded: " + scene);
         }
         else
@@ -128,174 +130,94 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddGold(int goldReward)
+    {
+        gold += goldReward;
+    }
+
+    // ─── Game Over ────────────────────────────────────────────────────────────
+
     public void GameOver()
     {
         if (isGameOver) return;
-
         isGameOver = true;
-        Time.timeScale = 0f;
 
-        // Find panel if missing
-        if (endGamePanel == null) endGamePanel = GameObject.Find("EndGamePanel");
-
-        if (endGamePanel != null)
+        if (PersistentUI.Instance != null)
         {
-            endGamePanel.SetActive(true);
-            // We call BindButton AFTER setting the panel active so GameObject.Find can see the button
-            BindButton();
+            PersistentUI.Instance.ShowGameOver();
         }
         else
         {
-            Debug.LogError("GameOver called but EndGamePanel not found!");
+            Debug.LogError("[GameManager] GameOver() gọi nhưng PersistentUI.Instance là null!");
         }
     }
 
-    // 👉 GỌI HÀM NÀY KHI NGƯỜI CHƠI THẮNG MAP (VD: chạm cờ đích, giết quái cuối...)
+    // ─── Victory ─────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Gọi hàm này khi người chơi thắng map (chạm cờ đích, giết quái cuối, v.v.)
+    /// </summary>
     public void Victory()
     {
         if (isVictory) return;
         isVictory = true;
 
-        if (victoryPanel == null) victoryPanel = GameObject.Find("VictoryPanel");
-        if (victoryPanel == null)
+        if (PersistentUI.Instance != null)
         {
-            Debug.LogError("Victory() called but VictoryPanel not found!");
-            return;
-        }
-
-        if (victoryTimeText == null)
-        {
-            victoryTimeText = victoryPanel.GetComponentInChildren<TextMeshProUGUI>(true);
-        }
-
-        float playTime = Time.time - levelStartTime;
-        int minutes = Mathf.FloorToInt(playTime / 60f);
-        int seconds = Mathf.FloorToInt(playTime % 60f);
-        if (victoryTimeText != null)
-            victoryTimeText.text = $"Thời gian: {minutes:00}:{seconds:00}";
-
-        victoryPanel.SetActive(true);
-        Time.timeScale = 0f;
-    }
-
-    public void TryAgain()
-    {
-        Debug.Log("TryAgain clicked logic starting.");
-        Time.timeScale = 1f;
-        isGameOver = false;
-        isVictory = false;
-
-        // When retrying, we reset to the default stats
-        ResetPlayer();
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    private void BindButton()
-    {
-        // Strategy 1: Find by name (works if active)
-        GameObject btnObj = GameObject.Find("TryAgainButton");
-
-        // Strategy 2: If Strategy 1 fails, look inside the EndGamePanel specifically
-        if (btnObj == null && endGamePanel != null)
-        {
-            Button b = endGamePanel.GetComponentInChildren<Button>(true);
-            if (b != null && b.gameObject.name == "TryAgainButton")
-            {
-                btnObj = b.gameObject;
-            }
-        }
-
-        if (btnObj != null)
-        {
-            Button btn = btnObj.GetComponent<Button>();
-            if (btn != null)
-            {
-                btn.onClick.RemoveAllListeners();
-                btn.onClick.AddListener(TryAgain);
-                Debug.Log("TryAgainButton listener bound successfully.");
-            }
+            // ShowVictory() không tham số: PersistentUI tự tính thời gian từ lúc load scene
+            PersistentUI.Instance.ShowVictory();
         }
         else
         {
-            Debug.LogWarning("TryAgainButton still not found in scene. Check object name in Hierarchy.");
+            Debug.LogError("[GameManager] Victory() gọi nhưng PersistentUI.Instance là null!");
         }
     }
 
-    void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
+    // ─── TryAgain / Restart ──────────────────────────────────────────────────
+
+    public void TryAgain()
+    {
+        Debug.Log("TryAgain clicked.");
+        Time.timeScale = 1f;
+        isGameOver = false;
+        isVictory  = false;
+
+        ResetPlayer();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    // ─── Scene lifecycle ─────────────────────────────────────────────────────
+
+    void OnEnable()  { SceneManager.sceneLoaded += OnSceneLoaded; }
     void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Stop any existing UI reset routines to avoid conflicts
         StopAllCoroutines();
-        // Start a fresh reset routine
         StartCoroutine(ResetSceneRoutine());
     }
 
     private IEnumerator ResetSceneRoutine()
     {
-        // Wait one frame to ensure objects are initialized in the hierarchy
+        // Chờ 1 frame để đảm bảo các object trong scene đã được khởi tạo
         yield return null;
 
         Time.timeScale = 1f;
         isGameOver = false;
-        isVictory = false;
+        isVictory  = false;
 
-        endGamePanel = GameObject.Find("EndGamePanel");
-        if (endGamePanel != null)
+        string activeScene = SceneManager.GetActiveScene().name;
+
+        // Hiện tên map qua PersistentUI (ẩn đi nếu đang ở Menu)
+        if (PersistentUI.Instance != null && activeScene != "MainMenu" && activeScene != "MapSelect")
         {
-            endGamePanel.SetActive(false);
+            PersistentUI.Instance.ShowMapName(currentMapName);
         }
 
-        // ----- Victory panel: tìm và ẩn đi lúc bắt đầu scene -----
-        victoryPanel = GameObject.Find("VictoryPanel");
-        if (victoryPanel != null)
-        {
-            victoryPanel.SetActive(false);
-            victoryTimeText = victoryPanel.GetComponentInChildren<TextMeshProUGUI>(true);
-        }
+        // Bắt đầu tính giờ (PersistentUI cũng tự reset qua OnSceneLoaded của nó,
+        // nhưng gọi thêm ở đây để đảm bảo thứ tự nếu cần)
 
-        // ----- Map name popup: tìm, lấy component, rồi hiện tên map -----
-        mapNamePanel = GameObject.Find("MapNamePopup");
-        if (mapNamePanel != null)
-        {
-            mapNameCanvasGroup = mapNamePanel.GetComponent<CanvasGroup>();
-            mapNameText = mapNamePanel.GetComponentInChildren<TextMeshProUGUI>(true);
-            ShowMapName(currentMapName);
-        }
-
-        // Bắt đầu tính giờ chơi cho map này
-        levelStartTime = Time.time;
-
-        BindButton();
-
-        // 1. Load data for the current scene first
+        // Load data cho scene hiện tại
         LoadData();
-    }
-
-    private void ShowMapName(string mapName)
-    {
-        if (mapNameCanvasGroup == null || mapNameText == null) return;
-
-        mapNameText.text = mapName;
-
-        if (mapNameRoutine != null) StopCoroutine(mapNameRoutine);
-        mapNameRoutine = StartCoroutine(MapNameFadeRoutine());
-    }
-
-    private IEnumerator MapNameFadeRoutine()
-    {
-        mapNameCanvasGroup.alpha = 1f;
-        yield return new WaitForSeconds(mapNameShowTime);
-
-        float t = 0f;
-        while (t < mapNameFadeTime)
-        {
-            t += Time.deltaTime;
-            mapNameCanvasGroup.alpha = Mathf.Lerp(1f, 0f, t / mapNameFadeTime);
-            yield return null;
-        }
-        mapNameCanvasGroup.alpha = 0f;
     }
 }
