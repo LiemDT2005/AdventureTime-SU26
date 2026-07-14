@@ -1,168 +1,42 @@
-# ==========================
-# Unity Generated Folders
-# ==========================
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
+[Bb]uild_[Dd]ata/
 [Ll]ogs/
-[Mm]emoryCaptures/
+[Ll]ocal[Cc]ache/
+[Ee]xported[Oo]bj/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
 [Rr]ecordings/
+sysinfo.txt
 
-# Asset Import Pipeline
-Assets/AssetStoreTools*
-
-# ==========================
-# IDE
-# ==========================
-
-# Visual Studio
-.vs/
 *.csproj
 *.unityproj
 *.sln
+*.slnx
 *.suo
 *.tmp
 *.user
 *.userprefs
-*.pidb
-*.booproj
-*.svd
 
-# Visual Studio Code
+# IDE
+.vs/
 .vscode/
-
-# JetBrains Rider
 .idea/
-*.sln.iml
 
-# ==========================
-# OS Files
-# ==========================
-
-# macOS
+# OS
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# Windows
 Thumbs.db
-ehthumbs.db
-Desktop.ini
 
-# Linux
-*~
-
-# ==========================
-# Unity Auto Generated
-# ==========================
-
-sysinfo.txt
-
-# Crash Reports
-sysinfo.txt
-
-# ==========================
-# Addressables
-# ==========================
-
-ServerData/
-
-# ==========================
-# Gradle
-# ==========================
-
-.gradle/
-
-# ==========================
-# Android
-# ==========================
-
+# Build binaries
 *.apk
 *.aab
-*.keystore
+*.exe
+*.x86_64
+*.so
+*.app
 
-# ==========================
-# iOS
-# ==========================
-
-*.xcworkspace
-*.xcodeproj/project.xcworkspace
-
-# ==========================
-# Rider
-# ==========================
-
-.idea/
-
-# ==========================
-# Generated Documentation
-# ==========================
-
-Documentation~
-
-# ==========================
-# Test Results
-# ==========================
-
-TestResults/
-
-# ==========================
-# Unity Collaborate
-# ==========================
-
-.collabignore
-
-# ==========================
-# Packages
-# ==========================
-
-# KHÔNG ignore Packages
-# Chỉ ignore cache
-Packages/packages-lock.json.meta
-
-# ==========================
-# Burst
-# ==========================
-
-Library/BurstCache/
-
-# ==========================
-# IL2CPP
-# ==========================
-
-Library/Il2cppBuildCache/
-
-# ==========================
-# Shader Cache
-# ==========================
-
-Library/ShaderCache/
-
-# ==========================
-# User-specific
-# ==========================
-
-UserSettings/
-
-# ==========================
-# Backup
-# ==========================
-
-*.bak
-*.backup
-*.old
-
-# ==========================
-# Unity Cloud Diagnostics
-# ==========================
-
-crashlytics-build.properties
-
-# ==========================
-# Ignore generated project files
-# ==========================
-
-ExportedObj/
-.consulo/
+# Tool output (generated)
+tools/*_result.png
