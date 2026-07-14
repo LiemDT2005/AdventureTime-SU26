@@ -21,6 +21,9 @@ public class MusicManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        if (musicLibrary == null)
+            musicLibrary = FindAnyObjectByType<MusicLibrary>();
+
         if (musicSource == null)
             musicSource = GetComponent<AudioSource>();
 

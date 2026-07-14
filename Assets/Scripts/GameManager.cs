@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            Time.timeScale = 1f;
+            isGameOver = false;
+            HideStartupOverlays();
         }
         else
         {
@@ -113,7 +116,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No data for this scene → using current stats");
+            ResetPlayer();
+            Debug.Log("No data for this scene → reset to default stats");
         }
     }
 
@@ -242,6 +246,8 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         isVictory = false;
 
+        HideStartupOverlays();
+
         endGamePanel = GameObject.Find("EndGamePanel");
         if (endGamePanel != null)
         {
@@ -297,5 +303,21 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         mapNameCanvasGroup.alpha = 0f;
+    }
+
+    private void HideStartupOverlays()
+    {
+        DisableSceneObjectByName("EndGamePanel");
+        DisableSceneObjectByName("Pausepanel");
+    }
+
+    private void DisableSceneObjectByName(string objectName)
+    {
+        foreach (GameObject go in Resources.FindObjectsOfTypeAll<GameObject>())
+        {
+            if (go == null || go.name != objectName) continue;
+            if (!go.scene.IsValid() || !go.scene.isLoaded) continue;
+            go.SetActive(false);
+        }
     }
 }
