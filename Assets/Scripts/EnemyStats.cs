@@ -15,6 +15,7 @@ public class EnemyStats : MonoBehaviour, IDamageable
     public bool IsDead { get; private set; } = false;
 
     public event Action OnDamaged;
+    public event Action<GameObject> OnDamagedFrom; // Cho cơ chế Backstab
     public event Action OnDied;
 
     void Start()
@@ -45,6 +46,10 @@ public class EnemyStats : MonoBehaviour, IDamageable
         else
         {
             OnDamaged?.Invoke();
+            if (source != null)
+            {
+                OnDamagedFrom?.Invoke(source);
+            }
         }
     }
 

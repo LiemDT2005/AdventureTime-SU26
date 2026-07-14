@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerStats))]
@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground Check")]
     public LayerMask groundLayer;
+    public LayerMask enemyBounceLayer; // Layer của Enemy và Boss để nhún nhảy
 
     [Header("References")]
     public Animator animator; // để trống nếu chưa gắn
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private int jumpCount = 0;
     private bool isGrounded;
     private bool facingRight = true;
+    private float lastJumpTime = 0f;
 
     private bool isAttacking = false;
     private bool isStunned = false;
@@ -68,7 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         UpdateGroundCheck();
 
-        if (isGrounded && Mathf.Abs(rb.linearVelocity.y) < 0.01f)
+        if (isGrounded && Time.time - lastJumpTime > 0.1f)
             jumpCount = 0;
 
         if (!isDead)
@@ -121,10 +123,27 @@ public class PlayerController : MonoBehaviour
 
         foreach (var col in colliders)
         {
-            if (col.gameObject != gameObject && !col.isTrigger)
+            if (col.transform.root.gameObject != gameObject && !col.isTrigger)
             {
                 isGrounded = true;
                 break;
+            }
+        }
+
+        // Kiểm tra nảy lên quái (chỉ khi đang rơi xuống)
+        if (!isGrounded && rb.linearVelocity.y <= 0f)
+        {
+            Collider2D[] enemyColliders =
+                Physics2D.OverlapBoxAll(checkPosition, checkSize, 0f, enemyBounceLayer);
+            
+            foreach (var col in enemyColliders)
+            {
+                if (col.transform.root.gameObject != gameObject && !col.isTrigger)
+                {
+                    isGrounded = true; 
+                    if (Time.time - lastJumpTime > 0.1f) jumpCount = 0;
+                    break;
+                }
             }
         }
     }
@@ -142,6 +161,8 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpCount++;
+            lastJumpTime = Time.time;
+            isGrounded = false;
 
             if (animator != null)
                 animator.SetTrigger("Jump");
