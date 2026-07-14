@@ -1,42 +1,97 @@
+# ==========================
+# Unity generated folders
+# ==========================
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
-[Bb]uild_[Dd]ata/
 [Ll]ogs/
-[Ll]ocal[Cc]ache/
-[Ee]xported[Oo]bj/
-[Uu]ser[Ss]ettings/
-MemoryCaptures/
+[Mm]emoryCaptures/
 [Rr]ecordings/
-sysinfo.txt
+[Dd]erivedDataCache/
+[Uu]serSettings/
 
+# Asset Store tools
+Assets/AssetStoreTools*
+
+# ==========================
+# IDE / editor files
+# ==========================
+.vs/
+.idea/
+.vscode/
 *.csproj
-*.unityproj
 *.sln
-*.slnx
 *.suo
-*.tmp
 *.user
 *.userprefs
+*.unityproj
+*.booproj
+*.pidb
+*.svd
+*.opendb
+*.VC.db
+*.sln.iml
 
-# IDE
-.vs/
-.vscode/
-.idea/
-
-# OS
+# ==========================
+# OS files
+# ==========================
 .DS_Store
+.AppleDouble
+.LSOverride
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+*~
 
-# Build binaries
+# ==========================
+# Logs / crash reports / temp files
+# ==========================
+*.log
+*.stackdump
+*.tmp
+*.bak
+*.backup
+*.old
+sysinfo.txt
+crashlytics-build.properties
+
+# ==========================
+# Build outputs
+# ==========================
 *.apk
 *.aab
-*.exe
-*.x86_64
-*.so
 *.app
+*.ipa
+*.keystore
+*.unitypackage
+
+# ==========================
+# Platform / tooling caches
+# ==========================
+.gradle/
+Library/BurstCache/
+Library/Il2cppBuildCache/
+Library/ShaderCache/
+ServerData/
+TestResults/
+ExportedObj/
+.consulo/
+
+# ==========================
+# Documentation / misc generated
+# ==========================
+Documentation~
+
+# ==========================
+# Unity Collaborate / Plastic
+# ==========================
+.collabignore
+
+# Keep Packages tracked; only ignore accidental metadata files
+Packages/packages-lock.json.meta
 
 # Tool output (generated)
 tools/*_result.png
+*.slnx
