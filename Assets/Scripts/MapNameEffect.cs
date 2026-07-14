@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using TMPro; // dùng TextMeshPro cho đẹp, có thể đổi sang Text thường
 
@@ -21,6 +21,8 @@ public class MapNameEffect : MonoBehaviour
     private void Awake()
     {
         canvasGroup.alpha = 0f;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
     }
 
     /// <summary>

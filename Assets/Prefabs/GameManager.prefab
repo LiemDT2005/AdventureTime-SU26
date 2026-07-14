@@ -75,5 +75,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f50d4e58c5c22f04191ba31b2351aeb4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PauseManager
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentUI
   pausePanel: {fileID: 0}

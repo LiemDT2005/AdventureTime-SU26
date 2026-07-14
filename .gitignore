@@ -91,3 +91,7 @@ Documentation~
 
 # Keep Packages tracked; only ignore accidental metadata files
 Packages/packages-lock.json.meta
+
+# Tool output (generated)
+tools/*_result.png
+*.slnx
