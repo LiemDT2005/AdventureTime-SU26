@@ -103,3 +103,4 @@ Packages/packages-lock.json.meta
 
 # Tool output (generated)
 tools/*_result.png
+*.slnx

@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Script phụ cho panel Game Over cũ (nếu vẫn còn dùng trong scene).
+/// Lưu ý: hệ thống chính đã chuyển sang PersistentUI.ShowGameOver().
+/// </summary>
 public class GameOver : MonoBehaviour
 {
     public void Setup(int score)
@@ -11,11 +15,14 @@ public class GameOver : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("Scene 1");
+        Time.timeScale = 1f;
+        // Dùng buildIndex thay vì tên cứng để không bị lỗi khi đổi tên scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void MainMenu()
+    public void GoToMainMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 }

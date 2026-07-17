@@ -1,27 +1,24 @@
-﻿using UnityEditor;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public AudioMixer audioMixer;
     public void Start()
     {
-        PlayerPrefs.DeleteAll();
-        MusicManager.Instance.PlayMusic("MainMenu");
+        // KHÔNG xoá PlayerPrefs ở đây — sẽ mất volume, save data, v.v.
+        if (MusicManager.Instance != null)
+            MusicManager.Instance.PlayMusic("MainMenu");
     }
 
     public void ExitButton()
     {
 #if UNITY_EDITOR
         // Nếu đang chạy trong Editor thì thoát Play Mode
-        EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;
 #else
         // Nếu là bản build thì thoát ứng dụng thật
         Application.Quit();
 #endif
-
         Debug.Log("Exiting the game...");
     }
 
@@ -30,9 +27,10 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("MapSelect");
     }
 
+    // Đồng bộ qua MusicManager để PlayerPrefs và AudioSource cùng cập nhật
     public void UpdateMusicVolume(float volume)
     {
-        audioMixer.SetFloat("MusicVolume", volume);
+        if (MusicManager.Instance != null)
+            MusicManager.Instance.SetVolume(volume);
     }
 }
-

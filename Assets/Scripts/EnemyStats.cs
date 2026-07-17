@@ -5,7 +5,7 @@ public class EnemyStats : MonoBehaviour, IDamageable
 {
     public float maxHealth = 50f;
     public float currentHealth;
-    public int damage = 10;
+    public float damage = 10f; // 🔥 đổi int -> float cho khớp kiểu với TakeDamage(float) bên Player
     public int goldReward = 10;
     public EnemyHPBar hpBar;
 
@@ -37,7 +37,9 @@ public class EnemyStats : MonoBehaviour, IDamageable
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         if (hpBar != null)
+        {
             hpBar.UpdateHP(currentHealth, maxHealth);
+        }
 
         if (currentHealth <= 0)
         {
@@ -57,7 +59,12 @@ public class EnemyStats : MonoBehaviour, IDamageable
     {
         if (IsDead) return;
         IsDead = true;
-        GameManager.instance.gold += goldReward;
+        
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.AddGold(goldReward);
+        }
+        
         OnDied?.Invoke();
 
         Collider2D col = GetComponent<Collider2D>();

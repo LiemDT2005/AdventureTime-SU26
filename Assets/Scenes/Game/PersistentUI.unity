@@ -164,11 +164,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02d94b7bf13a6444b8e676b300bf3d82, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PauseManager
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentUI
   pauseMenuPanel: {fileID: 1987696536}
   menuSceneName: MainMenu
   mapNameEffect: {fileID: 1983348268}
   victoryPopup: {fileID: 877616741}
+  gameOverPanel: {fileID: 0}
 --- !u!1 &840351800
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3a66675000b7544b7e7376aedb450d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VictoryPopup
-  popupRoot: {fileID: 0}
+  popupRoot: {fileID: 877616740}
   timeText: {fileID: 1185201646}
 --- !u!224 &877616742
 RectTransform:
@@ -473,7 +474,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 131811951}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PersistentUI, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
@@ -1314,7 +1315,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 131811951}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PersistentUI, Assembly-CSharp
         m_MethodName: RestartLevel
         m_Mode: 1
         m_Arguments:
@@ -1549,7 +1550,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 131811951}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PersistentUI, Assembly-CSharp
         m_MethodName: QuitToMenu
         m_Mode: 1
         m_Arguments:
@@ -1979,7 +1980,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 131811951}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PersistentUI, Assembly-CSharp
         m_MethodName: QuitToMenu
         m_Mode: 1
         m_Arguments:
@@ -2135,7 +2136,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 131811951}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PersistentUI, Assembly-CSharp
         m_MethodName: RestartLevel
         m_Mode: 1
         m_Arguments:
