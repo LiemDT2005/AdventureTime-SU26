@@ -262,13 +262,23 @@ public class GameManager : MonoBehaviour
             victoryTimeText = victoryPanel.GetComponentInChildren<TextMeshProUGUI>(true);
         }
 
-        // ----- Map name popup: tìm, lấy component, rồi hiện tên map -----
+        // ----- Map name popup: chỉ hiện trên map chơi, không hiện ở menu/MapSelect -----
         mapNamePanel = GameObject.Find("MapNamePopup");
         if (mapNamePanel != null)
         {
             mapNameCanvasGroup = mapNamePanel.GetComponent<CanvasGroup>();
             mapNameText = mapNamePanel.GetComponentInChildren<TextMeshProUGUI>(true);
-            ShowMapName(currentMapName);
+
+            string sceneName = SceneManager.GetActiveScene().name;
+            bool isPlayableMap = sceneName.StartsWith("Map") && sceneName != "MapSelect";
+            if (isPlayableMap)
+            {
+                ShowMapName(currentMapName);
+            }
+            else
+            {
+                HideMapNamePopup();
+            }
         }
 
         // Bắt đầu tính giờ chơi cho map này
@@ -290,9 +300,27 @@ public class GameManager : MonoBehaviour
         mapNameRoutine = StartCoroutine(MapNameFadeRoutine());
     }
 
+    private void HideMapNamePopup()
+    {
+        if (mapNameRoutine != null)
+        {
+            StopCoroutine(mapNameRoutine);
+            mapNameRoutine = null;
+        }
+
+        if (mapNameCanvasGroup == null) return;
+
+        mapNameCanvasGroup.alpha = 0f;
+        mapNameCanvasGroup.blocksRaycasts = false;
+        mapNameCanvasGroup.interactable = false;
+    }
+
     private IEnumerator MapNameFadeRoutine()
     {
         mapNameCanvasGroup.alpha = 1f;
+        // Không chặn click — popup chỉ để xem, không cần tương tác
+        mapNameCanvasGroup.blocksRaycasts = false;
+        mapNameCanvasGroup.interactable = false;
         yield return new WaitForSeconds(mapNameShowTime);
 
         float t = 0f;
@@ -302,7 +330,7 @@ public class GameManager : MonoBehaviour
             mapNameCanvasGroup.alpha = Mathf.Lerp(1f, 0f, t / mapNameFadeTime);
             yield return null;
         }
-        mapNameCanvasGroup.alpha = 0f;
+        HideMapNamePopup();
     }
 
     private void HideStartupOverlays()
