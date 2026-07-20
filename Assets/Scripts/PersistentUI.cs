@@ -17,6 +17,9 @@ public class PersistentUI : MonoBehaviour
     [Header("Tên Scene Main Menu")]
     public string menuSceneName = "MainMenu"; // Đổi thành đúng tên scene Menu của bạn
 
+    [Header("Tên Scene Map Select")]
+    public string mapSelectSceneName = "MapSelect"; // Đổi thành đúng tên scene chọn map của bạn
+
     [Header("Map Name / Victory / Game Over")]
     public MapNameEffect mapNameEffect;
     public VictoryPopup victoryPopup;
@@ -30,13 +33,14 @@ public class PersistentUI : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            Scene originalScene = gameObject.scene;
             DontDestroyOnLoad(gameObject);
             
             // Xóa ngay các Camera thừa trong scene này để tránh đè mất hình của scene chính (như Video Player ở MainMenu)
             Camera[] cams = FindObjectsByType<Camera>(FindObjectsSortMode.None);
             foreach (Camera c in cams)
             {
-                if (c.gameObject.scene == this.gameObject.scene)
+                if (c.gameObject.scene == originalScene)
                 {
                     Destroy(c.gameObject);
                 }
@@ -121,6 +125,15 @@ public class PersistentUI : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         SceneManager.LoadScene(menuSceneName);
+    }
+
+    // Điều hướng về màn hình chọn map
+    public void GoToMapSelect()
+    {
+        HideAll();
+        Time.timeScale = 1f;
+        GameIsPaused = false;
+        SceneManager.LoadScene(mapSelectSceneName);
     }
 
     // ─── Game Over ─────────────────────────────────────────────────────────────

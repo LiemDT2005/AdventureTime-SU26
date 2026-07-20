@@ -79,7 +79,7 @@ public class SetupMap4Boss : EditorWindow
             fillRect.sizeDelta = Vector2.zero;
 
             hpBarScript = canvasObj.AddComponent<EnemyHPBar>();
-            hpBarScript.fillImage = fillImg;
+            hpBarScript.hpFill = fillImg;
             
             canvasObj.SetActive(false); // Sẽ được bật khi Boss intro sequence xong
             Debug.Log("Created Boss HP Bar UI");

@@ -17,25 +17,45 @@ public class LevelExit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (triggered) return;
-        if (!other.CompareTag(playerTag)) return;
+        Debug.Log($"[LevelExit] Vật thể chạm vào cổng: {other.name} | Tag của nó: {other.tag}");
+        
+        if (triggered) 
+        {
+            Debug.Log("[LevelExit] Đã kích hoạt trước đó rồi, bỏ qua!");
+            return;
+        }
+        
+        if (!other.CompareTag(playerTag)) 
+        {
+            Debug.Log($"[LevelExit] Tag không khớp. Yêu cầu: {playerTag}. Thực tế: {other.tag}");
+            return;
+        }
 
         triggered = true;
+        Debug.Log("[LevelExit] Đã kích hoạt thành công!");
 
         if (delaySeconds > 0f)
+        {
+            Debug.Log($"[LevelExit] Chờ {delaySeconds} giây...");
             Invoke(nameof(ShowVictory), delaySeconds);
+        }
         else
+        {
             ShowVictory();
+        }
     }
 
     private void ShowVictory()
     {
+        Debug.Log("[LevelExit] Bắt đầu gọi ShowVictory()...");
         if (GameManager.instance != null)
         {
+            Debug.Log("[LevelExit] Gọi qua GameManager.instance.Victory().");
             GameManager.instance.Victory();
         }
         else if (PersistentUI.Instance != null)
         {
+            Debug.Log("[LevelExit] Không có GameManager, gọi trực tiếp PersistentUI.Instance.ShowVictory().");
             PersistentUI.Instance.ShowVictory();
         }
         else

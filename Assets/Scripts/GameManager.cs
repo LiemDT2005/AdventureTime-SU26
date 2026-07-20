@@ -54,7 +54,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            if (instance != this)
+            {
+                // Cập nhật tên map từ GameManager của scene mới sang singleton instance
+                instance.currentMapName = this.currentMapName;
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -159,11 +164,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Victory()
     {
-        if (isVictory) return;
+        Debug.Log("[GameManager] Victory() được gọi!");
+        if (isVictory) 
+        {
+            Debug.Log("[GameManager] isVictory đã true, bỏ qua.");
+            return;
+        }
         isVictory = true;
 
         if (PersistentUI.Instance != null)
         {
+            Debug.Log("[GameManager] Đang gọi PersistentUI.Instance.ShowVictory()");
             // ShowVictory() không tham số: PersistentUI tự tính thời gian từ lúc load scene
             PersistentUI.Instance.ShowVictory();
         }
@@ -199,8 +210,13 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ResetSceneRoutine()
     {
-        // Chờ 1 frame để đảm bảo các object trong scene đã được khởi tạo
-        yield return null;
+        // Chờ tối đa 60 frames để PersistentUI được load xong (nếu load additive)
+        int waitCount = 0;
+        while (PersistentUI.Instance == null && waitCount < 60)
+        {
+            yield return null;
+            waitCount++;
+        }
 
         Time.timeScale = 1f;
         isGameOver = false;

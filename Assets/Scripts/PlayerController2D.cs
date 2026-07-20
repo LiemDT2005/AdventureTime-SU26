@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -157,7 +157,7 @@ public class PlayerController2D : MonoBehaviour
         }
 
         // 7️⃣ ATTACK (bắn tim theo hướng đang quay mặt)
-        if (!isRolling && attackCooldownTimer <= 0f && Input.GetMouseButtonDown(0))
+        if (!isRolling && attackCooldownTimer <= 0f && Input.GetKeyDown(KeyCode.K))
         {
             Attack();
         }

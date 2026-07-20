@@ -338,7 +338,7 @@ public class Map4ComprehensiveSetup : EditorWindow
             fillRect.sizeDelta = Vector2.zero;
 
             hpBarScript = canvasObj.AddComponent<EnemyHPBar>();
-            hpBarScript.fillImage = fillImg;
+            hpBarScript.hpFill = fillImg;
             EditorUtility.SetDirty(hpBarScript);
             EditorUtility.SetDirty(canvasObj);
 

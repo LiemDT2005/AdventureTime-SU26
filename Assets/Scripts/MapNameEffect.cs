@@ -20,9 +20,13 @@ public class MapNameEffect : MonoBehaviour
 
     private void Awake()
     {
-        canvasGroup.alpha = 0f;
-        canvasGroup.blocksRaycasts = false;
-        canvasGroup.interactable = false;
+        if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 0f;
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
+        }
     }
 
     /// <summary>
@@ -31,7 +35,23 @@ public class MapNameEffect : MonoBehaviour
     /// </summary>
     public void ShowMapName(string mapName)
     {
-        mapNameText.text = mapName;
+        // Đảm bảo object đã được bật lên trước khi StartCoroutine
+        gameObject.SetActive(true);
+
+        if (mapNameText == null) 
+        {
+            mapNameText = GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+
+        if (mapNameText != null)
+        {
+            mapNameText.text = mapName;
+            Debug.Log($"[MapNameEffect] Đã gán tên map: {mapName}");
+        }
+        else
+        {
+            Debug.LogWarning("[MapNameEffect] Không tìm thấy TextMeshProUGUI để gán tên map!");
+        }
 
         // nếu đang chạy hiệu ứng cũ (bấm map liên tục) thì huỷ để chạy lại từ đầu
         if (currentRoutine != null)
