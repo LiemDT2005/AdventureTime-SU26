@@ -62,8 +62,10 @@ public class MapNameEffect : MonoBehaviour
 
     private IEnumerator ShowThenFadeRoutine()
     {
-        // Hiện ngay lập tức
+        // Hiện ngay lập tức — không chặn raycast để UI bên dưới vẫn bấm được
         canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
 
         // Giữ nguyên 2 giây
         yield return new WaitForSeconds(showDuration);
@@ -77,5 +79,7 @@ public class MapNameEffect : MonoBehaviour
             yield return null;
         }
         canvasGroup.alpha = 0f;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
     }
 }
