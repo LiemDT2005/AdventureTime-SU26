@@ -1935,6 +1935,7 @@ MonoBehaviour:
   damage: 10
   goldReward: 10
   hpBar: {fileID: 0}
+  deathDestroyDelay: 0
 --- !u!1 &522430300
 GameObject:
   m_ObjectHideFlags: 0
@@ -61387,6 +61388,7 @@ MonoBehaviour:
   damage: 10
   goldReward: 10
   hpBar: {fileID: 0}
+  deathDestroyDelay: 0
 --- !u!1 &902706332
 GameObject:
   m_ObjectHideFlags: 0
@@ -67901,8 +67903,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.9, y: 14.3}
-  m_SizeDelta: {x: 100, y: 50}
+  m_AnchoredPosition: {x: 4.0738, y: 12.4086}
+  m_SizeDelta: {x: 101.3044, y: 53.7827}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1593895123
 MonoBehaviour:
@@ -68470,12 +68472,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1593895122}
-  - {fileID: 291835952}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.35, y: 0.16}
+  m_AnchoredPosition: {x: 1.35, y: 3.16}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1757868551
@@ -69415,6 +69416,7 @@ MonoBehaviour:
   damage: 10
   goldReward: 10
   hpBar: {fileID: 0}
+  deathDestroyDelay: 0
 --- !u!114 &2000808603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69467,6 +69469,7 @@ MonoBehaviour:
   damage: 10
   goldReward: 10
   hpBar: {fileID: 0}
+  deathDestroyDelay: 0
 --- !u!1 &2035059801
 GameObject:
   m_ObjectHideFlags: 0
@@ -70254,3 +70257,5 @@ SceneRoots:
   - {fileID: 901442141}
   - {fileID: 2000808595}
   - {fileID: 882174937}
+  - {fileID: 210633308}
+  - {fileID: 1612594829}
