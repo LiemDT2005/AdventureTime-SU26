@@ -262,6 +262,7 @@ public class BatAI : MonoBehaviour
         if (isDead) return;
         StopAllCoroutines();
         isAttacking = false;
+        canAttack = true; // Tránh lỗi kẹt không tấn công nếu bị đánh ngắt coroutine
         isStunned = true;
         stunTimer = takeHitStunDuration;
         currentState = State.Patrol;

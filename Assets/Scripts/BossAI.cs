@@ -98,7 +98,8 @@ public class BossAI : MonoBehaviour
         float verticalDiff = GetFloorHeight(playerTransform) - GetFloorHeight(transform);
         bool sameHeight = Mathf.Abs(verticalDiff) <= sameHeightThreshold;
 
-        float dirToPlayer = playerTransform.position.x - transform.position.x;
+        Transform pivot = headCheckPoint != null ? headCheckPoint : transform;
+        float dirToPlayer = playerTransform.position.x - pivot.position.x;
         float absDist = Mathf.Abs(dirToPlayer);
 
         // Khi player áp sát (trong vùng chết), giữ nguyên hướng hiện tại, ưu tiên nhìn trái
@@ -284,7 +285,8 @@ public class BossAI : MonoBehaviour
     {
         if (isDead || source == null) return;
         
-        float dirToAttacker = source.transform.position.x - transform.position.x;
+        Transform pivot = headCheckPoint != null ? headCheckPoint : transform;
+        float dirToAttacker = source.transform.position.x - pivot.position.x;
         bool hitFromBehind = (facingDirection > 0 && dirToAttacker < 0) || (facingDirection < 0 && dirToAttacker > 0);
         
         if (hitFromBehind)
