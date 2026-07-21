@@ -37,7 +37,7 @@ public class PersistentUI : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             
             // Xóa ngay các Camera thừa trong scene này để tránh đè mất hình của scene chính (như Video Player ở MainMenu)
-            Camera[] cams = FindObjectsByType<Camera>(FindObjectsSortMode.None);
+            Camera[] cams = FindObjectsByType<Camera>(FindObjectsInactive.Exclude);
             foreach (Camera c in cams)
             {
                 if (c.gameObject.scene == originalScene)
@@ -80,12 +80,64 @@ public class PersistentUI : MonoBehaviour
             Time.timeScale = 1f;
             GameIsPaused = false;
         }
+
+        EnsureEventSystem();
+    }
+
+    private void EnsureEventSystem()
+    {
+        // 1. Tìm tất cả EventSystem trong game
+        UnityEngine.EventSystems.EventSystem[] existingES = FindObjectsByType<UnityEngine.EventSystems.EventSystem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        bool hasPersistentES = false;
+
+        foreach (var es in existingES)
+        {
+            if (es.transform.IsChildOf(this.transform))
+            {
+                hasPersistentES = true;
+                es.gameObject.SetActive(true);
+            }
+            else
+            {
+                // Tiêu diệt các EventSystem của scene mới tải lên để tránh xung đột
+                Destroy(es.gameObject);
+            }
+        }
+
+        // 2. Nếu chưa có cái nào là con của PersistentUI thì tạo mới
+        if (!hasPersistentES)
+        {
+            var eventSystem = new GameObject("EventSystem");
+            eventSystem.AddComponent<UnityEngine.EventSystems.EventSystem>();
+            eventSystem.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+            
+            // Ép EventSystem làm con của PersistentUI để nó sống xuyên suốt các scene (DontDestroyOnLoad).
+            eventSystem.transform.SetParent(this.transform);
+        }
+
+        // 3. Reset lại GraphicRaycaster để sửa lỗi UI không nhận diện chuột (không hiện hover)
+        UnityEngine.UI.GraphicRaycaster raycaster = GetComponent<UnityEngine.UI.GraphicRaycaster>();
+        if (raycaster != null)
+        {
+            raycaster.enabled = false;
+            raycaster.enabled = true;
+        }
+    }
+
+    public bool IsPopupActive()
+    {
+        if (gameOverPanel != null && gameOverPanel.activeSelf) return true;
+        if (victoryPopup != null && victoryPopup.gameObject.activeSelf) return true;
+        return false;
     }
 
     void Update()
     {
         // Chỉ cho phép ESC pause ở scene gameplay
         if (!IsGameplayScene()) return;
+
+        // Không cho phép pause bằng phím nếu đang hiện popup
+        if (IsPopupActive()) return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -98,9 +150,12 @@ public class PersistentUI : MonoBehaviour
 
     public void Pause()
     {
+        if (IsPopupActive()) return; // Không cho phép pause bằng nút nếu đang hiện popup
+
         if (pauseMenuPanel != null) pauseMenuPanel.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        ClearEventSystemSelection();
     }
 
     public void Resume()
@@ -108,6 +163,7 @@ public class PersistentUI : MonoBehaviour
         if (pauseMenuPanel != null) pauseMenuPanel.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        ClearEventSystemSelection();
     }
 
     public void RestartLevel()
@@ -157,6 +213,7 @@ public class PersistentUI : MonoBehaviour
     public void HideGameOver()
     {
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        ClearEventSystemSelection();
     }
 
     // ─── Victory ───────────────────────────────────────────────────────────────
@@ -189,6 +246,7 @@ public class PersistentUI : MonoBehaviour
     public void HideVictory()
     {
         if (victoryPopup != null) victoryPopup.Hide();
+        ClearEventSystemSelection();
     }
 
     // ─── Map Name ──────────────────────────────────────────────────────────────
@@ -219,5 +277,18 @@ public class PersistentUI : MonoBehaviour
         if (gameOverPanel  != null) gameOverPanel.SetActive(false);
         if (victoryPopup   != null) victoryPopup.Hide();
         GameIsPaused = false;
+        ClearEventSystemSelection();
+    }
+
+    /// <summary>
+    /// Xóa trạng thái đang được chọn (Selected) của EventSystem.
+    /// Giúp sửa lỗi nút bấm bị kẹt hiệu ứng Highlight sau khi đóng/mở popup.
+    /// </summary>
+    private void ClearEventSystemSelection()
+    {
+        if (UnityEngine.EventSystems.EventSystem.current != null)
+        {
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 }
