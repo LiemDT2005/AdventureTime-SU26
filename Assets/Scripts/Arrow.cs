@@ -72,7 +72,7 @@ public class Arrow : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("Hit PLAYER (Player health is disabled)");
+                other.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
                 Destroy(gameObject);
                 return;
             }

@@ -8,28 +8,51 @@ public class PlayerMap1Health : MonoBehaviour
     public float currentHP;
     public Image hpFill;
 
+    [Header("Hurt")]
+    [Tooltip("Thời gian bất tử ngắn sau mỗi lần dính đòn (tránh mất máu liên tục khi đứng trong slime/gai).")]
+    public float hitInvulnDuration = 0.4f;
+
     // Bất tử tạm thời (được PlayerController2D bật lên trong lúc Roll)
     public bool IsInvincible { get; set; } = false;
     public bool IsDead { get; private set; } = false;
 
     private Rigidbody2D rb;
     private Animator animator;
+    private float hitInvulnTimer;
 
     void Start()
     {
-        currentHP = maxHP;
+        // Đồng bộ với GameManager nếu đang dùng chung HP giữa các map
+        if (GameManager.instance != null && GameManager.instance.playerHP > 0)
+        {
+            currentHP = Mathf.Min(GameManager.instance.playerHP, maxHP);
+        }
+        else
+        {
+            currentHP = maxHP;
+        }
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        SyncGameManagerHP();
         UpdateHPBar();
+    }
+
+    void Update()
+    {
+        if (hitInvulnTimer > 0f)
+            hitInvulnTimer -= Time.deltaTime;
     }
 
     public void TakeDamage(float damage)
     {
-        if (IsDead || IsInvincible) return; // Đang lăn (bất tử) hoặc đã chết thì bỏ qua sát thương
+        if (IsDead || IsInvincible || hitInvulnTimer > 0f) return;
 
         currentHP -= damage;
         if (currentHP < 0) currentHP = 0;
 
+        hitInvulnTimer = hitInvulnDuration;
+        SyncGameManagerHP();
         UpdateHPBar();
 
         if (currentHP <= 0)
@@ -43,6 +66,10 @@ public class PlayerMap1Health : MonoBehaviour
     {
         if (IsDead) return;
         IsDead = true;
+
+        currentHP = 0;
+        SyncGameManagerHP();
+        UpdateHPBar();
 
         if (rb != null)
         {
@@ -60,6 +87,10 @@ public class PlayerMap1Health : MonoBehaviour
         {
             PersistentUI.Instance.ShowGameOver();
         }
+        else if (GameManager.instance != null)
+        {
+            GameManager.instance.GameOver();
+        }
         else
         {
             Debug.LogWarning("[PlayerMap1Health] PersistentUI.Instance là null! " +
@@ -71,7 +102,15 @@ public class PlayerMap1Health : MonoBehaviour
     {
         if (hpFill != null)
         {
-            hpFill.fillAmount = currentHP / maxHP;
+            hpFill.fillAmount = maxHP > 0f ? currentHP / maxHP : 0f;
+        }
+    }
+
+    void SyncGameManagerHP()
+    {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.playerHP = Mathf.RoundToInt(currentHP);
         }
     }
 }

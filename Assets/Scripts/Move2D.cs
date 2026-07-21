@@ -33,6 +33,7 @@ public class Move2D : MonoBehaviour
     private int jumpCount = 0;
     private bool isGrounded;
     private bool wasGrounded;
+    private PlayerMap1Health playerHealth;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class Move2D : MonoBehaviour
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         playerCollider = GetComponent<Collider2D>();
+        playerHealth = GetComponent<PlayerMap1Health>();
 
         if (rb != null)
         {
@@ -56,6 +58,12 @@ public class Move2D : MonoBehaviour
 
     void Update()
     {
+        if (playerHealth != null && playerHealth.IsDead)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
+
         wasGrounded = isGrounded;
 
         // 1️⃣ CHECK CHẠM ĐẤT — dùng groundLayer để tránh detect nhầm enemy/trigger
@@ -155,6 +163,12 @@ public class Move2D : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (playerHealth != null && playerHealth.IsDead)
+        {
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (rb != null)
         {
             float targetVelocityX = moveInput.x * moveSpeed;

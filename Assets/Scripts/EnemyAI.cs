@@ -523,7 +523,8 @@ public class EnemyAI : MonoBehaviour
         if (!collision.gameObject.CompareTag("Player")) return;
         if (Time.time >= damageTickTimer)
         {
-            collision.gameObject.SendMessage("takeDamage", stats.damage, SendMessageOptions.DontRequireReceiver);
+            // Must match PlayerMap1Health.TakeDamage / CharacterStats.TakeDamage (case-sensitive)
+            collision.gameObject.SendMessage("TakeDamage", stats.damage, SendMessageOptions.DontRequireReceiver);
             damageTickTimer = Time.time + (enemyType == EnemyType.Slime ? slimeDamageInterval : eagleDamageInterval);
             if (enemyType == EnemyType.Eagle && isDiving) StopDive();
         }
