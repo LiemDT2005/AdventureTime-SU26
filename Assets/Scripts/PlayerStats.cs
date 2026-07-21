@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour, IDamageable
 {
@@ -8,7 +9,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public float currentHealth;
 
     [Header("UI")]
-    public EnemyHPBar hpBar;
+    public Image hpFill;
 
     [Header("Invulnerability sau khi trúng đòn")]
     public float invulnerabilityDuration = 0.8f;
@@ -26,7 +27,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        if (hpBar != null) hpBar.UpdateHP(currentHealth, maxHealth);
+        UpdateHPBar();
     }
 
     void Update()
@@ -45,18 +46,36 @@ public class PlayerStats : MonoBehaviour, IDamageable
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        if (hpBar != null) hpBar.UpdateHP(currentHealth, maxHealth);
+        UpdateHPBar();
 
         if (currentHealth <= 0)
         {
             IsDead = true;
             OnDeath?.Invoke();
+
+            // Hiện màn hình Game Over
+            if (PersistentUI.Instance != null)
+            {
+                PersistentUI.Instance.ShowGameOver();
+            }
+            else
+            {
+                Debug.LogWarning("[PlayerStats] PersistentUI.Instance là null!");
+            }
         }
         else
         {
             isInvulnerable = true;
             invulnTimer = invulnerabilityDuration;
             OnHurt?.Invoke();
+        }
+    }
+
+    void UpdateHPBar()
+    {
+        if (hpFill != null)
+        {
+            hpFill.fillAmount = maxHealth > 0f ? currentHealth / maxHealth : 0f;
         }
     }
 }

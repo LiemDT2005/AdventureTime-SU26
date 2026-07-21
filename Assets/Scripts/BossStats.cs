@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossStats : MonoBehaviour, IDamageable
 {
     public float maxHealth = 300f;
     public float currentHealth;
-    public EnemyHPBar hpBar; // Tái sử dụng EnemyHPBar cho UI của Boss
+    public Image hpFill; // Tối ưu: Dùng thẳng Image thay vì EnemyHPBar
 
     [Header("Death")]
     public float deathDestroyDelay = 0f;
@@ -19,8 +20,7 @@ public class BossStats : MonoBehaviour, IDamageable
     void Start()
     {
         currentHealth = maxHealth;
-        if (hpBar != null)
-            hpBar.UpdateHP(currentHealth, maxHealth);
+        UpdateHPBar();
     }
 
     public void TakeDamage(float amount)
@@ -35,8 +35,7 @@ public class BossStats : MonoBehaviour, IDamageable
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         
-        if (hpBar != null)
-            hpBar.UpdateHP(currentHealth, maxHealth);
+        UpdateHPBar();
 
         if (currentHealth <= 0)
         {
@@ -62,6 +61,24 @@ public class BossStats : MonoBehaviour, IDamageable
         Collider2D col = GetComponent<Collider2D>();
         if (col != null) col.enabled = false;
 
+        // Hiện màn hình chiến thắng
+        if (PersistentUI.Instance != null)
+        {
+            PersistentUI.Instance.ShowVictory();
+        }
+        else
+        {
+            Debug.LogWarning("[BossStats] PersistentUI.Instance là null! Kiểm tra scene PersistentUI đã được load chưa.");
+        }
+
         Destroy(gameObject, deathDestroyDelay);
+    }
+
+    void UpdateHPBar()
+    {
+        if (hpFill != null)
+        {
+            hpFill.fillAmount = maxHealth > 0f ? currentHealth / maxHealth : 0f;
+        }
     }
 }
