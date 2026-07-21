@@ -4,68 +4,91 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyStats))]
 public class GoblinAI : MonoBehaviour
 {
-    [Header("Patrol")]
-    public float patrolRange = 4f;       // đi xa tối đa mỗi bên tính từ vị trí spawn
+    [Header("Patrol (Đi tuần tự động)")]
+    // Đi xa tối đa mỗi bên tính từ vị trí sinh ra (Spawn) ban đầu
+    public float patrolRange = 4f;       
+    // Tốc độ đi bộ lảng vảng
     public float patrolSpeed = 2f;
 
-    [Header("Detection (theo hướng nhìn)")]
-    public float detectionRange = 6f;     // chỉ phát hiện player nếu đang ở phía trước, trong tầm này
-    public float loseDetectionRange = 8f; // ra khỏi tầm này mới thôi đuổi (tránh giật cục ở biên)
+    [Header("Detection (Phát hiện Player)")]
+    // Tầm nhìn về phía trước mặt (Nằm trong tầm này sẽ bị rượt)
+    public float detectionRange = 6f;     
+    // Ra khỏi tầm này mới thôi đuổi (Tránh việc đi vào rìa rồi ra rìa liên tục làm quái bị giật cục)
+    public float loseDetectionRange = 8f; 
 
-    [Header("Chase")]
-    public float chaseSpeed = 3.5f;       // nhanh hơn patrolSpeed
+    [Header("Chase (Rượt đuổi)")]
+    // Tốc độ chạy nhanh hơn lúc đi tuần
+    public float chaseSpeed = 3.5f;       
 
-    [Header("Attack")]
-    public float attackRange = 2f;      // trong tầm này thì DỪNG lại, không áp sát thêm
+    [Header("Attack (Tấn công)")]
+    // Trong tầm này thì DỪNG lại, không lết tới gần thêm nữa
+    public float attackRange = 2f;      
+    // Thời gian nghỉ giữa 2 nhát chém
     public float attackCooldown = 1f;
+    // Sát thương của chiêu chém 1
     public float damageAttack1 = 8f;
+    // Sát thương của chiêu chém 2 (chém mạnh hơn)
     public float damageAttack2 = 12f;
+    // Thời gian giơ vũ khí lên trước khi chém thật (Chiêu 1)
     public float windupAttack1 = 0.2f;
+    // Tổng thời gian của Animation chiêu 1
     public float durationAttack1 = 0.4f;
+    // Thời gian giơ vũ khí lên (Chiêu 2)
     public float windupAttack2 = 0.25f;
+    // Tổng thời gian Animation chiêu 2
     public float durationAttack2 = 0.5f;
 
-    [Header("Take Hit")]
+    [Header("Take Hit (Trúng đòn)")]
+    // Bị choáng bao lâu khi bị Player đánh trúng
     public float takeHitStunDuration = 0.4f;
 
-    [Header("Hitbox")]
+    [Header("Hitbox (Vùng chém)")]
+    // Tọa độ tâm hộp chém (Kéo thả 1 cái object rỗng ở đầu kiếm vào đây)
     public Transform hitPoint;
+    // Kích thước dài x rộng của hộp chém
     public Vector2 hitBoxSize = new Vector2(1f, 1f);
-    public LayerMask targetLayer; // set layer Player
+    // Chọn layer Player để chỉ chém trúng Player, không chém trúng đồng đội
+    public LayerMask targetLayer; 
 
-    [Header("Height Check")]
-    public float maxDetectionHeight = 2f;   // phát hiện tối đa lệch 2 unit
-    public float maxAttackHeight = 0.8f;    // chỉ đánh nếu gần cùng độ cao
+    [Header("Height Check (Giới hạn chiều cao)")]
+    // Lệch cao quá (ví dụ Player nhảy lên cột) thì không tính là nhìn thấy
+    public float maxDetectionHeight = 2f;   
+    // Đứng trên bục thấp mới chém được, bục cao quá thì không vươn tay tới
+    public float maxAttackHeight = 0.8f;    
 
-    [Header("Wall Detection")]
+    [Header("Wall Detection (Dò tường)")]
+    // Điểm ngay trước mặt để dò tường (chạm tường thì quay đầu)
     public Transform wallCheckPoint;
-    public float wallCheckDistance = 1f;
-    public LayerMask wallLayer;
+    public float wallCheckDistance = 1f; // Dò xa bao nhiêu
+    public LayerMask wallLayer; // Layer bức tường
 
-    [Header("Edge / Ground Detection (chống rớt vực khi patrol)")]
-    public Transform edgeCheckPoint;   // đặt ở mép trước, dưới chân goblin
-    public float edgeCheckDistance = 1f;
-    public LayerMask groundLayer;      // set layer Ground
+    [Header("Edge / Ground Detection (Dò mép vực)")]
+    // Điểm dưới gót chân phía trước mặt. Dùng để dò mép vực chống rớt xuống hố
+    public Transform edgeCheckPoint;   
+    public float edgeCheckDistance = 1f; // Dò xuống sâu bao nhiêu
+    public LayerMask groundLayer;      // Layer sàn nhà
 
-    [Header("References")]
-    public Animator animator; // để trống nếu chưa có
+    [Header("References (Kéo thả)")]
+    public Animator animator; // Bộ điều khiển hình ảnh
 
-    private Rigidbody2D rb;
-    private EnemyStats stats;
-    private Transform playerTransform;
-    private Vector3 startPosition;
-    private float leftLimitX, rightLimitX;
-    private int facingDirection = 1;
+    // Biến nội bộ
+    private Rigidbody2D rb; // Xử lý vật lý di chuyển
+    private EnemyStats stats; // Xử lý máu
+    private Transform playerTransform; // Vị trí người chơi
+    private Vector3 startPosition; // Nơi bắt đầu sinh ra (Dùng để tính giới hạn đi tuần)
+    private float leftLimitX, rightLimitX; // Biên giới đi tuần trái và phải
+    private int facingDirection = 1; // 1 = nhìn phải, -1 = nhìn trái
 
+    // Các trạng thái của AI (Máy trạng thái - State Machine)
     private enum State { Patrol, Chase, Attack }
-    private State currentState = State.Patrol;
+    private State currentState = State.Patrol; // Mặc định là đi tuần
 
-    private bool isAttacking = false;
-    private bool isStunned = false;
-    private bool isDead = false;
-    private bool canAttack = true;
-    private float stunTimer;
-    private int comboStep = 0;
+    private bool isAttacking = false; // Đang chém (khóa luồng)
+    private bool isStunned = false; // Đang choáng
+    private bool isDead = false; // Đã chết
+    private bool canAttack = true; // Sẵn sàng chém
+    private float stunTimer; // Bộ đếm lùi thời gian choáng
+    private int comboStep = 0; // Để random chiêu 1 hay chiêu 2
 
     void Awake()
     {
@@ -73,6 +96,7 @@ public class GoblinAI : MonoBehaviour
         stats = GetComponent<EnemyStats>();
     }
 
+    // Đăng ký nghe ngóng sự kiện mất máu / chết
     void OnEnable()
     {
         stats.OnDamaged += HandleDamaged;
@@ -89,10 +113,11 @@ public class GoblinAI : MonoBehaviour
 
     void Start()
     {
-        startPosition = transform.position;
-        leftLimitX = startPosition.x - patrolRange;
-        rightLimitX = startPosition.x + patrolRange;
+        startPosition = transform.position; // Nhớ vị trí ban đầu
+        leftLimitX = startPosition.x - patrolRange; // Tính giới hạn mép trái
+        rightLimitX = startPosition.x + patrolRange; // Tính giới hạn mép phải
 
+        // Tự động tìm Player
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null) playerTransform = playerObj.transform;
     }
@@ -101,6 +126,7 @@ public class GoblinAI : MonoBehaviour
     {
         if (isDead || playerTransform == null) return;
 
+        // Nếu bị choáng, trừ lùi thời gian và giảm vận tốc trượt đi (0.8f) để bị đẩy lùi từ từ
         if (isStunned)
         {
             stunTimer -= Time.deltaTime;
@@ -109,10 +135,12 @@ public class GoblinAI : MonoBehaviour
             return;
         }
 
-        if (isAttacking) return;
+        if (isAttacking) return; // Đang chém thì không thèm suy nghĩ nữa
 
+        // Tính toán trạng thái tiếp theo (Tuần tra hay Đuổi)
         DecideState();
 
+        // Chạy hành động theo trạng thái tương ứng
         switch (currentState)
         {
             case State.Patrol: PatrolLogic(); break;
@@ -120,148 +148,119 @@ public class GoblinAI : MonoBehaviour
             case State.Attack: TryAttack(); break;
         }
 
-        UpdateAnimator();
+        UpdateAnimator(); // Kích hoạt animation chạy
     }
 
     // ================== STATE DECISION ==================
 
+    // Hàm quyết định xem AI nên ở trạng thái nào dựa trên vị trí của Player
     private void DecideState()
     {
-        float dirToPlayer = playerTransform.position.x - transform.position.x;
-
+        float dirToPlayer = playerTransform.position.x - transform.position.x; // Khoảng cách X
         float horizontalDist = Mathf.Abs(dirToPlayer);
-        float verticalDist =
-            Mathf.Abs(playerTransform.position.y - transform.position.y);
+        float verticalDist = Mathf.Abs(playerTransform.position.y - transform.position.y); // Khoảng cách Y
 
-        bool playerInFront =
-            (facingDirection > 0 && dirToPlayer > 0) ||
-            (facingDirection < 0 && dirToPlayer < 0);
+        // Kiểm tra xem người chơi có nằm trước mặt không
+        bool playerInFront = (facingDirection > 0 && dirToPlayer > 0) || (facingDirection < 0 && dirToPlayer < 0);
 
-        if (currentState == State.Patrol)
+        if (currentState == State.Patrol) // Nếu đang đi tuần
         {
-            // Chỉ phát hiện khi player ở phía trước mặt và trong tầm nhìn
-            if (playerInFront &&
-                horizontalDist <= detectionRange &&
-                verticalDist <= maxDetectionHeight)
+            // Chỉ phát hiện khi Player ở ĐẰNG TRƯỚC mặt, và NẰM TRONG TẦM NHÌN (Cả ngang lẫn dọc)
+            if (playerInFront && horizontalDist <= detectionRange && verticalDist <= maxDetectionHeight)
             {
-                currentState = State.Chase;
+                currentState = State.Chase; // Chuyển sang đuổi
             }
         }
-        else // đang Chase hoặc Attack
+        else // Đang đuổi (Chase) hoặc đang chém (Attack)
         {
-            if (horizontalDist > loseDetectionRange ||
-                verticalDist > maxDetectionHeight)
+            // Nếu Player chạy lố khỏi tầm cho phép (loseDetectionRange) -> Bỏ qua, về đi tuần lại
+            if (horizontalDist > loseDetectionRange || verticalDist > maxDetectionHeight)
             {
                 currentState = State.Patrol;
                 return;
             }
 
-            bool canAttack =
-            horizontalDist <= attackRange &&
-            verticalDist <= maxAttackHeight;
-
-            currentState = canAttack
-                ? State.Attack
-                : State.Chase;
+            // Còn trong tầm nhìn -> Xét xem đủ gần để chém chưa
+            bool canAttackCondition = horizontalDist <= attackRange && verticalDist <= maxAttackHeight;
+            currentState = canAttackCondition ? State.Attack : State.Chase;
         }
     }
 
-    // ================== PATROL ==================
+    // ================== PATROL (ĐI TUẦN) ==================
 
     private void PatrolLogic()
     {
-        // Kiểm tra mép vực trước khi tiếp tục đi tới
+        // Kiểm tra: Sắp rơi xuống vực hoặc Đụng tường -> Quay đầu lại
         if (IsAboutToFallOffEdge() || IsHittingWall())
         {
-            facingDirection *= -1;
+            facingDirection *= -1; // Quay đầu (đảo dấu)
         }
 
-        // Kiểm tra giới hạn patrol range
+        // Kiểm tra giới hạn đi tuần (không được đi quá xa khỏi chỗ spawn ban đầu)
         if ((facingDirection > 0 && transform.position.x >= rightLimitX) ||
             (facingDirection < 0 && transform.position.x <= leftLimitX))
         {
-            facingDirection *= -1;
+            facingDirection *= -1; // Quay đầu
         }
 
+        // Đi tà tà theo tốc độ patrolSpeed
         rb.linearVelocity = new Vector2(facingDirection * patrolSpeed, rb.linearVelocity.y);
         UpdateFacingVisual();
-        Debug.Log(IsAboutToFallOffEdge());
     }
 
+    // Bắn tia dò mặt đất ở phía trước mũi chân
     private bool IsAboutToFallOffEdge()
     {
         if (edgeCheckPoint == null) return false;
 
-        Debug.DrawRay(
-            edgeCheckPoint.position,
-            Vector2.down * edgeCheckDistance,
-            Color.yellow);
-
-        RaycastHit2D hit = Physics2D.Raycast(
-            edgeCheckPoint.position,
-            Vector2.down,
-            edgeCheckDistance,
-            groundLayer);
-
-        if (hit.collider != null)
-            Debug.Log("Hit: " + hit.collider.name);
-        else
-            Debug.Log("No Ground");
-
+        // Bắn tia Raycast cắm thẳng xuống đất (Vector2.down)
+        RaycastHit2D hit = Physics2D.Raycast(edgeCheckPoint.position, Vector2.down, edgeCheckDistance, groundLayer);
+        
+        // Nếu tia này BẮN HỤT (collider == null) nghĩa là ở dưới chân không có gạch -> Sắp lọt hố!
         return hit.collider == null;
     }
 
+    // Bắn tia dò mặt tường ở phía trước mặt
     private bool IsHittingWall()
     {
         if (wallCheckPoint == null) return false;
 
-        Vector2 direction = facingDirection > 0 ? Vector2.right : Vector2.left;
+        Vector2 direction = facingDirection > 0 ? Vector2.right : Vector2.left; // Nhìn theo chiều đang đi
+        RaycastHit2D hit = Physics2D.Raycast(wallCheckPoint.position, direction, wallCheckDistance, groundLayer);
 
-        Debug.DrawRay(
-            wallCheckPoint.position,
-            direction * wallCheckDistance,
-            Color.green);
-
-        RaycastHit2D hit = Physics2D.Raycast(
-            wallCheckPoint.position,
-            direction,
-            wallCheckDistance,
-            groundLayer);
-
-        Debug.Log(hit.collider);
-
+        // Chạm trúng cái gì đó (collider != null) -> Đụng tường!
         return hit.collider != null;
     }
 
-    // ================== CHASE ==================
+    // ================== CHASE (RƯỢT ĐUỔI) ==================
 
     private void ChaseLogic()
     {
         float dirToPlayer = playerTransform.position.x - transform.position.x;
-        facingDirection = dirToPlayer > 0 ? 1 : -1;
+        facingDirection = dirToPlayer > 0 ? 1 : -1; // Cập nhật hướng mặt dí theo Player
 
-        // Vẫn tôn trọng mép vực ngay cả khi đang đuổi, tránh lao xuống vực theo player
+        // Quan trọng: Vẫn phải kiểm tra vực! Mặc kệ Player đứng đâu, nếu mép vực thì tuyệt đối không rớt xuống đuổi theo.
         if (IsAboutToFallOffEdge())
         {
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y); // Dừng lại ở mép vực
         }
         else
         {
-            rb.linearVelocity = new Vector2(facingDirection * chaseSpeed, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(facingDirection * chaseSpeed, rb.linearVelocity.y); // Chạy dí theo
         }
 
         UpdateFacingVisual();
     }
 
-    // ================== ATTACK ==================
+    // ================== ATTACK (TẤN CÔNG) ==================
 
     private void TryAttack()
     {
-        // Dừng hẳn lại, không áp sát thêm
+        // Dừng xe, không áp sát thêm
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
 
         float dirToPlayer = playerTransform.position.x - transform.position.x;
-        facingDirection = dirToPlayer > 0 ? 1 : -1;
+        facingDirection = dirToPlayer > 0 ? 1 : -1; // Luôn quay mặt vào Player khi chém
         UpdateFacingVisual();
 
         if (canAttack)
@@ -272,60 +271,64 @@ public class GoblinAI : MonoBehaviour
 
     private void StartAttack()
     {
-        comboStep = Random.Range(0, 2) == 0 ? 1 : 2; // random 50/50 giữa Attack1 và Attack2
-        isAttacking = true;
-        canAttack = false;
-        rb.linearVelocity = Vector2.zero;
+        comboStep = Random.Range(0, 2) == 0 ? 1 : 2; // Tung đồng xu, 50% ra đòn số 1, 50% ra đòn số 2
+        isAttacking = true; // Khóa luồng
+        canAttack = false; // Bắt đầu tính hồi chiêu
+        rb.linearVelocity = Vector2.zero; 
         StartCoroutine(AttackRoutine(comboStep));
     }
 
     private System.Collections.IEnumerator AttackRoutine(int step)
     {
-        SetAnimatorTrigger(step == 1 ? "Attack1" : "Attack2");
+        SetAnimatorTrigger(step == 1 ? "Attack1" : "Attack2"); // Bật hình chém
 
         float windup = step == 1 ? windupAttack1 : windupAttack2;
         float duration = step == 1 ? durationAttack1 : durationAttack2;
 
-        yield return new WaitForSeconds(windup);
+        yield return new WaitForSeconds(windup); // Đợi lấy đà
 
-        if (!isDead) DoAttackHit(step);
+        if (!isDead) DoAttackHit(step); // Phán xét chém trúng hay trượt
 
         float remaining = duration - windup;
-        if (remaining > 0f) yield return new WaitForSeconds(remaining);
+        if (remaining > 0f) yield return new WaitForSeconds(remaining); // Đợi hình chém hoàn thành
 
-        isAttacking = false;
-        Invoke(nameof(ResetCooldown), attackCooldown);
+        isAttacking = false; // Xong, mở khóa
+        Invoke(nameof(ResetCooldown), attackCooldown); // Gài báo thức: sau N giây thì gọi hàm ResetCooldown
     }
 
     private void DoAttackHit(int step)
     {
         if (hitPoint == null) return;
+        
         Vector2 offset = hitPoint.localPosition;
         offset.x = facingDirection > 0 ? Mathf.Abs(offset.x) : -Mathf.Abs(offset.x);
         Vector2 boxCenter = (Vector2)transform.position + offset;
 
+        // Dùng đòn nào thì lấy lực sát thương của đòn đó
         float damage = step == 1 ? damageAttack1 : damageAttack2;
+        
+        // Vẽ hộp vô hình, tìm mọi thứ thuộc layer Player chạm vào hộp
         Collider2D[] hits = Physics2D.OverlapBoxAll(boxCenter, hitBoxSize, 0f, targetLayer);
         foreach (var col in hits)
         {
             IDamageable target = col.GetComponentInParent<IDamageable>();
             if (target != null && !target.IsDead)
-                target.TakeDamage(damage, gameObject);
+                target.TakeDamage(damage, gameObject); // Trừ máu nó!
         }
     }
 
-    private void ResetCooldown() => canAttack = true;
+    private void ResetCooldown() => canAttack = true; // Báo thức reng reng: Cho phép chém phát tiếp theo
 
-    // ================== HIT / DEATH ==================
+    // ================== HIT / DEATH (CHẾT CHÓC) ==================
 
     private void HandleDamaged()
     {
         if (isDead) return;
-        StopAllCoroutines();
+        StopAllCoroutines(); // Nếu đang giơ kiếm lên chuẩn bị chém mà bị ăn đòn -> Bị ngắt chiêu ngay lập tức (Cancel)
         isAttacking = false;
-        canAttack = true; // Tránh lỗi kẹt không tấn công nếu bị đánh ngắt coroutine
-        isStunned = true;
-        stunTimer = takeHitStunDuration;
+        canAttack = true; // Phải reset cái này, tránh lỗi Goblin bị ngắt chiêu xong đứng ngây người cả đời không đánh nữa
+        isStunned = true; // Bị choáng (sẽ bị đẩy lùi trong hàm Update)
+        stunTimer = takeHitStunDuration; 
         SetAnimatorTrigger("TakeHit");
     }
 
@@ -334,13 +337,15 @@ public class GoblinAI : MonoBehaviour
         if (isDead || source == null) return;
         
         float dirToAttacker = source.transform.position.x - transform.position.x;
+        
+        // Đánh giá xem có bị "đâm lén sau lưng" hay không
         bool hitFromBehind = (facingDirection > 0 && dirToAttacker < 0) || (facingDirection < 0 && dirToAttacker > 0);
         
         if (hitFromBehind)
         {
             facingDirection = dirToAttacker > 0 ? 1 : -1;
             UpdateFacingVisual();
-            currentState = State.Chase;
+            currentState = State.Chase; // Ăn đâm lén -> Quay mặt đuổi đánh ngay!
         }
     }
 
@@ -348,16 +353,18 @@ public class GoblinAI : MonoBehaviour
     {
         isDead = true;
         rb.linearVelocity = Vector2.zero;
-        SetAnimatorTrigger("Death");
+        SetAnimatorTrigger("Death"); // Tèo
     }
 
     // ================== HELPERS ==================
 
+    // Xoay trục hình ảnh X sang âm hoặc dương
     private void UpdateFacingVisual()
     {
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * facingDirection, transform.localScale.y, transform.localScale.z);
     }
 
+    // Truyền vận tốc cho cái Animator để nó biết lúc nào chuyển hình lết lết
     private void UpdateAnimator()
     {
         if (animator == null) return;
@@ -368,35 +375,5 @@ public class GoblinAI : MonoBehaviour
     {
         if (animator == null) return;
         animator.SetTrigger(name);
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        if (hitPoint != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(hitPoint.position, hitBoxSize);
-        }
-
-        if (edgeCheckPoint != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(edgeCheckPoint.position, edgeCheckPoint.position + Vector3.down * edgeCheckDistance);
-        }
-
-        if (wallCheckPoint != null)
-        {
-            Gizmos.color = Color.green;
-
-            Vector3 dir =
-                facingDirection > 0 ? Vector3.right : Vector3.left;
-
-            Gizmos.DrawLine(
-                wallCheckPoint.position,
-                wallCheckPoint.position + dir * wallCheckDistance);
-        }
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 }
