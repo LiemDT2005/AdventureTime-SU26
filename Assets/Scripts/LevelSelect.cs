@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelSelect : MonoBehaviour
@@ -13,6 +13,6 @@ public class LevelSelect : MonoBehaviour
             GameManager.instance.ClearData();
         }
 
-        SceneManager.LoadScene("Level" + levelIndex);
+        SceneManager.LoadScene("Map" + levelIndex);
     }
 }

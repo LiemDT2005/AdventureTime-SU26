@@ -32,14 +32,13 @@ public class Arrow : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(direction * speed, 0);
 
-        // Lưu scale gốc
         Vector3 originalScale = transform.localScale;
         if (rotate)
         {
             if (direction > 0)
-                transform.rotation = Quaternion.Euler(0, 0, 90);
+                transform.rotation = Quaternion.Euler(0, 0, -90); // Xoay ngang sang phải (nếu ảnh gốc hướng dọc lên trên)
             else
-                transform.rotation = Quaternion.Euler(0, 0, -90);
+                transform.rotation = Quaternion.Euler(0, 0, 90);  // Xoay ngang sang trái
         }
         else
         {
@@ -49,7 +48,6 @@ public class Arrow : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0, -180);
         }
 
-        // Gán lại scale để đảm bảo không bị đổi
         transform.localScale = originalScale;
     }
 
@@ -72,26 +70,18 @@ public class Arrow : MonoBehaviour
         // ===== PLAYER HIT =====
         if (fromEnemy)
         {
-            PlayerDamage player = other.GetComponent<PlayerDamage>();
-            if (player != null)
+            PlayerMap1Health pHealth = other.GetComponentInParent<PlayerMap1Health>();
+            if (pHealth != null || other.CompareTag("Player") || other.transform.root.CompareTag("Player"))
             {
-                Debug.Log("Hit PLAYER");
-                player.takeDamage((int)damage);
-                Destroy(gameObject);
-                return;
-            }
-        }
-
-        // ===== CHARACTER STATS =====
-        CharacterStats charStats = other.GetComponentInParent<CharacterStats>();
-        if (charStats != null)
-        {
-            Debug.Log("Found CharacterStats on: " + charStats.gameObject.name + " | isEnemy=" + charStats.isEnemy);
-
-            if (charStats.isEnemy)
-            {
-                Debug.Log(">>> DEAL DAMAGE TO BOSS: " + damage);
-                charStats.TakeDamage(damage);
+                if (pHealth != null)
+                {
+                    pHealth.TakeDamage(damage);
+                    Debug.Log("[Arrow] Gây sát thương lên Player HP: -" + damage);
+                }
+                else
+                {
+                    other.transform.root.gameObject.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+                }
                 Destroy(gameObject);
                 return;
             }

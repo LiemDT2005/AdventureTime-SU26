@@ -1,0 +1,2823 @@
+fileFormatVersion: 2
+guid: d56dfe60643e1e846b905975de6851f6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6322445444640975820
+    second: Enemy-Photoroom_0
+  - first:
+      213: 8978496395053968
+    second: Enemy-Photoroom_1
+  - first:
+      213: -3215724707771765687
+    second: Enemy-Photoroom_2
+  - first:
+      213: -3910317727197822519
+    second: Enemy-Photoroom_3
+  - first:
+      213: 3392368097859414975
+    second: Enemy-Photoroom_4
+  - first:
+      213: -2410798365101165512
+    second: Enemy-Photoroom_5
+  - first:
+      213: 3045284558174959637
+    second: Enemy-Photoroom_6
+  - first:
+      213: -8781363100896306394
+    second: Enemy-Photoroom_7
+  - first:
+      213: 8315867052388956851
+    second: Enemy-Photoroom_8
+  - first:
+      213: 2328123883751561247
+    second: Enemy-Photoroom_9
+  - first:
+      213: 1303765136464020023
+    second: Enemy-Photoroom_10
+  - first:
+      213: 4983966490585438970
+    second: Enemy-Photoroom_11
+  - first:
+      213: -5687115017648444257
+    second: Enemy-Photoroom_12
+  - first:
+      213: 5605834306449726234
+    second: Enemy-Photoroom_13
+  - first:
+      213: -8751862790450549745
+    second: Enemy-Photoroom_14
+  - first:
+      213: -4500671349297141565
+    second: Enemy-Photoroom_15
+  - first:
+      213: 931073609502695088
+    second: Enemy-Photoroom_16
+  - first:
+      213: -8533930488676684345
+    second: Enemy-Photoroom_17
+  - first:
+      213: -6663383660154719345
+    second: Enemy-Photoroom_18
+  - first:
+      213: 5355758701490916794
+    second: Enemy-Photoroom_19
+  - first:
+      213: -8489853379121948589
+    second: Enemy-Photoroom_20
+  - first:
+      213: 56082267930170603
+    second: Enemy-Photoroom_21
+  - first:
+      213: -4648508307466113058
+    second: Enemy-Photoroom_22
+  - first:
+      213: -8531599717677908988
+    second: Enemy-Photoroom_23
+  - first:
+      213: -7957956809334388246
+    second: Enemy-Photoroom_24
+  - first:
+      213: -1000073546174243508
+    second: Enemy-Photoroom_25
+  - first:
+      213: -3758792081102152854
+    second: Enemy-Photoroom_26
+  - first:
+      213: 6607117094211673410
+    second: Enemy-Photoroom_27
+  - first:
+      213: -4337587840711092164
+    second: Enemy-Photoroom_28
+  - first:
+      213: -7170211835915548743
+    second: Enemy-Photoroom_29
+  - first:
+      213: -1634860304213205445
+    second: Enemy-Photoroom_30
+  - first:
+      213: -1087127650819368109
+    second: Enemy-Photoroom_31
+  - first:
+      213: 7903412172968161940
+    second: Enemy-Photoroom_32
+  - first:
+      213: 3016702005047525092
+    second: Enemy-Photoroom_33
+  - first:
+      213: 5850532838673347244
+    second: Enemy-Photoroom_34
+  - first:
+      213: -9154968876497174764
+    second: Enemy-Photoroom_35
+  - first:
+      213: -6983174763092119080
+    second: Enemy-Photoroom_36
+  - first:
+      213: -6124569008411362854
+    second: Enemy-Photoroom_37
+  - first:
+      213: 7064066181699303536
+    second: Enemy-Photoroom_38
+  - first:
+      213: -8442946645312983990
+    second: Enemy-Photoroom_39
+  - first:
+      213: -4799525472267157843
+    second: Enemy-Photoroom_40
+  - first:
+      213: 4809616007898466796
+    second: Enemy-Photoroom_41
+  - first:
+      213: -5402183141370791348
+    second: Enemy-Photoroom_42
+  - first:
+      213: -1374498492101281065
+    second: Enemy-Photoroom_43
+  - first:
+      213: 6904267048225286239
+    second: Enemy-Photoroom_44
+  - first:
+      213: 3850246165333073797
+    second: Enemy-Photoroom_45
+  - first:
+      213: -8595828449940743616
+    second: Enemy-Photoroom_46
+  - first:
+      213: -5491233832874373045
+    second: Enemy-Photoroom_47
+  - first:
+      213: -7264382687510329485
+    second: Enemy-Photoroom_48
+  - first:
+      213: 6587814802337027997
+    second: Enemy-Photoroom_49
+  - first:
+      213: 4182894030736424823
+    second: Enemy-Photoroom_50
+  - first:
+      213: 5264976829324487157
+    second: Enemy-Photoroom_51
+  - first:
+      213: -3977621279507989151
+    second: Enemy-Photoroom_52
+  - first:
+      213: 7581976743252479384
+    second: Enemy-Photoroom_53
+  - first:
+      213: -469561274697536506
+    second: Enemy-Photoroom_54
+  - first:
+      213: -7368753913856013351
+    second: Enemy-Photoroom_55
+  - first:
+      213: 1451191767617180614
+    second: Enemy-Photoroom_56
+  - first:
+      213: 4981372505749323440
+    second: Enemy-Photoroom_57
+  - first:
+      213: -5616350386972551732
+    second: Enemy-Photoroom_58
+  - first:
+      213: -7517881298615808360
+    second: Enemy-Photoroom_59
+  - first:
+      213: -921262291041491191
+    second: Enemy-Photoroom_60
+  - first:
+      213: -2146605979032646047
+    second: Enemy-Photoroom_61
+  - first:
+      213: -8920581880465337767
+    second: Enemy-Photoroom_62
+  - first:
+      213: 2805365930919679549
+    second: Enemy-Photoroom_63
+  - first:
+      213: -4996057856333389482
+    second: Enemy-Photoroom_64
+  - first:
+      213: -3650165560739897568
+    second: Enemy-Photoroom_65
+  - first:
+      213: -2677743230608518945
+    second: Enemy-Photoroom_66
+  - first:
+      213: -7494780752532926658
+    second: Enemy-Photoroom_67
+  - first:
+      213: -4729836711841895052
+    second: Enemy-Photoroom_68
+  - first:
+      213: -1842225581739924417
+    second: Enemy-Photoroom_69
+  - first:
+      213: 5333549087064040836
+    second: Enemy-Photoroom_70
+  - first:
+      213: 8096582499355719538
+    second: Enemy-Photoroom_71
+  - first:
+      213: -3853678810780843820
+    second: Enemy-Photoroom_72
+  - first:
+      213: -3229164659138067286
+    second: Enemy-Photoroom_73
+  - first:
+      213: 8268641555710514439
+    second: Enemy-Photoroom_74
+  - first:
+      213: 7647335006534809196
+    second: Enemy-Photoroom_75
+  - first:
+      213: -6948716293063348753
+    second: Enemy-Photoroom_76
+  - first:
+      213: -3764053305628245290
+    second: Enemy-Photoroom_77
+  - first:
+      213: 8139127163518056210
+    second: Enemy-Photoroom_78
+  - first:
+      213: -6289681900984632770
+    second: Enemy-Photoroom_79
+  - first:
+      213: 2378399988677125746
+    second: Enemy-Photoroom_80
+  - first:
+      213: -3382422419437482005
+    second: Enemy-Photoroom_81
+  - first:
+      213: 227621849543608392
+    second: Enemy-Photoroom_82
+  - first:
+      213: -4179536674976105665
+    second: Enemy-Photoroom_83
+  - first:
+      213: -6784282582614037194
+    second: Enemy-Photoroom_84
+  - first:
+      213: -5099559203047312029
+    second: Enemy-Photoroom_85
+  - first:
+      213: -5463597051476795714
+    second: Enemy-Photoroom_86
+  - first:
+      213: -833896168242571738
+    second: Enemy-Photoroom_87
+  - first:
+      213: 6364370046656525400
+    second: Enemy-Photoroom_88
+  - first:
+      213: -2128434066728299740
+    second: Enemy-Photoroom_89
+  - first:
+      213: 3026416728053305453
+    second: Enemy-Photoroom_90
+  - first:
+      213: 6718912477283307010
+    second: Enemy-Photoroom_91
+  - first:
+      213: -7298218188758795458
+    second: Enemy-Photoroom_92
+  - first:
+      213: -5083105422883787478
+    second: Enemy-Photoroom_93
+  - first:
+      213: 4183399985405323661
+    second: Enemy-Photoroom_94
+  - first:
+      213: -1803411143171779883
+    second: Enemy-Photoroom_95
+  - first:
+      213: 236390838308836582
+    second: Enemy-Photoroom_96
+  - first:
+      213: 8390260168606225406
+    second: Enemy-Photoroom_97
+  - first:
+      213: -1969770051271555111
+    second: Enemy-Photoroom_98
+  - first:
+      213: 6915528888540252546
+    second: Enemy-Photoroom_99
+  - first:
+      213: 5732646521384602257
+    second: Enemy-Photoroom_100
+  - first:
+      213: 1230369342873529848
+    second: Enemy-Photoroom_101
+  - first:
+      213: 6592233486165964187
+    second: Enemy-Photoroom_102
+  - first:
+      213: 4673262539985643441
+    second: Enemy-Photoroom_103
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 30
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Enemy-Photoroom_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 217
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4345368ad592248a0800000000000000
+      internalID: -6322445444640975820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 215
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09b8e3815e5ef1000800000000000000
+      internalID: 8978496395053968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 217
+        width: 31
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94c21d97a637f53d0800000000000000
+      internalID: -3215724707771765687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_3
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 218
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c1067faeb2cbb9c0800000000000000
+      internalID: -3910317727197822519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_4
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 216
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbb274cbfcc141f20800000000000000
+      internalID: 3392368097859414975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_5
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 215
+        width: 32
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8347d0fe8af1b8ed0800000000000000
+      internalID: -2410798365101165512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_6
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 215
+        width: 31
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 518300acb26034a20800000000000000
+      internalID: 3045284558174959637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_7
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 218
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62b5a5f09c4522680800000000000000
+      internalID: -8781363100896306394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_8
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 215
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bab4095605e76370800000000000000
+      internalID: 8315867052388956851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_9
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 218
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f185d1c56582f4020800000000000000
+      internalID: 2328123883751561247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_10
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 190
+        width: 31
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7320a75eb77e71210800000000000000
+      internalID: 1303765136464020023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_11
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 218
+        width: 33
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afa9bc3fd1b9a2540800000000000000
+      internalID: 4983966490585438970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_12
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 192
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9c6648e50f4311b0800000000000000
+      internalID: -5687115017648444257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_13
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 190
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1b52a9c99cebcd40800000000000000
+      internalID: 5605834306449726234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_14
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 191
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0c6c3459232b8680800000000000000
+      internalID: -8751862790450549745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_15
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 190
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 364997fecae295e4cb6ef48b40340aca
+      internalID: -4500671349297141565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 190
+        width: 24
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f827b34078f760419bf7309a73c0538
+      internalID: 931073609502695088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_17
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 190
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3307cd1851be2c141bbfd0f19c8b539b
+      internalID: -8533930488676684345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_18
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 191
+        width: 25
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e47d30896f1749149810c78339101afa
+      internalID: -6663383660154719345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_19
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 190
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d0da80d3946cae47bba20796fd050b8
+      internalID: 5355758701490916794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_20
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 190
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11844a3d2bb4c474eb1e977da79b3c8e
+      internalID: -8489853379121948589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_21
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 190
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4433d3cec1de1fb4f83cf476ee656dc7
+      internalID: 56082267930170603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_22
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 192
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41df59b9e45da1742860c018f1a77a24
+      internalID: -4648508307466113058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_23
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 190
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4068b5a5a58f8f34eb712a36e5659198
+      internalID: -8531599717677908988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_24
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 163
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5a443dd75dcc944b91bf6dd6acda135
+      internalID: -7957956809334388246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_25
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 163
+        width: 22
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a3dffb676b0ad043961250e12b2af9e
+      internalID: -1000073546174243508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_26
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 163
+        width: 33
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c98713d9fdc6d647a94bfa2220b198b
+      internalID: -3758792081102152854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_27
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 163
+        width: 30
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31d87a5d0c02df24c9eb7a8017673bdd
+      internalID: 6607117094211673410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_28
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 163
+        width: 32
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ec587e4ea540cb4ca0219084d11cad8
+      internalID: -4337587840711092164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_29
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 163
+        width: 30
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e0375f9a3f660b49af68f9249702658
+      internalID: -7170211835915548743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_30
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 163
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf86ee5f50a8b7e458133d1064965132
+      internalID: -1634860304213205445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_31
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 163
+        width: 39
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d53bde9d8e8cac42a85d2fc90f330eb
+      internalID: -1087127650819368109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_32
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 177
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ede4cb93056f90f45b6a0ec4f23d00cf
+      internalID: 7903412172968161940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_33
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 164
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ecbe53c10ea88a4b9e1cdd0c650e7f6
+      internalID: 3016702005047525092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_34
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 164
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b393073d4584594fa6f107d4582fb68
+      internalID: 5850532838673347244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_35
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 164
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8d2fa565f31bf042ae2ad8a40a3250c
+      internalID: -9154968876497174764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_36
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 132
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a84b37745d68854eb85960773e6f0b0
+      internalID: -6983174763092119080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_37
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 134
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5723001f7b96b448bf8a68278f8c327
+      internalID: -6124569008411362854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_38
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 132
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6d7028d6bfd29c49b8033c314af8895
+      internalID: 7064066181699303536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_39
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 107
+        width: 29
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79dcd6667067abe4192b9d1c66183030
+      internalID: -8442946645312983990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_40
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 107
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce5c45df4232c584bb80da4c2c9298a6
+      internalID: -4799525472267157843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_41
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 132
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57c49dada8cee4b419fcf5482b7322c4
+      internalID: 4809616007898466796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_42
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 133
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe7b9957ca10a5d43a636f5b7e1d2cf6
+      internalID: -5402183141370791348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_43
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 134
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb95a86d43f12e14faa3ad7e54c89162
+      internalID: -1374498492101281065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_44
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 107
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf9ac7ac7a9e00846831a29a144c06f2
+      internalID: 6904267048225286239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_45
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 132
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4446e5265cb441419a4909aa497c2b4
+      internalID: 3850246165333073797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_46
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 132
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80323f19df158ad4e832c9baad9ac14d
+      internalID: -8595828449940743616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_47
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 134
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8342710a29afac04db7230ce278542de
+      internalID: -5491233832874373045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_48
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 132
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05681157ed6fa6f4d807598a9e7e17fc
+      internalID: -7264382687510329485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_49
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 107
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfdab06a96c8ed6498f7781f8e54993a
+      internalID: 6587814802337027997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_50
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 133
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a98ef1acaff1a144097e5240668a8e49
+      internalID: 4182894030736424823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_51
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 134
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2226bcbacf159f04798e32ee7f3349d2
+      internalID: 5264976829324487157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_52
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 107
+        width: 31
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df9059478ff222345a5bb0e1b3c08aec
+      internalID: -3977621279507989151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_53
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 107
+        width: 30
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6efa1302fc4340b41915b93c874528af
+      internalID: 7581976743252479384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_54
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 107
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 702db741347e9bb47b4e68cf99f51c89
+      internalID: -469561274697536506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_55
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 108
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d07a94d138eec8e4ba64ae112094e10e
+      internalID: -7368753913856013351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_56
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 107
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ece47ad748366184f9369a9d066674be
+      internalID: 1451191767617180614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_57
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 107
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e421c3de6217f3b489e4c9596a15e5e9
+      internalID: 4981372505749323440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_58
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 108
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 950e758bf6a728444a9ea0374ebd14a8
+      internalID: -5616350386972551732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_59
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 81
+        width: 32
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6c288c7523f18c4a8909cdc5eadddaa
+      internalID: -7517881298615808360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_60
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 81
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30a25f80b14e40c459355b4dd0062c31
+      internalID: -921262291041491191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_61
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 81
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66fe19a08e28d5f4ea7ba49cbe56bc3c
+      internalID: -2146605979032646047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_62
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 81
+        width: 43
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 590045e891ced7f4687ff086e657aa68
+      internalID: -8920581880465337767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_63
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 82
+        width: 30
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1381e664bc3423745bc5c8435246f0e5
+      internalID: 2805365930919679549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_64
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 81
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc91e507b37cb364385a1cb5f7ff4c63
+      internalID: -4996057856333389482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_65
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 82
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af7eb6c6771a59469f0e521c337cb58
+      internalID: -3650165560739897568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_66
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 81
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82d40a1076d840d4f98ff234821d671c
+      internalID: -2677743230608518945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_67
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 81
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61db877599102134c904ec012fccb493
+      internalID: -7494780752532926658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_68
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 81
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 064e49fa3230d0a47af298b303891811
+      internalID: -4729836711841895052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_69
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 82
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69888dfd42e97004b9db339899a5ddd1
+      internalID: -1842225581739924417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_70
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 52
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23ed73adc8fb9d6408f95549e1ed190f
+      internalID: 5333549087064040836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_71
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 52
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23bdc63e0559afe4496010b8d7929cdb
+      internalID: 8096582499355719538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_72
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 29
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a780e808efceef4597a7de5e3b82827
+      internalID: -3853678810780843820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_73
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 52
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c37f593aa67fbe345af80ee29898da92
+      internalID: -3229164659138067286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_74
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 52
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ae0194d61352ec48a82cfda7d7a6174
+      internalID: 8268641555710514439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_75
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 28
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a95c509bb2a55d40a4f536fe88fa89d
+      internalID: 7647335006534809196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_76
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 52
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c994641aaa7f3c4cafbb37b95ae879d
+      internalID: -6948716293063348753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_77
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 28
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0e8ce177bd795b4ba4cfe40acd00d55
+      internalID: -3764053305628245290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_78
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 52
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16101f86f8acd7941993b2a0a2f13b27
+      internalID: 8139127163518056210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_79
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 28
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9369fbb3cc8a002488cca42dacd1cc5c
+      internalID: -6289681900984632770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_80
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 52
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4de3f851d08eb7d41b79852afc81c66c
+      internalID: 2378399988677125746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_81
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 28
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e57a096e4ee664142bbf3c64e2a8abd9
+      internalID: -3382422419437482005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_82
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 52
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0c6d8c7c2cc499469f0babd972341ae
+      internalID: 227621849543608392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_83
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 28
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2066b17356f3eea44a75ede939d13572
+      internalID: -4179536674976105665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_84
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 28
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1743537ad7a419c4082e73bd3262b567
+      internalID: -6784282582614037194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_85
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 29
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b39a5dd9a2e1064f9979f47d1f75e6b
+      internalID: -5099559203047312029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_86
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 28
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64fbea738fbcbd24f817f246b701f4fb
+      internalID: -5463597051476795714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_87
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 28
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba7a91b7056a8aa43bcbd358bcee6661
+      internalID: -833896168242571738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_88
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 29
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2541612e0f8803942b6fc41b8ee5681c
+      internalID: 6364370046656525400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_89
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 29
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3b65c4ff7240c247a2f8cec86caba8c
+      internalID: -2128434066728299740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_90
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 29
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d429731362b2b64b814994d53208d11
+      internalID: 3026416728053305453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_91
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 5
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d07f213beb426f64f846cd7bcd945bf6
+      internalID: 6718912477283307010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_92
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 4
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41d70d68f8e737c41b93292624364fea
+      internalID: -7298218188758795458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_93
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 5
+        width: 32
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 463365a984f033444b48d036ae90168c
+      internalID: -5083105422883787478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_94
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 5
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b3ac58f7155a6d49b1ee2cbadab8a04
+      internalID: 4183399985405323661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_95
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 4
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e3d200c8343c654aa2b94f0b411c79d
+      internalID: -1803411143171779883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_96
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 4
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5561b167926f00f47b02281107682d2b
+      internalID: 236390838308836582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_97
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 5
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37ef8f7a81893004aa976bf78b176698
+      internalID: 8390260168606225406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_98
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 4
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38a55e1491c172441b6b833449fcb591
+      internalID: -1969770051271555111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_99
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 5
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccc71fb921addd0479f7b10853dc2e14
+      internalID: 6915528888540252546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_100
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 4
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea57cbbb0a0f50846aa07a5ae94722ed
+      internalID: 5732646521384602257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_101
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 5
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed97f2b3a1d57a3419dbb305b4522658
+      internalID: 1230369342873529848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_102
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 3
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69171e5ea3b051f47936695621b25aef
+      internalID: 6592233486165964187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy-Photoroom_103
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 4
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 418c36b5df454a74ab6267ebe0081688
+      internalID: 4673262539985643441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 8a54cf3161a869049b2f39d9867d54fa
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Enemy-Photoroom_0: -6322445444640975820
+      Enemy-Photoroom_1: 8978496395053968
+      Enemy-Photoroom_10: 1303765136464020023
+      Enemy-Photoroom_100: 5732646521384602257
+      Enemy-Photoroom_101: 1230369342873529848
+      Enemy-Photoroom_102: 6592233486165964187
+      Enemy-Photoroom_103: 4673262539985643441
+      Enemy-Photoroom_11: 4983966490585438970
+      Enemy-Photoroom_12: -5687115017648444257
+      Enemy-Photoroom_13: 5605834306449726234
+      Enemy-Photoroom_14: -8751862790450549745
+      Enemy-Photoroom_15: -4500671349297141565
+      Enemy-Photoroom_16: 931073609502695088
+      Enemy-Photoroom_17: -8533930488676684345
+      Enemy-Photoroom_18: -6663383660154719345
+      Enemy-Photoroom_19: 5355758701490916794
+      Enemy-Photoroom_2: -3215724707771765687
+      Enemy-Photoroom_20: -8489853379121948589
+      Enemy-Photoroom_21: 56082267930170603
+      Enemy-Photoroom_22: -4648508307466113058
+      Enemy-Photoroom_23: -8531599717677908988
+      Enemy-Photoroom_24: -7957956809334388246
+      Enemy-Photoroom_25: -1000073546174243508
+      Enemy-Photoroom_26: -3758792081102152854
+      Enemy-Photoroom_27: 6607117094211673410
+      Enemy-Photoroom_28: -4337587840711092164
+      Enemy-Photoroom_29: -7170211835915548743
+      Enemy-Photoroom_3: -3910317727197822519
+      Enemy-Photoroom_30: -1634860304213205445
+      Enemy-Photoroom_31: -1087127650819368109
+      Enemy-Photoroom_32: 7903412172968161940
+      Enemy-Photoroom_33: 3016702005047525092
+      Enemy-Photoroom_34: 5850532838673347244
+      Enemy-Photoroom_35: -9154968876497174764
+      Enemy-Photoroom_36: -6983174763092119080
+      Enemy-Photoroom_37: -6124569008411362854
+      Enemy-Photoroom_38: 7064066181699303536
+      Enemy-Photoroom_39: -8442946645312983990
+      Enemy-Photoroom_4: 3392368097859414975
+      Enemy-Photoroom_40: -4799525472267157843
+      Enemy-Photoroom_41: 4809616007898466796
+      Enemy-Photoroom_42: -5402183141370791348
+      Enemy-Photoroom_43: -1374498492101281065
+      Enemy-Photoroom_44: 6904267048225286239
+      Enemy-Photoroom_45: 3850246165333073797
+      Enemy-Photoroom_46: -8595828449940743616
+      Enemy-Photoroom_47: -5491233832874373045
+      Enemy-Photoroom_48: -7264382687510329485
+      Enemy-Photoroom_49: 6587814802337027997
+      Enemy-Photoroom_5: -2410798365101165512
+      Enemy-Photoroom_50: 4182894030736424823
+      Enemy-Photoroom_51: 5264976829324487157
+      Enemy-Photoroom_52: -3977621279507989151
+      Enemy-Photoroom_53: 7581976743252479384
+      Enemy-Photoroom_54: -469561274697536506
+      Enemy-Photoroom_55: -7368753913856013351
+      Enemy-Photoroom_56: 1451191767617180614
+      Enemy-Photoroom_57: 4981372505749323440
+      Enemy-Photoroom_58: -5616350386972551732
+      Enemy-Photoroom_59: -7517881298615808360
+      Enemy-Photoroom_6: 3045284558174959637
+      Enemy-Photoroom_60: -921262291041491191
+      Enemy-Photoroom_61: -2146605979032646047
+      Enemy-Photoroom_62: -8920581880465337767
+      Enemy-Photoroom_63: 2805365930919679549
+      Enemy-Photoroom_64: -4996057856333389482
+      Enemy-Photoroom_65: -3650165560739897568
+      Enemy-Photoroom_66: -2677743230608518945
+      Enemy-Photoroom_67: -7494780752532926658
+      Enemy-Photoroom_68: -4729836711841895052
+      Enemy-Photoroom_69: -1842225581739924417
+      Enemy-Photoroom_7: -8781363100896306394
+      Enemy-Photoroom_70: 5333549087064040836
+      Enemy-Photoroom_71: 8096582499355719538
+      Enemy-Photoroom_72: -3853678810780843820
+      Enemy-Photoroom_73: -3229164659138067286
+      Enemy-Photoroom_74: 8268641555710514439
+      Enemy-Photoroom_75: 7647335006534809196
+      Enemy-Photoroom_76: -6948716293063348753
+      Enemy-Photoroom_77: -3764053305628245290
+      Enemy-Photoroom_78: 8139127163518056210
+      Enemy-Photoroom_79: -6289681900984632770
+      Enemy-Photoroom_8: 8315867052388956851
+      Enemy-Photoroom_80: 2378399988677125746
+      Enemy-Photoroom_81: -3382422419437482005
+      Enemy-Photoroom_82: 227621849543608392
+      Enemy-Photoroom_83: -4179536674976105665
+      Enemy-Photoroom_84: -6784282582614037194
+      Enemy-Photoroom_85: -5099559203047312029
+      Enemy-Photoroom_86: -5463597051476795714
+      Enemy-Photoroom_87: -833896168242571738
+      Enemy-Photoroom_88: 6364370046656525400
+      Enemy-Photoroom_89: -2128434066728299740
+      Enemy-Photoroom_9: 2328123883751561247
+      Enemy-Photoroom_90: 3026416728053305453
+      Enemy-Photoroom_91: 6718912477283307010
+      Enemy-Photoroom_92: -7298218188758795458
+      Enemy-Photoroom_93: -5083105422883787478
+      Enemy-Photoroom_94: 4183399985405323661
+      Enemy-Photoroom_95: -1803411143171779883
+      Enemy-Photoroom_96: 236390838308836582
+      Enemy-Photoroom_97: 8390260168606225406
+      Enemy-Photoroom_98: -1969770051271555111
+      Enemy-Photoroom_99: 6915528888540252546
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

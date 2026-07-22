@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(EnemyStats))]
 public class EnemyAI : MonoBehaviour
 {
@@ -52,15 +51,37 @@ public class EnemyAI : MonoBehaviour
     [Header("Hurt / Knockback")]
     public float hurtKnockbackForce = 4f;
     public float hurtRecoveryTime = 0.6f;
+    [Tooltip("Small downward velocity while grounded to prevent snagging on tile seams")]
+    public float groundStickVelocity = 2f;
 
     [Header("References")]
-    public Animator animator;
     public Rigidbody2D rb;
+
+    [Header("Player Distance Stop Settings")]
+    public bool stopWhenPlayerNear = false;
+    public float stopDistance = 3f;
+
+    [Header("BE2 Visual")]
+    public Sprite[] be2IdleFrames;
+    public Sprite[] be2RunFrames;
+    public float be2FrameRate = 8f;
+
+    [Header("Visual Direction Settings")]
+    [Tooltip("Tick this if the default sprite faces left instead of right")]
+    public bool invertSpriteDirection = false;
 
     // Public so ground detector can read/write
     public bool isTooLow { get; set; } = false;
 
     private EnemyStats stats;
+    private SpriteRenderer spriteRenderer;
+
+    [Header("Enemy Alert SFX Settings")]
+    public AudioClip nearPlayerSFX;
+    public float nearSFXDistance = 6f;
+
+    private AudioSource enemyAudioSource;
+    private bool hasPlayedNearSFX = false;
 
     // Private
     private Vector3 startPosition;
@@ -79,6 +100,11 @@ public class EnemyAI : MonoBehaviour
     private float attackPhaseTimer;
     private bool inAttackPhase;
     private float damageTickTimer;
+    private bool usingBe2RunFrames;
+    private int be2FrameIndex;
+    private float be2FrameTimer;
+    private Vector2 desiredVelocity;
+    private bool hasDesiredVelocity;
 
     private enum AIState { Patrolling, Chasing, Attacking, Hurt, Recovering }
     private AIState currentState = AIState.Patrolling;
@@ -88,8 +114,37 @@ public class EnemyAI : MonoBehaviour
         stats = GetComponent<EnemyStats>();
         if (stats == null)
         {
-            Debug.LogError("EnemyStats missing on " + gameObject.name);
+            Debug.LogWarning("EnemyStats missing on " + gameObject.name);
             enabled = false;
+            return;
+        }
+
+        if (rb == null) rb = GetComponentInChildren<Rigidbody2D>();
+        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (enemyAudioSource == null) enemyAudioSource = GetComponentInChildren<AudioSource>();
+
+        if (rb == null)
+        {
+            Debug.LogWarning("Rigidbody2D missing on " + gameObject.name);
+            enabled = false;
+        }
+
+        if (spriteRenderer == null)
+        {
+            Debug.LogWarning("SpriteRenderer missing on " + gameObject.name);
+        }
+
+        if (rb != null)
+        {
+            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+            rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
+        }
+
+        Collider2D enemyCollider = GetComponent<Collider2D>();
+        if (enemyCollider is BoxCollider2D boxCollider && boxCollider.edgeRadius < 0.02f)
+        {
+            boxCollider.edgeRadius = 0.02f;
         }
     }
 
@@ -98,17 +153,38 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
+        if (!enabled) return;
+
         startPosition = transform.position;
         leftLimitX = startPosition.x - patrolRange;
         rightLimitX = startPosition.x + patrolRange;
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null) playerTransform = playerObj.transform;
+        if (playerObj != null)
+        {
+            playerTransform = playerObj.transform;
+        }
+        else
+        {
+            Debug.LogWarning("EnemyAI: Player object not found for " + gameObject.name);
+        }
 
-        if (rb == null) rb = GetComponent<Rigidbody2D>();
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-        if (animator == null) animator = GetComponent<Animator>();
+        // Cấu hình lượng máu theo số gậy đánh: Slime & Dino 2 gậy (100 HP) | Eagle 3 gậy (150 HP)
+        if (stats != null)
+        {
+            if (enemyType == EnemyType.Eagle)
+            {
+                stats.maxHealth = 150f;
+                stats.currentHealth = 150f;
+            }
+            else
+            {
+                stats.maxHealth = 100f;
+                stats.currentHealth = 100f;
+            }
+        }
 
         if (enemyType == EnemyType.Eagle)
             rb.gravityScale = 0f;
@@ -122,6 +198,55 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         if (playerTransform == null) return;
+
+        hasDesiredVelocity = false;
+
+        // Play SFX when player gets near
+        float currentDistance = Vector2.Distance(transform.position, playerTransform.position);
+        if (currentDistance <= nearSFXDistance)
+        {
+            if (!hasPlayedNearSFX)
+            {
+                if (enemyAudioSource != null && nearPlayerSFX != null)
+                {
+                    enemyAudioSource.PlayOneShot(nearPlayerSFX);
+                }
+                hasPlayedNearSFX = true;
+            }
+        }
+        else
+        {
+            hasPlayedNearSFX = false;
+        }
+
+        float distToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+        if (stopWhenPlayerNear && distToPlayer <= stopDistance)
+        {
+            float smoothY = rb.linearVelocity.y;
+            if (enemyType == EnemyType.Eagle)
+            {
+                smoothY = Mathf.Lerp(rb.linearVelocity.y, 0f, Time.deltaTime * 5f);
+            }
+
+            SetDesiredVelocity(new Vector2(0f, smoothY));
+
+            // Face the player
+            float dirToPlayer = playerTransform.position.x - transform.position.x;
+            float scaleMultiplier = invertSpriteDirection ? -1f : 1f;
+            if (dirToPlayer > 0.1f)
+            {
+                facingDirection = 1;
+                transform.localScale = new Vector3(scaleMultiplier * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            else if (dirToPlayer < -0.1f)
+            {
+                facingDirection = -1;
+                transform.localScale = new Vector3(-scaleMultiplier * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+
+            UpdateAnimations();
+            return;
+        }
 
         if (isHurt)
         {
@@ -138,8 +263,21 @@ public class EnemyAI : MonoBehaviour
         // State Machine Decider
         if (isRecovering)
         {
-            // Keep flying up until the ground detector confirms we are high enough
-            if (!isTooLow)
+            if (enemyType == EnemyType.Eagle)
+            {
+                // Chim Đại Bàng bay vọt thẳng lên độ cao ban đầu (startPosition.y)
+                if (transform.position.y >= startPosition.y - 0.5f)
+                {
+                    isRecovering = false;
+                    currentState = AIState.Patrolling;
+                    Invoke(nameof(ResetCooldown), attackCooldown);
+                }
+                else
+                {
+                    currentState = AIState.Recovering;
+                }
+            }
+            else if (!isTooLow)
             {
                 isRecovering = false;
                 currentState = AIState.Patrolling;
@@ -156,7 +294,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            float distToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+            distToPlayer = Vector2.Distance(transform.position, playerTransform.position);
             bool playerInDetection = distToPlayer <= detectionRange;
 
             currentState = AIState.Patrolling;
@@ -179,14 +317,43 @@ public class EnemyAI : MonoBehaviour
             case AIState.Recovering: RecoveryLogic(); break;
         }
 
-        // Only clamp X if we aren't recovering, or if we are just patrolling/chasing
+        UpdateAnimations();
+        FlipSprite();
+    }
+
+    private void FixedUpdate()
+    {
+        if (rb == null) return;
+
+        Vector2 velocity = hasDesiredVelocity ? desiredVelocity : rb.linearVelocity;
+        velocity = ApplyGroundStick(velocity);
+        rb.linearVelocity = velocity;
+
         if (!isRecovering && !isDiving)
         {
             ClampPosition();
         }
+    }
 
-        UpdateAnimations();
-        FlipSprite();
+    private Vector2 ApplyGroundStick(Vector2 velocity)
+    {
+        if (enemyType == EnemyType.Eagle || isHurt || isDiving || isRecovering || inAttackPhase)
+        {
+            return velocity;
+        }
+
+        if (velocity.y <= 0.05f)
+        {
+            velocity.y = -groundStickVelocity;
+        }
+
+        return velocity;
+    }
+
+    private void SetDesiredVelocity(Vector2 velocity)
+    {
+        desiredVelocity = velocity;
+        hasDesiredVelocity = true;
     }
 
     private void HandleHurtState()
@@ -198,13 +365,14 @@ public class EnemyAI : MonoBehaviour
             if (enemyType == EnemyType.Eagle) isRecovering = true;
             currentState = AIState.Patrolling;
         }
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x * 0.85f, rb.linearVelocity.y);
+        Vector2 hurtVelocity = new Vector2(rb.linearVelocity.x * 0.85f, rb.linearVelocity.y);
+        SetDesiredVelocity(hurtVelocity);
     }
 
     private void HandleAttackPhase()
     {
         attackPhaseTimer -= Time.deltaTime;
-        rb.linearVelocity = Vector2.zero;
+        SetDesiredVelocity(Vector2.zero);
         if (attackPhaseTimer <= 0f) inAttackPhase = false;
         UpdateAnimations();
         FlipSprite();
@@ -221,16 +389,17 @@ public class EnemyAI : MonoBehaviour
 
         if (isMoving)
         {
-            rb.linearVelocity = new Vector2(facingDirection * moveSpeed, rb.linearVelocity.y);
+            SetDesiredVelocity(new Vector2(facingDirection * moveSpeed, rb.linearVelocity.y));
             if ((facingDirection > 0 && transform.position.x >= rightLimitX - 0.1f) || (facingDirection < 0 && transform.position.x <= leftLimitX + 0.1f))
                 facingDirection *= -1;
         }
-        else rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        else SetDesiredVelocity(new Vector2(0f, rb.linearVelocity.y));
 
         if (enemyType == EnemyType.Eagle)
         {
-            float smoothY = Mathf.Lerp(rb.linearVelocity.y, 0f, Time.deltaTime * 5f);
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, smoothY);
+            float targetY = startPosition.y;
+            float smoothY = Mathf.Lerp(rb.linearVelocity.y, (targetY - transform.position.y) * 4f, Time.deltaTime * 5f);
+            SetDesiredVelocity(new Vector2(desiredVelocity.x, smoothY));
         }
     }
 
@@ -240,9 +409,9 @@ public class EnemyAI : MonoBehaviour
         {
             float xInput = Mathf.Sign(playerTransform.position.x - transform.position.x);
             float targetSpeed = xInput * chaseSpeed;
-            rb.linearVelocity = new Vector2(targetSpeed, rb.linearVelocity.y);
+            SetDesiredVelocity(new Vector2(targetSpeed, rb.linearVelocity.y));
         }
-        else rb.linearVelocity = new Vector2(facingDirection * chaseSpeed, rb.linearVelocity.y);
+        else SetDesiredVelocity(new Vector2(facingDirection * chaseSpeed, rb.linearVelocity.y));
     }
 
     private void AttackLogic()
@@ -252,17 +421,15 @@ public class EnemyAI : MonoBehaviour
             if (!isDiving)
             {
                 isDiving = true;
-                animator.SetTrigger("IsDiving");
                 Vector2 targetPos = playerTransform.position;
                 Vector2 toPlayer = (targetPos - (Vector2)transform.position).normalized;
                 float vertical = Mathf.Min(toPlayer.y, -diveDownwardBias);
                 lockedDiveDirection = new Vector2(toPlayer.x, vertical).normalized;
             }
-            rb.linearVelocity = lockedDiveDirection * diveSpeed;
+            SetDesiredVelocity(lockedDiveDirection * diveSpeed);
         }
         else if (enemyType == EnemyType.Dino)
         {
-            animator.SetTrigger("Attack");
             if (attackPhaseTimer <= 0f)
             {
                 ShootProjectile();
@@ -270,6 +437,33 @@ public class EnemyAI : MonoBehaviour
             attackPhaseTimer = dinoAttackStopDuration;
             inAttackPhase = true;
             canAttack = false;
+
+            Animator anim = GetComponentInChildren<Animator>();
+            if (anim != null)
+            {
+                anim.SetTrigger("Attack");
+            }
+
+            Invoke(nameof(ResetCooldown), attackCooldown);
+        }
+        else if (enemyType == EnemyType.Slime)
+        {
+            attackPhaseTimer = slimeAttackStopDuration;
+            inAttackPhase = true;
+            canAttack = false;
+
+            Animator anim = GetComponentInChildren<Animator>();
+            if (anim != null)
+            {
+                anim.SetTrigger("Attack");
+            }
+
+            if (playerTransform != null && rb != null)
+            {
+                float dirX = Mathf.Sign(playerTransform.position.x - transform.position.x);
+                rb.linearVelocity = new Vector2(dirX * (chaseSpeed * 1.2f), rb.linearVelocity.y);
+            }
+
             Invoke(nameof(ResetCooldown), attackCooldown);
         }
     }
@@ -291,8 +485,14 @@ public class EnemyAI : MonoBehaviour
 
     private void RecoveryLogic()
     {
-        // Forcefully set velocity to ensure upward movement
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x * 0.5f, recoveryFlyUpSpeed);
+        if (enemyType == EnemyType.Eagle)
+        {
+            SetDesiredVelocity(new Vector2(facingDirection * moveSpeed, recoveryFlyUpSpeed * 1.5f));
+        }
+        else
+        {
+            SetDesiredVelocity(new Vector2(rb.linearVelocity.x * 0.5f, recoveryFlyUpSpeed));
+        }
     }
 
     public void StopDive()
@@ -303,7 +503,7 @@ public class EnemyAI : MonoBehaviour
         currentState = AIState.Recovering;
         canAttack = false;
         // Immediate velocity burst to break ground contact
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x * 0.2f, recoveryFlyUpSpeed);
+        SetDesiredVelocity(new Vector2(rb.linearVelocity.x * 0.2f, recoveryFlyUpSpeed));
     }
 
     private void ClampPosition()
@@ -311,8 +511,8 @@ public class EnemyAI : MonoBehaviour
         float clampedX = Mathf.Clamp(transform.position.x, leftLimitX, rightLimitX);
         if (clampedX != transform.position.x)
         {
-            transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            rb.position = new Vector2(clampedX, rb.position.y);
+            SetDesiredVelocity(new Vector2(0f, rb.linearVelocity.y));
         }
     }
 
@@ -320,24 +520,68 @@ public class EnemyAI : MonoBehaviour
 
     private void UpdateAnimations()
     {
+        Animator anim = GetComponentInChildren<Animator>();
         float absSpeed = Mathf.Abs(rb.linearVelocity.x);
-        animator.SetFloat("Speed", absSpeed);
-        if (enemyType == EnemyType.Eagle) animator.SetBool("IsDiving", isDiving);
+
+        if (anim != null && anim.runtimeAnimatorController != null)
+        {
+            // Nếu quái sử dụng Animator Controller (như Dino) -> cập nhật tham số Speed
+            if (!inAttackPhase)
+            {
+                anim.SetFloat("Speed", absSpeed);
+            }
+            return;
+        }
+
+        bool shouldRun = absSpeed > 0.1f || isDiving;
+        Sprite[] frames = shouldRun && be2RunFrames != null && be2RunFrames.Length > 0
+            ? be2RunFrames
+            : be2IdleFrames;
+
+        if (frames == null || frames.Length == 0)
+        {
+            return;
+        }
+
+        bool modeChanged = usingBe2RunFrames != shouldRun;
+        if (modeChanged)
+        {
+            usingBe2RunFrames = shouldRun;
+            be2FrameIndex = 0;
+            be2FrameTimer = 0f;
+            spriteRenderer.sprite = frames[0];
+        }
+
+        if (be2FrameRate <= 0f)
+        {
+            spriteRenderer.sprite = frames[0];
+            return;
+        }
+
+        be2FrameTimer += Time.deltaTime;
+        float frameInterval = 1f / be2FrameRate;
+        while (be2FrameTimer >= frameInterval)
+        {
+            be2FrameTimer -= frameInterval;
+            be2FrameIndex = (be2FrameIndex + 1) % frames.Length;
+            spriteRenderer.sprite = frames[be2FrameIndex];
+        }
     }
 
     private void FlipSprite()
     {
         if (!isDiving)
         {
+            float scaleMultiplier = invertSpriteDirection ? -1f : 1f;
             if (rb.linearVelocity.x > 0.2f)
             {
                 facingDirection = 1;
-                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                transform.localScale = new Vector3(scaleMultiplier * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if (rb.linearVelocity.x < -0.2f)
             {
                 facingDirection = -1;
-                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                transform.localScale = new Vector3(-scaleMultiplier * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
     }
@@ -345,32 +589,99 @@ public class EnemyAI : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (enemyType == EnemyType.Eagle && isDiving) StopDive();
+
+        PlayerMap1Health pHealth = collision.gameObject.GetComponentInParent<PlayerMap1Health>();
+        if (pHealth != null || collision.gameObject.CompareTag("Player") || collision.gameObject.transform.root.CompareTag("Player"))
+        {
+            if (Time.time >= damageTickTimer)
+            {
+                DealDamageToPlayer(collision.gameObject);
+                damageTickTimer = Time.time + (enemyType == EnemyType.Slime ? slimeDamageInterval : eagleDamageInterval);
+            }
+        }
+    }
+
+    private void DealDamageToPlayer(GameObject playerObj)
+    {
+        if (stats == null || playerObj == null) return;
+
+        PlayerMap1Health pHealth = playerObj.GetComponentInParent<PlayerMap1Health>();
+        if (pHealth != null)
+        {
+            pHealth.TakeDamage(stats.damage);
+            Debug.Log("[EnemyAI] Gây sát thương lên Player HP: -" + stats.damage);
+        }
+        else
+        {
+            playerObj.transform.root.gameObject.SendMessage("TakeDamage", stats.damage, SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player")) return;
-        if (Time.time >= damageTickTimer)
+        PlayerMap1Health pHealth = collision.gameObject.GetComponentInParent<PlayerMap1Health>();
+        if (pHealth != null || collision.gameObject.CompareTag("Player") || collision.gameObject.transform.root.CompareTag("Player"))
         {
-            collision.gameObject.SendMessage("takeDamage", stats.damage, SendMessageOptions.DontRequireReceiver);
-            damageTickTimer = Time.time + (enemyType == EnemyType.Slime ? slimeDamageInterval : eagleDamageInterval);
-            if (enemyType == EnemyType.Eagle && isDiving) StopDive();
+            if (Time.time >= damageTickTimer)
+            {
+                DealDamageToPlayer(collision.gameObject);
+                damageTickTimer = Time.time + (enemyType == EnemyType.Slime ? slimeDamageInterval : eagleDamageInterval);
+                if (enemyType == EnemyType.Eagle && isDiving) StopDive();
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        PlayerMap1Health pHealth = other.gameObject.GetComponentInParent<PlayerMap1Health>();
+        if (pHealth != null || other.CompareTag("Player") || other.transform.root.CompareTag("Player"))
+        {
+            if (Time.time >= damageTickTimer)
+            {
+                DealDamageToPlayer(other.gameObject);
+                damageTickTimer = Time.time + (enemyType == EnemyType.Slime ? slimeDamageInterval : eagleDamageInterval);
+                if (enemyType == EnemyType.Eagle && isDiving) StopDive();
+            }
         }
     }
 
     public void TakeHit(float damageAmount, Vector2? knockbackFrom = null)
     {
+        // Khóa cooldown 0.35s trên mỗi quái để 1 lần vung gậy CHỈ TÍNH ĐÚNG 1 ĐÒN TRÚNG (không bị dồn 1 gậy chết luôn)
         if (isHurt) return;
-        stats.TakeDamage(damageAmount);
+
+        if (stats != null)
+        {
+            stats.TakeDamage(damageAmount);
+            Debug.Log($"[EnemyAI] {gameObject.name} trúng đòn! Máu còn lại: {stats.currentHealth}/{stats.maxHealth}");
+        }
+
         isHurt = true;
-        hurtTimer = hurtRecoveryTime;
-        animator.SetTrigger("Hurt");
+        hurtTimer = 0.35f; // Khóa 0.35s
         currentState = AIState.Hurt;
         isDiving = false;
+
+        StartCoroutine(DamageFlashRoutine());
+
         if (knockbackFrom.HasValue && rb != null)
         {
             Vector2 dir = ((Vector2)transform.position - knockbackFrom.Value).normalized;
             rb.linearVelocity = dir * hurtKnockbackForce;
+            SetDesiredVelocity(rb.linearVelocity);
+        }
+    }
+
+    private System.Collections.IEnumerator DamageFlashRoutine()
+    {
+        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+        foreach (var r in renderers)
+        {
+            if (r != null) r.color = Color.red;
+        }
+        yield return new WaitForSeconds(0.2f);
+        foreach (var r in renderers)
+        {
+            if (r != null) r.color = Color.white;
         }
     }
 }

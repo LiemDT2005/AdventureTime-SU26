@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -60.48, y: 8.83, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.15, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8197196751312971001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37fd1f6a80f67874a9a4a7c46ae03103, type: 3}
+  m_Script: {fileID: 11500000, guid: 015673b2a1e1c684db070192b5fd5b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Arrow
   speed: 15

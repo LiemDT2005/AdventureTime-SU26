@@ -1,8 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class PlayerData
@@ -21,22 +20,46 @@ public class GameManager : MonoBehaviour
     public int playerAttack = 10;
     public int gold = 0;
 
-    [Header("UI References")]
-    public GameObject endGamePanel;
+    [Header("Map Name")]
+    public string currentMapName = "Map 1";
 
     private bool isGameOver = false;
+    private bool isVictory  = false;
     private Dictionary<string, PlayerData> sceneData = new Dictionary<string, PlayerData>();
 
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            
+            // Tự động load PersistentUI nếu chưa có (để hỗ trợ test map lẻ trực tiếp)
+            if (PersistentUI.Instance == null)
+            {
+                bool isLoaded = false;
+                for (int i = 0; i < SceneManager.sceneCount; i++)
+                {
+                    if (SceneManager.GetSceneAt(i).name == "PersistentUI")
+                    {
+                        isLoaded = true; break;
+                    }
+                }
+                if (!isLoaded)
+                {
+                    SceneManager.LoadScene("PersistentUI", LoadSceneMode.Additive);
+                }
+            }
         }
         else
         {
-            Destroy(gameObject);
+            if (instance != this)
+            {
+                // Cập nhật tên map từ GameManager của scene mới sang singleton instance
+                instance.currentMapName = this.currentMapName;
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -46,9 +69,9 @@ public class GameManager : MonoBehaviour
         string scene = SceneManager.GetActiveScene().name;
         sceneData[scene] = new PlayerData()
         {
-            hp = playerHP,
+            hp     = playerHP,
             attack = playerAttack,
-            gold = gold
+            gold   = gold
         };
         Debug.Log("Saved: " + scene);
     }
@@ -56,10 +79,11 @@ public class GameManager : MonoBehaviour
     // 👉 RESET
     public void ResetPlayer()
     {
-        playerHP = 100;
+        playerHP     = 100;
         playerAttack = 10;
-        gold = 0;
-        isGameOver = false;
+        gold         = 0;
+        isGameOver   = false;
+        isVictory    = false;
         Debug.Log("Player stats reset to default");
     }
 
@@ -88,10 +112,10 @@ public class GameManager : MonoBehaviour
         // Load specific scene data
         if (sceneData.ContainsKey(scene))
         {
-            var data = sceneData[scene];
-            playerHP = data.hp;
+            var data     = sceneData[scene];
+            playerHP     = data.hp;
             playerAttack = data.attack;
-            gold = data.gold;
+            gold         = data.gold;
             Debug.Log("Loaded: " + scene);
         }
         else
@@ -111,111 +135,114 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddGold(int goldReward)
+    {
+        gold += goldReward;
+    }
+
+    // ─── Game Over ────────────────────────────────────────────────────────────
+
     public void GameOver()
     {
         if (isGameOver) return;
-
         isGameOver = true;
-        Time.timeScale = 0f;
 
-        // Find panel if missing
-        if (endGamePanel == null) endGamePanel = GameObject.Find("EndGamePanel");
-
-        if (endGamePanel != null)
+        if (PersistentUI.Instance != null)
         {
-            endGamePanel.SetActive(true);
-            // We call BindButton AFTER setting the panel active so GameObject.Find can see the button
-            BindButton();
+            PersistentUI.Instance.ShowGameOver();
         }
         else
         {
-            Debug.LogError("GameOver called but EndGamePanel not found!");
+            Debug.LogWarning("[GameManager] GameOver() gọi nhưng PersistentUI.Instance là null!");
         }
     }
+
+    // ─── Victory ─────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Gọi hàm này khi người chơi thắng map (chạm cờ đích, giết quái cuối, v.v.)
+    /// </summary>
+    public void Victory()
+    {
+        Debug.Log("[GameManager] Victory() được gọi!");
+        if (isVictory) 
+        {
+            Debug.Log("[GameManager] isVictory đã true, bỏ qua.");
+            return;
+        }
+        isVictory = true;
+
+        if (PersistentUI.Instance != null)
+        {
+            Debug.Log("[GameManager] Đang gọi PersistentUI.Instance.ShowVictory()");
+            // ShowVictory() không tham số: PersistentUI tự tính thời gian từ lúc load scene
+            PersistentUI.Instance.ShowVictory();
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager] Victory() gọi nhưng PersistentUI.Instance là null!");
+        }
+    }
+
+    // ─── TryAgain / Restart ──────────────────────────────────────────────────
 
     public void TryAgain()
     {
-        Debug.Log("TryAgain clicked logic starting.");
+        Debug.Log("TryAgain clicked.");
         Time.timeScale = 1f;
         isGameOver = false;
+        isVictory  = false;
 
-        // When retrying, we reset to the default stats
         ResetPlayer();
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private void BindButton()
-    {
-        // Strategy 1: Find by name (works if active)
-        GameObject btnObj = GameObject.Find("TryAgainButton");
+    // ─── Scene lifecycle ─────────────────────────────────────────────────────
 
-        // Strategy 2: If Strategy 1 fails, look inside the EndGamePanel specifically
-        if (btnObj == null && endGamePanel != null)
-        {
-            Button b = endGamePanel.GetComponentInChildren<Button>(true);
-            if (b != null && b.gameObject.name == "TryAgainButton")
-            {
-                btnObj = b.gameObject;
-            }
-        }
-
-        if (btnObj != null)
-        {
-            Button btn = btnObj.GetComponent<Button>();
-            if (btn != null)
-            {
-                btn.onClick.RemoveAllListeners();
-                btn.onClick.AddListener(TryAgain);
-                Debug.Log("TryAgainButton listener bound successfully.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("TryAgainButton still not found in scene. Check object name in Hierarchy.");
-        }
-    }
-
-    void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
+    void OnEnable()  { SceneManager.sceneLoaded += OnSceneLoaded; }
     void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Stop any existing UI reset routines to avoid conflicts
         StopAllCoroutines();
-        // Start a fresh reset routine
         StartCoroutine(ResetSceneRoutine());
     }
 
     private IEnumerator ResetSceneRoutine()
     {
-        // Wait one frame to ensure objects are initialized in the hierarchy
-        yield return null;
+        // Chờ tối đa 60 frames để PersistentUI được load xong (nếu load additive)
+        int waitCount = 0;
+        while (PersistentUI.Instance == null && waitCount < 60)
+        {
+            yield return null;
+            waitCount++;
+        }
 
         Time.timeScale = 1f;
         isGameOver = false;
+        isVictory  = false;
 
-        endGamePanel = GameObject.Find("EndGamePanel");
-        if (endGamePanel != null)
+        string activeScene = SceneManager.GetActiveScene().name;
+
+        if (activeScene == "Map3")
         {
-            endGamePanel.SetActive(false);
+            currentMapName = "Stone age world";
+        }
+        else if (activeScene == "Map1")
+        {
+            currentMapName = "Forest map";
         }
 
-        BindButton();
+        // Hiện tên map qua PersistentUI (ẩn đi nếu đang ở Menu)
+        if (PersistentUI.Instance != null && activeScene != "MainMenu" && activeScene != "MapSelect")
+        {
+            PersistentUI.Instance.ShowMapName(currentMapName);
+        }
 
-        // 1. Load data for the current scene first
+        // Bắt đầu tính giờ (PersistentUI cũng tự reset qua OnSceneLoaded của nó,
+        // nhưng gọi thêm ở đây để đảm bảo thứ tự nếu cần)
+
+        // Load data cho scene hiện tại
         LoadData();
-
-        // 2. Find the player and force a reset/sync
-        CharacterStats[] allStats = Resources.FindObjectsOfTypeAll<CharacterStats>();
-        foreach (var stat in allStats)
-        {
-            if (!stat.isEnemy)
-            {
-                stat.gameObject.SetActive(true);
-                stat.ResetStats();
-                Debug.Log("Player found and reset during scene load.");
-            }
-        }
     }
 }

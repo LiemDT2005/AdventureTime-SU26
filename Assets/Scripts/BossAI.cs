@@ -1,216 +1,327 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class BossAI : MonoBehaviour
 {
-    public Transform player;
+    [Header("Detection")]
+    public bool defaultFacingLeft = true; // Tích vào nếu hình ảnh gốc của Boss đang quay mặt sang trái
+    public float sameHeightThreshold = 1f; // lệch Y trong khoảng này coi là "cùng độ cao"
+    public float activationRange = 15f;    // tầm phát hiện player trong vùng boss
 
-    public float moveSpeed = 2f;
-    public float attackRange = 6f;
+    [Header("Melee (cùng độ cao)")]
+    public float meleeRange = 2f;          // trong tầm này thì dừng lại chém
+    public float chaseSpeed = 3f;
+    public float meleeDamage = 20f;
+    public float meleeWindup = 0.3f;
+    public float meleeDuration = 0.6f;
+    public Transform meleeHitPoint;
+    public Vector2 meleeHitBoxSize = new Vector2(2f, 1.5f);
+    public LayerMask targetLayer; // layer Player
 
-    public GameObject arrowPrefab;
-    public Transform firePoint;
-    public float fireCooldown = 2f;
-    private float fireTimer;
+    [Header("Ranged Skill (khác độ cao / bị vật cản chắn)")]
+    public GameObject handSpellPrefab;
+    public float castDuration = 0.8f;      // thời gian đứng yên "triệu hồi" trước khi chốt vị trí
+    public float spellTelegraphDelay = 1f; // bàn tay hiện ra bao lâu trước khi thật sự đánh xuống
+    public float spellDamage = 15f;
+    public Vector2 spellHitBoxSize = new Vector2(1.5f, 1.5f);
+    public float handSpawnHeightOffset = 1.5f;
 
-    public LayerMask visionMask;
-    public float statVisionRange = 100f;
+    [Header("Obstacle Check (chắn đường cùng độ cao)")]
+    public Transform headCheckPoint;       // đặt ngang đầu boss
+    public float headCheckDistance = 3f;
+    public LayerMask obstacleLayer;
 
-    public GameObject electricZone;
-    public float electricCooldown = 2f;
-    private float electricTimer;
+    [Header("Cooldown")]
+    public float attackCooldown = 1.5f;
+
+    [Header("References")]
+    public Animator animator;
+    public SpriteRenderer spriteRenderer; // Kéo SpriteRenderer của Boss vào đây
 
     private Rigidbody2D rb;
-    private SpriteRenderer sr;
-    private Animator anim;
+    private BossStats stats;
+    private Transform playerTransform;
+    private int facingDirection = -1; // mặc định nhìn trái (hướng player vào)
 
-    private CharacterStats playerStats;
-    private CharacterStats bossStats;
+    private bool isBusy = false;   // đang trong 1 coroutine tấn công, không làm gì khác
+    private bool canAttack = true;
 
-    private float attackDamage = 15f;
-    private bool statsScaled = false;
+    public bool isFighting = false; // BossRoomSequenceManager set true khi bắt đầu combat
     private bool isDead = false;
+    private GameObject currentHand;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        stats = GetComponent<BossStats>();
+    }
+
+    void OnEnable()
+    {
+        if (stats != null)
+        {
+            stats.OnDamaged += HandleDamaged;
+            stats.OnDamagedFrom += HandleDamagedFrom;
+            stats.OnDied += HandleDied;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (stats != null)
+        {
+            stats.OnDamaged -= HandleDamaged;
+            stats.OnDamagedFrom -= HandleDamagedFrom;
+            stats.OnDied -= HandleDied;
+        }
+    }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-        bossStats = GetComponent<CharacterStats>();
-
-        if (electricZone != null)
-            electricZone.SetActive(false);
-
-        if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        if (player != null)
-            playerStats = player.GetComponent<CharacterStats>();
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null) playerTransform = playerObj.transform;
     }
 
     void Update()
     {
-        if (isDead) return;
+        if (isDead || !isFighting || playerTransform == null) return;
+        if (isBusy) return;
 
-        // 🔥 Boss chết ở đây (DUY NHẤT)
-        if (bossStats != null && bossStats.currentHealth <= 0)
+        DecideAndAct();
+        UpdateAnimator();
+    }
+
+    // ================== STATE DECISION ==================
+
+    private void DecideAndAct()
+    {
+        float verticalDiff = GetFloorHeight(playerTransform) - GetFloorHeight(transform);
+        bool sameHeight = Mathf.Abs(verticalDiff) <= sameHeightThreshold;
+
+        float dirToPlayer = playerTransform.position.x - transform.position.x;
+        float absDist = Mathf.Abs(dirToPlayer);
+
+        // Khi player áp sát (trong vùng chết), giữ nguyên hướng hiện tại, ưu tiên nhìn trái
+        if (absDist > 0.5f)
         {
-            Die();
+            facingDirection = dirToPlayer > 0 ? 1 : -1;
+        }
+        // else: giữ nguyên facingDirection cũ (không lật)
+
+        FlipTowards(facingDirection);
+
+        if (!sameHeight)
+        {
+            // Khác độ cao -> luôn dùng skill 2 tại chỗ, không đuổi
+            if (canAttack)
+                StartCoroutine(RangedAttackRoutine());
+            else
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
         }
 
-        if (player == null) return;
-
-        float distance = Vector2.Distance(transform.position, player.position);
-
-        fireTimer -= Time.deltaTime;
-        electricTimer -= Time.deltaTime;
-
-        FlipToPlayer();
-
-        if (!statsScaled && distance <= statVisionRange)
+        // Cùng độ cao nhưng bị vật cản chắn ngang tầm đầu -> bỏ chém, dùng skill 2 luôn
+        if (IsBlockedByObstacle())
         {
-            ScaleStats();
-            statsScaled = true;
+            if (canAttack)
+                StartCoroutine(RangedAttackRoutine());
+            else
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            return;
         }
 
-        if (distance > attackRange + 1.5f)
+        float horizontalDist = Mathf.Abs(dirToPlayer);
+
+        if (horizontalDist <= meleeRange)
         {
-            MoveToPlayer();
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            if (canAttack)
+                StartCoroutine(MeleeAttackRoutine());
         }
         else
         {
-            rb.linearVelocity = Vector2.zero;
-
-            if (fireTimer <= 0f && CanSeePlayer())
-            {
-                Shoot();
-                fireTimer = fireCooldown;
-            }
-        }
-
-        if (electricTimer <= 0f)
-        {
-            ActivateElectric();
-            electricTimer = electricCooldown;
-        }
-
-        if (anim != null)
-        {
-            anim.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
+            // Đuổi theo tới gần
+            rb.linearVelocity = new Vector2(facingDirection * chaseSpeed, rb.linearVelocity.y);
         }
     }
 
-    void ScaleStats()
+    private bool IsBlockedByObstacle()
     {
-        if (playerStats == null || bossStats == null) return;
+        if (headCheckPoint == null) return false;
 
-        float percent = bossStats.currentHealth / bossStats.maxHealth;
+        Vector2 dir = facingDirection > 0 ? Vector2.right : Vector2.left;
+        Debug.DrawRay(headCheckPoint.position, dir * headCheckDistance, Color.magenta);
 
-        float newMaxHealth = playerStats.maxHealth * 2f;
-        float newDamage = playerStats.damage * 2f;
-
-        bossStats.maxHealth = newMaxHealth;
-        bossStats.currentHealth = newMaxHealth * percent;
-
-        attackDamage = newDamage;
+        RaycastHit2D hit = Physics2D.Raycast(headCheckPoint.position, dir, headCheckDistance, obstacleLayer);
+        return hit.collider != null;
     }
 
-    bool CanSeePlayer()
-    {
-        Vector2 direction = (player.position - firePoint.position);
-        float distance = direction.magnitude;
+    // ================== MELEE ==================
 
-        RaycastHit2D hit = Physics2D.Raycast(
-            firePoint.position,
-            direction.normalized,
-            distance,
-            visionMask
+    private System.Collections.IEnumerator MeleeAttackRoutine()
+    {
+        isBusy = true;
+        canAttack = false;
+        rb.linearVelocity = Vector2.zero;
+
+        SetAnimatorTrigger("Attack");
+
+        yield return new WaitForSeconds(meleeWindup);
+
+        DoMeleeHit();
+
+        yield return new WaitForSeconds(meleeDuration - meleeWindup);
+
+        isBusy = false;
+        Invoke(nameof(ResetCooldown), attackCooldown);
+    }
+
+    private void DoMeleeHit()
+    {
+        if (meleeHitPoint == null) return;
+
+        Vector2 offset = meleeHitPoint.localPosition;
+        offset.x = facingDirection > 0 ? Mathf.Abs(offset.x) : -Mathf.Abs(offset.x);
+        Vector2 boxCenter = (Vector2)transform.position + offset;
+
+        Collider2D[] hits = Physics2D.OverlapBoxAll(boxCenter, meleeHitBoxSize, 0f, targetLayer);
+        foreach (var col in hits)
+        {
+            IDamageable target = col.GetComponentInParent<IDamageable>();
+            if (target != null && !target.IsDead)
+                target.TakeDamage(meleeDamage, gameObject);
+        }
+    }
+
+    // ================== RANGED (Cast + Spell) ==================
+
+    private System.Collections.IEnumerator RangedAttackRoutine()
+    {
+        isBusy = true;
+        canAttack = false;
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+
+        SetAnimatorTrigger("Cast");
+
+        yield return new WaitForSeconds(castDuration);
+
+        // Chốt vị trí player NGAY TẠI THỜI ĐIỂM NÀY — không đổi nữa dù player di chuyển sau đó
+        Vector3 targetPosition = playerTransform.position;
+        targetPosition.y += handSpawnHeightOffset;
+
+        SpawnHandSpell(targetPosition);
+
+        isBusy = false;
+        Invoke(nameof(ResetCooldown), attackCooldown);
+    }
+
+    private void SpawnHandSpell(Vector3 position)
+    {
+        if (handSpellPrefab == null) return;
+        if (currentHand != null) Destroy(currentHand);
+
+        currentHand = Instantiate(handSpellPrefab, position, Quaternion.identity);
+        BossHandSpell handScript = currentHand.GetComponent<BossHandSpell>();
+        if (handScript != null)
+        {
+            handScript.Setup(spellTelegraphDelay, spellDamage, spellHitBoxSize, targetLayer);
+        }
+    }
+
+    private void ResetCooldown() => canAttack = true;
+
+    // ================== HELPERS ==================
+
+    private void FlipTowards(int dir)
+    {
+        // Tính hướng scale cần thiết
+        int visualDir = defaultFacingLeft ? -dir : dir;
+        float currentSign = Mathf.Sign(transform.localScale.x);
+
+        // Nếu đã đúng hướng rồi thì không làm gì
+        if (Mathf.Sign(visualDir) == currentSign) return;
+
+        // Lấy điểm pivot (headCheckPoint) làm tâm xoay
+        // Ghi nhớ vị trí thế giới của nó TRƯỚC khi lật
+        Transform pivot = headCheckPoint != null ? headCheckPoint : transform;
+        Vector3 pivotWorldBefore = pivot.position;
+
+        // Lật localScale (tự động lật luôn tất cả child objects)
+        transform.localScale = new Vector3(
+            Mathf.Abs(transform.localScale.x) * visualDir,
+            transform.localScale.y,
+            transform.localScale.z
         );
 
-        return hit.collider != null && hit.collider.CompareTag("Player");
-    }
-
-    void MoveToPlayer()
-    {
-        float dir = player.position.x > transform.position.x ? 1f : -1f;
-        rb.linearVelocity = new Vector2(dir * moveSpeed, rb.linearVelocity.y);
-    }
-
-    void FlipToPlayer()
-    {
-        bool left = player.position.x < transform.position.x;
-        sr.flipX = left;
-
-        if (firePoint != null)
+        // Sau khi lật, headCheckPoint đã bị dịch chuyển (vì nó là child)
+        // Bù lại vị trí boss để headCheckPoint trở về đúng chỗ cũ
+        if (pivot != transform)
         {
-            Vector3 pos = firePoint.localPosition;
-            pos.x = left ? -Mathf.Abs(pos.x) : Mathf.Abs(pos.x);
-            firePoint.localPosition = pos;
+            Vector3 pivotWorldAfter = pivot.position;
+            transform.position -= (pivotWorldAfter - pivotWorldBefore);
         }
     }
 
-    void Shoot()
+    private void UpdateAnimator()
     {
-        if (anim != null)
-            anim.SetTrigger("Shoot");
+        if (animator == null) return;
+        animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
     }
 
-    public void SpawnArrow()
+    private void SetAnimatorTrigger(string name)
+    {
+        if (animator == null) return;
+        animator.SetTrigger(name);
+    }
+
+    private void HandleDamaged()
     {
         if (isDead) return;
+        SetAnimatorTrigger("Hurt");
+    }
 
-        float dir = sr.flipX ? -1f : 1f;
-
-        GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
-
-        Arrow a = arrow.GetComponent<Arrow>();
-        a.SetDirection(dir);
-        a.SetOwner(gameObject);
-        a.SetDamage(attackDamage);
-
-        Collider2D arrowCol = arrow.GetComponent<Collider2D>();
-        foreach (Collider2D c in GetComponentsInChildren<Collider2D>())
+    private void HandleDamagedFrom(GameObject source)
+    {
+        if (isDead || source == null) return;
+        
+        float dirToAttacker = source.transform.position.x - transform.position.x;
+        bool hitFromBehind = (facingDirection > 0 && dirToAttacker < 0) || (facingDirection < 0 && dirToAttacker > 0);
+        
+        if (hitFromBehind)
         {
-            Physics2D.IgnoreCollision(arrowCol, c);
+            facingDirection = dirToAttacker > 0 ? 1 : -1;
+            FlipTowards(facingDirection);
         }
     }
 
-    void ActivateElectric()
+    private void HandleDied()
     {
-        if (isDead || electricZone == null) return;
-
-        electricZone.SetActive(true);
-
-        ElectricZone zone = electricZone.GetComponent<ElectricZone>();
-        if (zone != null)
-            zone.damage = attackDamage;
-
-        Invoke(nameof(DisableElectric), 0.3f);
-    }
-
-    void DisableElectric()
-    {
-        if (electricZone != null)
-            electricZone.SetActive(false);
-    }
-
-    void Die()
-    {
-        if (isDead) return;
-
         isDead = true;
-
-        Debug.Log("BOSS DIE CALLED");
-
         rb.linearVelocity = Vector2.zero;
-        rb.simulated = false;
-
-        // ❗ KHÔNG có animation → destroy luôn
-        Destroy(gameObject, 0.5f);
+        StopAllCoroutines();
+        SetAnimatorTrigger("Death");
     }
 
-    public void DestroyBoss()
+    void OnDrawGizmosSelected()
     {
-        Destroy(gameObject);
+        if (meleeHitPoint != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(meleeHitPoint.position, meleeHitBoxSize);
+        }
+
+        if (headCheckPoint != null)
+        {
+            Gizmos.color = Color.magenta;
+            Vector3 dir = facingDirection > 0 ? Vector3.right : Vector3.left;
+            Gizmos.DrawLine(headCheckPoint.position, headCheckPoint.position + dir * headCheckDistance);
+        }
+    }
+
+    private float GetFloorHeight(Transform t)
+    {
+        Collider2D col = t.GetComponentInChildren<Collider2D>();
+        if (col != null) return col.bounds.min.y;
+        return t.position.y;
     }
 }

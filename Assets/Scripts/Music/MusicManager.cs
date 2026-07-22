@@ -21,6 +21,9 @@ public class MusicManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        if (musicLibrary == null)
+            musicLibrary = FindAnyObjectByType<MusicLibrary>();
+
         if (musicSource == null)
             musicSource = GetComponent<AudioSource>();
 
@@ -34,7 +37,7 @@ public class MusicManager : MonoBehaviour
 
         if (clip == null)
         {
-            Debug.LogError("❌ Không tìm thấy nhạc: " + trackName);
+            Debug.LogWarning("❌ Không tìm thấy nhạc: " + trackName);
             return;
         }
 

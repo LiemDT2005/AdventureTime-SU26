@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 
 public class UIStats : MonoBehaviour
@@ -9,8 +9,9 @@ public class UIStats : MonoBehaviour
 
     void Update()
     {
-        hpText.text = "HP: " + GameManager.instance.playerHP;
-        atkText.text = "ATK: " + GameManager.instance.playerAttack;
-        goldText.text = "Gold: " + GameManager.instance.gold; // hiển thị gold
+        if (GameManager.instance != null)
+        {
+            if (hpText != null) hpText.text = "HP: " + GameManager.instance.playerHP;
+            if (atkText != null) atkText.text = "ATK: " + GameManager.instance.playerAttack;        }
     }
 }
