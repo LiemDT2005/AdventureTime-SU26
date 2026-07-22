@@ -164,7 +164,13 @@ public class PersistentUI : MonoBehaviour
         HideAll();
         Time.timeScale = 1f;
         GameIsPaused = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        string lastScene = PlayerPrefs.GetString("LastPlayScene", "Map3");
+        if (string.IsNullOrEmpty(lastScene) || lastScene == "GameOver" || lastScene == "PersistentUI")
+        {
+            lastScene = "Map3";
+        }
+        Debug.Log("[PersistentUI] Restarting level: " + lastScene);
+        SceneManager.LoadScene(lastScene);
     }
 
     // Thoát về Menu chứ không thoát game
@@ -193,7 +199,15 @@ public class PersistentUI : MonoBehaviour
     public void ShowGameOver()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("GameOver");
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+            gameOverPanel.transform.SetAsLastSibling();
+        }
+        else
+        {
+            SceneManager.LoadScene("PersistentUI");
+        }
     }
 
     public void HideGameOver()
@@ -210,7 +224,7 @@ public class PersistentUI : MonoBehaviour
     /// </summary>
     public void ShowVictory()
     {
-        float playTime = Time.unscaledTime - levelStartTime;
+        float playTime = Time.timeSinceLevelLoad;
         ShowVictory(playTime);
     }
 

@@ -520,7 +520,19 @@ public class EnemyAI : MonoBehaviour
 
     private void UpdateAnimations()
     {
+        Animator anim = GetComponentInChildren<Animator>();
         float absSpeed = Mathf.Abs(rb.linearVelocity.x);
+
+        if (anim != null && anim.runtimeAnimatorController != null)
+        {
+            // Nếu quái sử dụng Animator Controller (như Dino) -> cập nhật tham số Speed
+            if (!inAttackPhase)
+            {
+                anim.SetFloat("Speed", absSpeed);
+            }
+            return;
+        }
+
         bool shouldRun = absSpeed > 0.1f || isDiving;
         Sprite[] frames = shouldRun && be2RunFrames != null && be2RunFrames.Length > 0
             ? be2RunFrames
@@ -635,13 +647,17 @@ public class EnemyAI : MonoBehaviour
 
     public void TakeHit(float damageAmount, Vector2? knockbackFrom = null)
     {
+        // Khóa cooldown 0.35s trên mỗi quái để 1 lần vung gậy CHỈ TÍNH ĐÚNG 1 ĐÒN TRÚNG (không bị dồn 1 gậy chết luôn)
+        if (isHurt) return;
+
         if (stats != null)
         {
             stats.TakeDamage(damageAmount);
-            Debug.Log("[EnemyAI] " + gameObject.name + " bị trúng đòn! Máu còn lại: " + stats.currentHealth + "/" + stats.maxHealth);
+            Debug.Log($"[EnemyAI] {gameObject.name} trúng đòn! Máu còn lại: {stats.currentHealth}/{stats.maxHealth}");
         }
+
         isHurt = true;
-        hurtTimer = hurtRecoveryTime;
+        hurtTimer = 0.35f; // Khóa 0.35s
         currentState = AIState.Hurt;
         isDiving = false;
 
@@ -657,11 +673,15 @@ public class EnemyAI : MonoBehaviour
 
     private System.Collections.IEnumerator DamageFlashRoutine()
     {
-        if (spriteRenderer != null)
+        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+        foreach (var r in renderers)
         {
-            spriteRenderer.color = Color.red;
-            yield return new WaitForSeconds(0.15f);
-            spriteRenderer.color = Color.white;
+            if (r != null) r.color = Color.red;
+        }
+        yield return new WaitForSeconds(0.2f);
+        foreach (var r in renderers)
+        {
+            if (r != null) r.color = Color.white;
         }
     }
 }

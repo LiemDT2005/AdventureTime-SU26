@@ -24,6 +24,24 @@ public class PlayerMap1Health : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
+    void Start()
+    {
+        currentHP = maxHP;
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        string activeScene = SceneManager.GetActiveScene().name;
+        if (activeScene != "GameOver" && activeScene != "PersistentUI" && activeScene != "MainMenu")
+        {
+            PlayerPrefs.SetString("LastPlayScene", activeScene);
+            PlayerPrefs.Save();
+            Debug.Log("[PlayerMap1Health] Đã lưu LastPlayScene: " + activeScene);
+        }
+
+        UpdateHPBar();
+    }
+
     void Update()
     {
         if (IsDead) return;
@@ -136,8 +154,9 @@ public class PlayerMap1Health : MonoBehaviour
             animator.SetTrigger("Die");
         }
 
-        // Đảm bảo Time.timeScale = 1f để không bị pause game và load thẳng Scene GameOver
+        // Load thẳng Scene GameOver chuẩn có sẵn Camera và giao diện nút bấm đầy đủ
         Time.timeScale = 1f;
+        Debug.Log("[PlayerMap1Health] Player chết -> Chuyển sang Scene GameOver!");
         SceneManager.LoadScene("GameOver");
     }
 

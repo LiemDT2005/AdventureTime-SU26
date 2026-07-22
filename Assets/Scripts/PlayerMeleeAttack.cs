@@ -30,7 +30,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     {
         attackTimer -= Time.deltaTime;
 
-        // Kích hoạt hoạt ảnh đánh khi nhấn nút
+        // Kích hoạt hoạt ảnh đánh và gây sát thương lập tức khi nhấn nút (không bị phụ thuộc vào Animation Event)
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.K)) && attackTimer <= 0f)
         {
             if (anim != null)
@@ -38,36 +38,37 @@ public class PlayerMeleeAttack : MonoBehaviour
                 anim.SetTrigger("Shoot"); // Dùng Trigger Shoot đã nối với hoạt ảnh H_M_ATTACK
             }
             attackTimer = attackCooldown;
+
+            // Gọi đòn đánh ngay lập tức để gây sát thương và chớp đỏ quái 100%
+            PerformMeleeAttack();
         }
     }
 
-    // Hàm thực hiện đòn đánh cận chiến (Gọi bằng Animation Event)
+    // Hàm thực hiện đòn đánh cận chiến
     public void PerformMeleeAttack()
     {
         Transform point = attackPoint != null ? attackPoint : transform;
 
-        // Quét tất cả quái trong phạm vi đánh cận chiến (tầm đánh 1.5)
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(point.position, Mathf.Max(attackRange, 1.5f));
+        // Tầm vung gậy vừa phải (1.2m)
+        float range = Mathf.Max(attackRange, 1.2f);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(point.position, range);
+
+        // Hướng mặt của Player (-1 hoặc 1)
+        float facingDir = Mathf.Sign(transform.localScale.x);
 
         foreach (Collider2D enemy in hitEnemies)
         {
             if (enemy == null || enemy.gameObject == gameObject || enemy.transform.root == transform) continue;
 
+            // Kiểm tra quái phải nằm ở phía trước mặt nhân vật (không đánh quái sau lưng)
+            float xDiff = (enemy.transform.position.x - transform.position.x) * facingDir;
+            if (xDiff < -0.3f) continue;
+
             EnemyAI enemyAI = enemy.GetComponentInParent<EnemyAI>();
             if (enemyAI != null)
             {
-                float damageVal = (stats != null && stats.damage > 0) ? stats.damage : 50f;
-                Debug.Log("[PlayerMeleeAttack] Vung gậy trúng quái: " + enemy.name + " -> Trừ " + damageVal + " HP!");
-                enemyAI.TakeHit(damageVal, transform.position);
-            }
-            else
-            {
-                EnemyStats eStats = enemy.GetComponentInParent<EnemyStats>();
-                if (eStats != null)
-                {
-                    Debug.Log("[PlayerMeleeAttack] Vung gậy trúng EnemyStats: " + enemy.name + " -> Trừ 50 HP!");
-                    eStats.TakeDamage(50f);
-                }
+                Debug.Log("[PlayerMeleeAttack] Vung gậy trúng quái: " + enemy.name + " -> Trừ đúng 50 HP!");
+                enemyAI.TakeHit(50f, transform.position);
             }
         }
     }
