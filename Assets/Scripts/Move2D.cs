@@ -38,8 +38,8 @@ public class Move2D : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         playerCollider = GetComponent<Collider2D>();
         playerHealth = GetComponent<PlayerMap1Health>();
 
@@ -94,6 +94,12 @@ public class Move2D : MonoBehaviour
             }
         }
 
+        // Raycast / Vertical velocity fallback: Đảm bảo khi đứng trên sàn Player luôn ở trạng thái Idle
+        if (!isGrounded && rb != null && Mathf.Abs(rb.linearVelocity.y) < 0.35f)
+        {
+            isGrounded = true;
+        }
+
         // Reset jumpCount khi vừa chạm đất (cạnh xuống → lên của isGrounded)
         if (isGrounded && !wasGrounded)
         {
@@ -109,13 +115,16 @@ public class Move2D : MonoBehaviour
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = 0;
 
-        // 3️⃣ LẬT NHÂN VẬT
-        if (sr != null)
+        // 3️⃣ LẬT NHÂN VẬT (Dùng localScale để lật toàn bộ nhân vật & điểm tấn công)
+        if (moveInput.x > 0.01f)
         {
-            if (moveInput.x > 0.01f)
-                sr.flipX = false;
-            else if (moveInput.x < -0.01f)
-                sr.flipX = true;
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            if (sr != null) sr.flipX = false;
+        }
+        else if (moveInput.x < -0.01f)
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            if (sr != null) sr.flipX = false;
         }
 
         // 4️⃣ JUMP — giới hạn 2 lần

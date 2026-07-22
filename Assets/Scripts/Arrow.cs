@@ -70,9 +70,17 @@ public class Arrow : MonoBehaviour
         // ===== PLAYER HIT =====
         if (fromEnemy)
         {
-            if (other.CompareTag("Player"))
+            PlayerMap1Health pHealth = other.GetComponentInParent<PlayerMap1Health>();
+            if (pHealth != null || other.CompareTag("Player") || other.transform.root.CompareTag("Player"))
             {
-                other.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+                if (pHealth != null)
+                {
+                    pHealth.TakeDamage(damage);
+                }
+                else
+                {
+                    other.transform.root.gameObject.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+                }
                 Destroy(gameObject);
                 return;
             }

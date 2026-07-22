@@ -137,24 +137,17 @@ public class PersistentUI : MonoBehaviour
         if (!IsGameplayScene()) return;
 
         // Không cho phép pause bằng phím nếu đang hiện popup
+        // Không tự động pause game bằng ESC hay EventSystem
         if (IsPopupActive()) return;
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (GameIsPaused) Resume();
-            else Pause();
-        }
     }
 
     // ─── Pause ────────────────────────────────────────────────────────────────
 
     public void Pause()
     {
-        if (IsPopupActive()) return; // Không cho phép pause bằng nút nếu đang hiện popup
-
-        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
+        // Giữ Time.timeScale = 1f để game không bị tự động dừng/đơ
+        Time.timeScale = 1f;
+        GameIsPaused = false;
         ClearEventSystemSelection();
     }
 
@@ -199,15 +192,8 @@ public class PersistentUI : MonoBehaviour
     /// </summary>
     public void ShowGameOver()
     {
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning("[PersistentUI] gameOverPanel chưa được gán trong Inspector!");
-        }
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("GameOver");
     }
 
     public void HideGameOver()

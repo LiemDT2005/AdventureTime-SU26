@@ -60,6 +60,8 @@ public class EnemyStats : MonoBehaviour, IDamageable
         if (IsDead) return;
         IsDead = true;
         
+        Debug.Log("[EnemyStats] Quái " + gameObject.name + " HẾT MÁU -> BỊ TIÊU DIỆT HOÀN TOÀN!");
+
         if (GameManager.instance != null)
         {
             GameManager.instance.AddGold(goldReward);
@@ -67,8 +69,8 @@ public class EnemyStats : MonoBehaviour, IDamageable
         
         OnDied?.Invoke();
 
-        Collider2D col = GetComponent<Collider2D>();
-        if (col != null) col.enabled = false;
+        Collider2D[] cols = GetComponentsInChildren<Collider2D>();
+        foreach (var c in cols) c.enabled = false;
 
         Destroy(gameObject, deathDestroyDelay);
     }

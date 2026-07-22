@@ -14,6 +14,8 @@ TagManager:
   - Arrow
   - Cinema
   - Wall
+  - Water
+  - KillZone
   layers:
   - Default
   - TransparentFX

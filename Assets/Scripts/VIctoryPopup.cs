@@ -53,12 +53,11 @@ public class VictoryPopup : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"[VictoryPopup] Lỗi khi hiển thị: {e.Message}");
+            Debug.LogWarning($"[VictoryPopup] Lỗi khi hiển thị: {e.Message}");
         }
         finally
         {
-            Time.timeScale = 0f; // optional: pause game khi hiện popup, nhớ dùng unscaledTime nếu cần
-            Debug.Log("[VictoryPopup] Đã set Time.timeScale = 0.");
+            Time.timeScale = 1f;
         }
     }
 
