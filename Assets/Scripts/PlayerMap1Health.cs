@@ -24,17 +24,6 @@ public class PlayerMap1Health : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    void Start()
-    {
-        currentHP = maxHP;
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-        EnsureHPBar();
-        UpdateHPBar();
-    }
-
     void Update()
     {
         if (IsDead) return;
@@ -154,58 +143,30 @@ public class PlayerMap1Health : MonoBehaviour
 
     void UpdateHPBar()
     {
+        EnsureHPBar();
+
         if (hpFill != null)
         {
-            hpFill.fillAmount = currentHP / maxHP;
-        }
-    }
-
-    // Tự động tạo thanh máu UI màu xanh lá hiển thị nổi bật trên đầu Player
-    void EnsureHPBar()
-    {
-        if (hpFill != null) return;
-
-        Canvas canvas = GetComponentInChildren<Canvas>();
-        if (canvas == null)
-        {
-            GameObject canvasObj = new GameObject("HealthCanvas");
-            canvasObj.transform.SetParent(transform, false);
-            canvasObj.transform.localPosition = new Vector3(0, 1.2f, 0);
-
-            canvas = canvasObj.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.WorldSpace;
-            canvas.sortingOrder = 100;
-
-            RectTransform rect = canvas.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(1.5f, 0.25f);
-            rect.localScale = Vector3.one;
-
-            // Nền thanh máu
-            GameObject bgObj = new GameObject("HP_BG", typeof(RectTransform), typeof(Image));
-            bgObj.transform.SetParent(canvasObj.transform, false);
-            RectTransform bgRect = bgObj.GetComponent<RectTransform>();
-            bgRect.anchorMin = Vector2.zero;
-            bgRect.anchorMax = Vector2.one;
-            bgRect.sizeDelta = Vector2.zero;
-            Image bgImg = bgObj.GetComponent<Image>();
-            bgImg.color = new Color(0.2f, 0.2f, 0.2f, 0.8f);
-
-            // Thanh máu Fill (màu xanh lá)
-            GameObject fillObj = new GameObject("HP_Fill", typeof(RectTransform), typeof(Image));
-            fillObj.transform.SetParent(bgObj.transform, false);
-            RectTransform fillRect = fillObj.GetComponent<RectTransform>();
-            fillRect.anchorMin = Vector2.zero;
-            fillRect.anchorMax = Vector2.one;
-            fillRect.sizeDelta = Vector2.zero;
-
-            hpFill = fillObj.GetComponent<Image>();
-            hpFill.color = Color.green;
             hpFill.type = Image.Type.Filled;
             hpFill.fillMethod = Image.FillMethod.Horizontal;
+            hpFill.fillAmount = Mathf.Clamp01(currentHP / maxHP);
+            Debug.Log("[PlayerMap1Health] Cập nhật UI HPBar fillAmount: " + hpFill.fillAmount + " (" + currentHP + "/" + maxHP + ")");
         }
         else
         {
+            Debug.LogWarning("[PlayerMap1Health] hpFill chưa được nối với thành phần Image của HPBar!");
+        }
+    }
+
+    // Tự động tìm hình ảnh thanh máu UI và cấu hình kiểu Filled
+    void EnsureHPBar()
+    {
+        Canvas canvas = GetComponentInChildren<Canvas>();
+        if (canvas != null)
+        {
+            canvas.renderMode = RenderMode.WorldSpace;
             canvas.sortingOrder = 100;
+
             Image[] images = canvas.GetComponentsInChildren<Image>();
             foreach (var img in images)
             {
