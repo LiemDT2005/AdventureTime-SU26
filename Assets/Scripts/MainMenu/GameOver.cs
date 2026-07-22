@@ -35,4 +35,10 @@ public class GameOver : MonoBehaviour
         Debug.Log("[GameOver] Returning to MapSelect scene");
         SceneManager.LoadScene("MapSelect");
     }
+
+    // Alias — nút BackMainMenu trong GameOver.unity gọi method tên "MainMenu"
+    public void MainMenu()
+    {
+        GoToMainMenu();
+    }
 }

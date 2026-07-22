@@ -32,7 +32,6 @@ public class Move2D : MonoBehaviour
     private Vector2 moveInput;
     private int jumpCount = 0;
     private bool isGrounded;
-    private bool wasGrounded;
     private PlayerMap1Health playerHealth;
 
     void Start()
@@ -64,8 +63,6 @@ public class Move2D : MonoBehaviour
             return;
         }
 
-        wasGrounded = isGrounded;
-
         // 1️⃣ CHECK CHẠM ĐẤT — dùng groundLayer để tránh detect nhầm enemy/trigger
         isGrounded = false;
 
@@ -94,19 +91,9 @@ public class Move2D : MonoBehaviour
             }
         }
 
-        // Raycast / Vertical velocity fallback: Đảm bảo khi đứng trên sàn Player luôn ở trạng thái Idle
-        if (!isGrounded && rb != null && Mathf.Abs(rb.linearVelocity.y) < 0.35f)
-        {
-            isGrounded = true;
-        }
-
-        // Reset jumpCount khi vừa chạm đất (cạnh xuống → lên của isGrounded)
-        if (isGrounded && !wasGrounded)
-        {
-            jumpCount = 0;
-        }
-        // Đảm bảo reset khi đứng yên hoàn toàn trên sàn
-        if (isGrounded && Mathf.Abs(rb.linearVelocity.y) < 0.1f)
+        // Chỉ reset jump khi thực sự chạm đất (overlap/groundCheck), không dùng |vy|≈0
+        // vì đỉnh quỹ đạo nhảy cũng có vy≈0 → gây nhảy vô hạn.
+        if (isGrounded && rb != null && rb.linearVelocity.y <= 0.05f)
         {
             jumpCount = 0;
         }
@@ -127,13 +114,14 @@ public class Move2D : MonoBehaviour
             if (sr != null) sr.flipX = false;
         }
 
-        // 4️⃣ JUMP — giới hạn 2 lần
+        // 4️⃣ JUMP — giới hạn maxJumpCount (mặc định 2 = double jump)
         if (rb != null && Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumpCount)
         {
             // Reset vận tốc y về 0 trước khi nạp lực nhảy mới
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpCount++;
+            isGrounded = false; // tránh reset jumpCount ngay frame nhảy
 
             if (sfxSource != null && jumpSFX != null)
             {
