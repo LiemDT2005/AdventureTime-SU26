@@ -1,16 +1,13 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class ButtonPauseTrigger : MonoBehaviour
 {
     public void OnPauseButtonClicked()
     {
-        if (PersistentUI.Instance != null)
+        Time.timeScale = 1f;
+        if (UnityEngine.EventSystems.EventSystem.current != null)
         {
-            PersistentUI.Instance.Pause();
-        }
-        else
-        {
-            Debug.LogWarning("PauseManager chưa được load! Kiểm tra scene PersistentUI.");
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
         }
     }
 }

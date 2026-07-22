@@ -2,27 +2,37 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Script phụ cho panel Game Over cũ (nếu vẫn còn dùng trong scene).
-/// Lưu ý: hệ thống chính đã chuyển sang PersistentUI.ShowGameOver().
+/// Quản lý chức năng cho Scene GameOver / Panel GameOver.
+/// Restart: Nạp lại đúng Map vừa chơi (Map3, Map1,...).
+/// GoToMainMenu: Quay về màn hình chọn map MapSelect.
 /// </summary>
 public class GameOver : MonoBehaviour
 {
     public void Setup(int score)
     {
         gameObject.SetActive(true);
-        GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Score: " + score;
+        var txt = GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        if (txt != null) txt.text = "Score: " + score;
     }
 
+    // Nạp lại đúng màn chơi vừa bị chết (Map3, Map1,...)
     public void Restart()
     {
         Time.timeScale = 1f;
-        // Dùng buildIndex thay vì tên cứng để không bị lỗi khi đổi tên scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        string lastScene = PlayerPrefs.GetString("LastPlayScene", "Map3");
+        if (string.IsNullOrEmpty(lastScene) || lastScene == "GameOver")
+        {
+            lastScene = "Map3";
+        }
+        Debug.Log("[GameOver] Restarting map: " + lastScene);
+        SceneManager.LoadScene(lastScene);
     }
 
+    // Quay về màn hình chọn map MapSelect
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        Debug.Log("[GameOver] Returning to MapSelect scene");
+        SceneManager.LoadScene("MapSelect");
     }
 }

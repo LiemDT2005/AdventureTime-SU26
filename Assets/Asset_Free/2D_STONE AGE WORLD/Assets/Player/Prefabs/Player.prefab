@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4433625572471554}
   - component: {fileID: 50379463662085428}
   - component: {fileID: 70407668146685884}
+  - component: {fileID: 8947291837429201}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -304,3 +305,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8947291837429201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694744877632048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93b182a64189b344b3e44b31812a6d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMap1Health
+  maxHP: 100
+  currentHP: 100
+  hpFill: {fileID: 0}
+  fallDeathY: -15

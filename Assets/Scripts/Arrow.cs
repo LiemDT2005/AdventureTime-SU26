@@ -36,9 +36,9 @@ public class Arrow : MonoBehaviour
         if (rotate)
         {
             if (direction > 0)
-                transform.rotation = Quaternion.Euler(0, 0, 90);
+                transform.rotation = Quaternion.Euler(0, 0, -90); // Xoay ngang sang phải (nếu ảnh gốc hướng dọc lên trên)
             else
-                transform.rotation = Quaternion.Euler(0, 0, -90);
+                transform.rotation = Quaternion.Euler(0, 0, 90);  // Xoay ngang sang trái
         }
         else
         {
@@ -70,9 +70,18 @@ public class Arrow : MonoBehaviour
         // ===== PLAYER HIT =====
         if (fromEnemy)
         {
-            if (other.CompareTag("Player"))
+            PlayerMap1Health pHealth = other.GetComponentInParent<PlayerMap1Health>();
+            if (pHealth != null || other.CompareTag("Player") || other.transform.root.CompareTag("Player"))
             {
-                Debug.Log("Hit PLAYER (Player health is disabled)");
+                if (pHealth != null)
+                {
+                    pHealth.TakeDamage(damage);
+                    Debug.Log("[Arrow] Gây sát thương lên Player HP: -" + damage);
+                }
+                else
+                {
+                    other.transform.root.gameObject.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+                }
                 Destroy(gameObject);
                 return;
             }

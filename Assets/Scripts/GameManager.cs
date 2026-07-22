@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("[GameManager] GameOver() gọi nhưng PersistentUI.Instance là null!");
+            Debug.LogWarning("[GameManager] GameOver() gọi nhưng PersistentUI.Instance là null!");
         }
     }
 
@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("[GameManager] Victory() gọi nhưng PersistentUI.Instance là null!");
+            Debug.LogWarning("[GameManager] Victory() gọi nhưng PersistentUI.Instance là null!");
         }
     }
 
@@ -223,6 +223,15 @@ public class GameManager : MonoBehaviour
         isVictory  = false;
 
         string activeScene = SceneManager.GetActiveScene().name;
+
+        if (activeScene == "Map3")
+        {
+            currentMapName = "Stone age world";
+        }
+        else if (activeScene == "Map1")
+        {
+            currentMapName = "Forest map";
+        }
 
         // Hiện tên map qua PersistentUI (ẩn đi nếu đang ở Menu)
         if (PersistentUI.Instance != null && activeScene != "MainMenu" && activeScene != "MapSelect")

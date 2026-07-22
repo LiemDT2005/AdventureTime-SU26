@@ -114,25 +114,24 @@ public class EnemyAI : MonoBehaviour
         stats = GetComponent<EnemyStats>();
         if (stats == null)
         {
-            Debug.LogError("EnemyStats missing on " + gameObject.name);
+            Debug.LogWarning("EnemyStats missing on " + gameObject.name);
             enabled = false;
             return;
         }
 
-        if (rb == null) rb = GetComponent<Rigidbody2D>();
-        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
-        if (enemyAudioSource == null) enemyAudioSource = GetComponent<AudioSource>();
+        if (rb == null) rb = GetComponentInChildren<Rigidbody2D>();
+        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (enemyAudioSource == null) enemyAudioSource = GetComponentInChildren<AudioSource>();
 
         if (rb == null)
         {
-            Debug.LogError("Rigidbody2D missing on " + gameObject.name);
+            Debug.LogWarning("Rigidbody2D missing on " + gameObject.name);
             enabled = false;
         }
 
         if (spriteRenderer == null)
         {
-            Debug.LogError("SpriteRenderer missing on " + gameObject.name);
-            enabled = false;
+            Debug.LogWarning("SpriteRenderer missing on " + gameObject.name);
         }
 
         if (rb != null)
@@ -171,6 +170,21 @@ public class EnemyAI : MonoBehaviour
         }
 
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+        // Cấu hình lượng máu theo số gậy đánh: Slime & Dino 2 gậy (100 HP) | Eagle 3 gậy (150 HP)
+        if (stats != null)
+        {
+            if (enemyType == EnemyType.Eagle)
+            {
+                stats.maxHealth = 150f;
+                stats.currentHealth = 150f;
+            }
+            else
+            {
+                stats.maxHealth = 100f;
+                stats.currentHealth = 100f;
+            }
+        }
 
         if (enemyType == EnemyType.Eagle)
             rb.gravityScale = 0f;
@@ -249,8 +263,21 @@ public class EnemyAI : MonoBehaviour
         // State Machine Decider
         if (isRecovering)
         {
-            // Keep flying up until the ground detector confirms we are high enough
-            if (!isTooLow)
+            if (enemyType == EnemyType.Eagle)
+            {
+                // Chim Đại Bàng bay vọt thẳng lên độ cao ban đầu (startPosition.y)
+                if (transform.position.y >= startPosition.y - 0.5f)
+                {
+                    isRecovering = false;
+                    currentState = AIState.Patrolling;
+                    Invoke(nameof(ResetCooldown), attackCooldown);
+                }
+                else
+                {
+                    currentState = AIState.Recovering;
+                }
+            }
+            else if (!isTooLow)
             {
                 isRecovering = false;
                 currentState = AIState.Patrolling;
@@ -370,7 +397,8 @@ public class EnemyAI : MonoBehaviour
 
         if (enemyType == EnemyType.Eagle)
         {
-            float smoothY = Mathf.Lerp(rb.linearVelocity.y, 0f, Time.deltaTime * 5f);
+            float targetY = startPosition.y;
+            float smoothY = Mathf.Lerp(rb.linearVelocity.y, (targetY - transform.position.y) * 4f, Time.deltaTime * 5f);
             SetDesiredVelocity(new Vector2(desiredVelocity.x, smoothY));
         }
     }
@@ -409,6 +437,33 @@ public class EnemyAI : MonoBehaviour
             attackPhaseTimer = dinoAttackStopDuration;
             inAttackPhase = true;
             canAttack = false;
+
+            Animator anim = GetComponentInChildren<Animator>();
+            if (anim != null)
+            {
+                anim.SetTrigger("Attack");
+            }
+
+            Invoke(nameof(ResetCooldown), attackCooldown);
+        }
+        else if (enemyType == EnemyType.Slime)
+        {
+            attackPhaseTimer = slimeAttackStopDuration;
+            inAttackPhase = true;
+            canAttack = false;
+
+            Animator anim = GetComponentInChildren<Animator>();
+            if (anim != null)
+            {
+                anim.SetTrigger("Attack");
+            }
+
+            if (playerTransform != null && rb != null)
+            {
+                float dirX = Mathf.Sign(playerTransform.position.x - transform.position.x);
+                rb.linearVelocity = new Vector2(dirX * (chaseSpeed * 1.2f), rb.linearVelocity.y);
+            }
+
             Invoke(nameof(ResetCooldown), attackCooldown);
         }
     }
@@ -430,8 +485,14 @@ public class EnemyAI : MonoBehaviour
 
     private void RecoveryLogic()
     {
-        // Forcefully set velocity to ensure upward movement
-        SetDesiredVelocity(new Vector2(rb.linearVelocity.x * 0.5f, recoveryFlyUpSpeed));
+        if (enemyType == EnemyType.Eagle)
+        {
+            SetDesiredVelocity(new Vector2(facingDirection * moveSpeed, recoveryFlyUpSpeed * 1.5f));
+        }
+        else
+        {
+            SetDesiredVelocity(new Vector2(rb.linearVelocity.x * 0.5f, recoveryFlyUpSpeed));
+        }
     }
 
     public void StopDive()
@@ -516,32 +577,91 @@ public class EnemyAI : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (enemyType == EnemyType.Eagle && isDiving) StopDive();
+
+        PlayerMap1Health pHealth = collision.gameObject.GetComponentInParent<PlayerMap1Health>();
+        if (pHealth != null || collision.gameObject.CompareTag("Player") || collision.gameObject.transform.root.CompareTag("Player"))
+        {
+            if (Time.time >= damageTickTimer)
+            {
+                DealDamageToPlayer(collision.gameObject);
+                damageTickTimer = Time.time + (enemyType == EnemyType.Slime ? slimeDamageInterval : eagleDamageInterval);
+            }
+        }
+    }
+
+    private void DealDamageToPlayer(GameObject playerObj)
+    {
+        if (stats == null || playerObj == null) return;
+
+        PlayerMap1Health pHealth = playerObj.GetComponentInParent<PlayerMap1Health>();
+        if (pHealth != null)
+        {
+            pHealth.TakeDamage(stats.damage);
+            Debug.Log("[EnemyAI] Gây sát thương lên Player HP: -" + stats.damage);
+        }
+        else
+        {
+            playerObj.transform.root.gameObject.SendMessage("TakeDamage", stats.damage, SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player")) return;
-        if (Time.time >= damageTickTimer)
+        PlayerMap1Health pHealth = collision.gameObject.GetComponentInParent<PlayerMap1Health>();
+        if (pHealth != null || collision.gameObject.CompareTag("Player") || collision.gameObject.transform.root.CompareTag("Player"))
         {
-            collision.gameObject.SendMessage("takeDamage", stats.damage, SendMessageOptions.DontRequireReceiver);
-            damageTickTimer = Time.time + (enemyType == EnemyType.Slime ? slimeDamageInterval : eagleDamageInterval);
-            if (enemyType == EnemyType.Eagle && isDiving) StopDive();
+            if (Time.time >= damageTickTimer)
+            {
+                DealDamageToPlayer(collision.gameObject);
+                damageTickTimer = Time.time + (enemyType == EnemyType.Slime ? slimeDamageInterval : eagleDamageInterval);
+                if (enemyType == EnemyType.Eagle && isDiving) StopDive();
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        PlayerMap1Health pHealth = other.gameObject.GetComponentInParent<PlayerMap1Health>();
+        if (pHealth != null || other.CompareTag("Player") || other.transform.root.CompareTag("Player"))
+        {
+            if (Time.time >= damageTickTimer)
+            {
+                DealDamageToPlayer(other.gameObject);
+                damageTickTimer = Time.time + (enemyType == EnemyType.Slime ? slimeDamageInterval : eagleDamageInterval);
+                if (enemyType == EnemyType.Eagle && isDiving) StopDive();
+            }
         }
     }
 
     public void TakeHit(float damageAmount, Vector2? knockbackFrom = null)
     {
-        if (isHurt) return;
-        stats.TakeDamage(damageAmount);
+        if (stats != null)
+        {
+            stats.TakeDamage(damageAmount);
+            Debug.Log("[EnemyAI] " + gameObject.name + " bị trúng đòn! Máu còn lại: " + stats.currentHealth + "/" + stats.maxHealth);
+        }
         isHurt = true;
         hurtTimer = hurtRecoveryTime;
         currentState = AIState.Hurt;
         isDiving = false;
+
+        StartCoroutine(DamageFlashRoutine());
+
         if (knockbackFrom.HasValue && rb != null)
         {
             Vector2 dir = ((Vector2)transform.position - knockbackFrom.Value).normalized;
             rb.linearVelocity = dir * hurtKnockbackForce;
             SetDesiredVelocity(rb.linearVelocity);
+        }
+    }
+
+    private System.Collections.IEnumerator DamageFlashRoutine()
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.red;
+            yield return new WaitForSeconds(0.15f);
+            spriteRenderer.color = Color.white;
         }
     }
 }

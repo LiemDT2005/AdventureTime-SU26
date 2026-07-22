@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Gắn script này vào GameObject cổng thoát màn (portal, cờ đích, v.v.)
@@ -25,7 +26,8 @@ public class LevelExit : MonoBehaviour
             return;
         }
         
-        if (!other.CompareTag(playerTag)) 
+        bool isPlayer = other.CompareTag(playerTag) || other.transform.root.CompareTag(playerTag) || other.GetComponentInParent<PlayerMap1Health>() != null;
+        if (!isPlayer) 
         {
             Debug.Log($"[LevelExit] Tag không khớp. Yêu cầu: {playerTag}. Thực tế: {other.tag}");
             return;
@@ -48,28 +50,49 @@ public class LevelExit : MonoBehaviour
     private void ShowVictory()
     {
         Debug.Log("[LevelExit] Bắt đầu gọi ShowVictory()...");
+
         if (GameManager.instance != null)
         {
-            Debug.Log("[LevelExit] Gọi qua GameManager.instance.Victory().");
             GameManager.instance.Victory();
         }
-        else if (PersistentUI.Instance != null)
+
+        if (PersistentUI.Instance != null)
         {
-            Debug.Log("[LevelExit] Không có GameManager, gọi trực tiếp PersistentUI.Instance.ShowVictory().");
+            Debug.Log("[LevelExit] Gọi qua PersistentUI.Instance.ShowVictory().");
             PersistentUI.Instance.ShowVictory();
+            return;
         }
-        else
+
+        // Fallback 1: Tìm VictoryPopup trực tiếp trong Scene hiện tại
+        VictoryPopup popup = FindFirstObjectByType<VictoryPopup>();
+        if (popup != null)
         {
-            Debug.LogError("[LevelExit] GameManager và PersistentUI đều null! Hãy test từ MainMenu hoặc kéo Prefab vào Scene.");
+            Debug.Log("[LevelExit] Tìm thấy VictoryPopup trực tiếp trong Scene! Đang hiển thị...");
+            popup.Show(0f);
+            return;
         }
+
+        // Fallback 2: Tự động nạp Scene PersistentUI để hiển thị Popup Victory khi test trực tiếp Map3
+        Debug.Log("[LevelExit] Đang nạp PersistentUI scene để hiển thị Popup Victory...");
+        var op = SceneManager.LoadSceneAsync("PersistentUI", LoadSceneMode.Additive);
+        op.completed += (operation) =>
+        {
+            if (PersistentUI.Instance != null)
+            {
+                PersistentUI.Instance.ShowVictory();
+            }
+            else
+            {
+                VictoryPopup p = FindFirstObjectByType<VictoryPopup>();
+                if (p != null) p.Show(0f);
+            }
+        };
     }
 
     // Vẽ icon trong Scene View để dễ nhìn thấy cổng
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0f, 1f, 0.5f, 0.4f);
-        Gizmos.DrawCube(transform.position, transform.localScale);
-        Gizmos.color = new Color(0f, 1f, 0.5f, 1f);
-        Gizmos.DrawWireCube(transform.position, transform.localScale);
+        Gizmos.DrawCube(transform.position, Vector3.one * 1.5f);
     }
 }

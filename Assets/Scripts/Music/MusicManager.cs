@@ -37,7 +37,7 @@ public class MusicManager : MonoBehaviour
 
         if (clip == null)
         {
-            Debug.LogError("❌ Không tìm thấy nhạc: " + trackName);
+            Debug.LogWarning("❌ Không tìm thấy nhạc: " + trackName);
             return;
         }
 
